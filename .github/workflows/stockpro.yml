@@ -21,6 +21,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Install MCP library
+        run: |
+          python -m pip install --upgrade pip
+          pip install mcp
       - name: Read Telegram channel
         run: python -u fetch_stockpro.py
       - name: Save to GitHub
