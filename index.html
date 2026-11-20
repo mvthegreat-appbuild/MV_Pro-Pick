@@ -2,49 +2,50 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0b0e0d">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080f1e">
 <title>StockPro Positional</title>
 <style>
-:root{--bg:#0b0e0d;--card:#101513;--line:#2b312f;--text:#f2f5f4;--muted:#8b9692;--green:#3fbf55;--red:#f0584d}
+:root{--bg:#080f1e;--panel:#142139;--panel2:#0e192c;--line:#293b56;--text:#edf4ff;--muted:#91a2bb;--green:#35dda2;--red:#ff7186;--amber:#ffd17d}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:30px}
-header{padding:20px 16px 12px}
-h1{font-size:20px;margin:0}#upd{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.6}#upd b{color:#cfd8d4}
-main{max-width:850px;margin:auto;padding:0 12px}
-input{width:100%;background:#121715;color:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;margin:4px 0 12px;font-size:14px;-webkit-appearance:none;appearance:none}
-.card{position:relative;background:var(--card);border:1px solid var(--line);border-left:6px solid var(--line);border-radius:24px;margin:12px 0;padding:16px 16px 14px}
-.card.s-target{border-left-color:#1c8c2e}.card.s-sl{border-left-color:#d6443b}.card.s-active{border-left-color:#3b82c4}.card.s-waiting{border-left-color:#c79a2b}
-.top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.buy{background:#168a2a;color:#fff;font-weight:800;font-size:13px;border-radius:8px;padding:6px 11px}.buy.SELL{background:#b13b4a}
-.sym{font-size:21px;font-weight:800;letter-spacing:.2px;overflow-wrap:anywhere}
-.ic{display:inline-flex;width:34px;height:34px;align-items:center;justify-content:center;color:#9aa5a1;background:none;border:0;padding:0;cursor:pointer}.ic.on{color:#6cc4ff}.ic.bm.on{color:var(--green)}
-.pill{background:#1a2027;border:1px solid #38424f;color:#b4bfcd;border-radius:18px;padding:6px 12px;font-size:13px;font-weight:700;text-transform:capitalize}
-.st{border-radius:16px;padding:6px 12px;font-size:13px;font-weight:700}
-.st-target{background:#10301a;color:var(--green)}.st-sl{background:#3a1a22;color:#ff8a93}.st-active{background:#12304a;color:#6cc4ff}.st-waiting{background:#3a2f14;color:#ffd17d}.st-missed,.st-unknown{background:#262c33;color:#aeb8c4}
-.sp{flex:1}
-.mid{display:flex;align-items:center;gap:12px;margin-top:16px;flex-wrap:wrap}
-.ai{display:inline-flex;align-items:center;gap:6px;background:#12281a;border-radius:16px;padding:7px 12px;font-size:14px;font-weight:700;color:var(--green)}.ai i{font-style:normal;color:#6b7772;font-weight:400}.ai u{text-decoration:none;color:var(--red)}
-.m{font-size:13px;color:var(--muted)}.m b{font-size:18px;color:#fff;margin-right:4px}.m b.g{color:var(--green)}.m b.r{color:var(--red)}
-.bar{position:relative;height:10px;border-radius:5px;background:#2c3239;margin:26px 0 8px}
-.fill{position:absolute;top:0;height:10px;border-radius:5px}
-.tk{position:absolute;top:-7px;width:4px;height:24px;border-radius:2px;transform:translateX(-50%)}
-.dot{position:absolute;top:-2px;width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid var(--card);transform:translateX(-50%);z-index:2}
-.labs{position:relative;height:50px}
-.lb{position:absolute;top:0;transform:translateX(-50%);text-align:center;font-size:13px;color:var(--muted);white-space:nowrap}.lb b{display:block;font-size:17px;margin-top:3px}
-.foot2{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:4px}
-.hr{border:0;border-top:1px solid var(--line);margin:12px 0 10px}
-.tl{font-size:12px;color:var(--muted);line-height:1.8}.tl span{white-space:nowrap;margin-right:10px}.tl .h{color:var(--green);font-weight:700}
-.warn{margin-top:8px;font-size:11px;color:#ffd17d}
-a{color:#70d3ff;text-decoration:none;font-size:12px}
-.empty{padding:25px;text-align:center;color:var(--muted);background:var(--card);border-radius:16px}
-.btn{border:1px solid #168565;background:#12624d;color:#8af4c9;border-radius:10px;padding:10px 14px;font-size:12px;font-weight:700}
-.fn{max-width:850px;margin:auto;padding:12px 16px 0;color:#6f7a76;font-size:10px;line-height:1.6}
+body{margin:0;padding-top:env(safe-area-inset-top,0px);background:radial-gradient(ellipse at 80% -10%,#173b60,transparent 45%),var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:30px}
+header{padding:22px 17px;background:linear-gradient(135deg,#142b48,#101a2d);border-bottom:1px solid var(--line)}
+h1{font-size:20px;margin:0}.sub{font-size:10px;color:#a8bad2;letter-spacing:1px;margin-top:4px}#upd{font-size:11px;color:var(--muted);margin-top:12px;line-height:1.6}#upd b{color:#edf4ff}
+main{max-width:850px;margin:auto;padding:14px}
+input{width:100%;background:var(--panel2);color:#fff;border:1px solid var(--line);border-radius:11px;padding:12px;margin:2px 0 12px;font-size:14px;-webkit-appearance:none;appearance:none}
+.card{background:linear-gradient(150deg,#172740,#101a2b);border:1px solid #293d59;border-radius:16px;margin:10px 0;padding:14px}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.name{font-size:18px;font-weight:800;letter-spacing:.2px;overflow-wrap:anywhere}
+.meta{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4}
+.badges{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0}
+.tag{display:inline-block;padding:5px 10px;border-radius:7px;font-size:10px;font-weight:800;letter-spacing:.3px;text-transform:uppercase}
+.BUY{background:#124c3a;color:#65e8b4}.SELL{background:#542637;color:#ff91a1}
+.st-target{background:#124c3a;color:#35dda2;border:1px solid #238c70}
+.st-sl{background:#542637;color:#ff7186;border:1px solid #96384b}
+.st-active{background:#2d2616;color:#ffd17d;border:1px solid #6b5626}
+.st-waiting,.st-missed,.st-unknown{background:#16243d;color:#91a2bb;border:1px solid #293b56}
+.row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.box{background:#0c1729;border:1px solid #263750;padding:10px 9px;border-radius:11px;min-width:0;overflow:hidden}
+.box label{display:block;font-size:10px;color:var(--muted);margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.box strong{display:block;font-size:16px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sl strong{color:var(--red)}
+.cmp-box{border-color:#2a486e}.cmp-box strong{color:#70d3ff}
+.tgts{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.chip{background:#0c2a24;border:1px solid #1d6b57;color:var(--green);border-radius:9px;padding:7px 11px;font-size:13px;font-weight:700}
+.chip.done{background:#144d3e;border-color:#35dda2;color:#fff}
+.metrics{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;font-size:11px;color:var(--muted);line-height:1.5}.metrics b{color:#fff}
+.note{margin-top:9px;font-size:11px;color:var(--muted);line-height:1.45}
+.warn{margin-top:9px;font-size:11px;color:var(--amber)}
+a{color:#70d3ff;text-decoration:none;font-size:11px}
+.empty{padding:25px;text-align:center;color:var(--muted);background:var(--panel);border-radius:14px}
+.btn{border:1px solid #168565;background:#12624d;color:#8af4c9;border-radius:9px;padding:9px 13px;font-size:11px;font-weight:700;cursor:pointer}
+.foot{max-width:850px;margin:auto;padding:10px 14px 0;color:#71839c;font-size:10px;line-height:1.6}
 </style>
 </head>
 <body>
 <header>
- <h1>StockPro Positional</h1>
+ <h1>StockPro Positional <span style="font-size:11px;color:#ffd17d;font-weight:400">preview with sample data</span></h1>
+ <div class="sub">ONLY "POSITIONAL TRADE" POSTS · AUTO-READ FROM TELEGRAM</div>
  <div id="upd">Loading...</div>
 </header>
 <main>
@@ -52,7 +53,7 @@ a{color:#70d3ff;text-decoration:none;font-size:12px}
  <div id="list"><div class="empty">Loading...</div></div>
  <button class="btn" id="ref" type="button">↻ Refresh</button>
 </main>
-<div class="fn">* Entry is the trigger price from the post: the price should trade above it (below it for sell calls). Levels are copied from the channel posts. Prices come from NSE market data and may be delayed. Status uses each day's high and low after the post, plus live price checks every 15 minutes for the same day, so quick moves inside a day can be missed. Not advice.</div>
+<div class="foot"><p>* Entry is the trigger price from the post: the price should trade above it (below it for sell calls). Levels are copied from the channel posts. Prices come from NSE market data and may be delayed. Status uses each day's high and low after the post, plus live price checks every 15 minutes for the same day, so quick moves inside a day can be missed. Not advice.</p></div>
 <script>
 const DATA_URL="https://raw.githubusercontent.com/mvthegreat-appbuild/StockPro-Positional/main/positional_trades.json";
 const REFRESH_MS=5*60*1000;
@@ -60,98 +61,106 @@ let data=null,query="";
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const num=x=>Number(String(x).replace(/,/g,""));
 const cash=x=>"₹"+Number(x).toLocaleString("en-IN",{maximumFractionDigits:2});
-const sgn=x=>(x>0?"+":x<0?"-":"")+Math.abs(x).toFixed(2)+"%";
+const pct=x=>(x>0?"+":x<0?"-":"")+Math.abs(x).toFixed(2)+"%";
 const norm=s=>String(s||"").toLowerCase().replace(/[^a-z0-9]/g,"");
-const SVG='<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">';
-const IC={eye:SVG+'<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',
- bm:SVG+'<path d="M6 3h12v18l-6-4-6 4z"/></svg>',
- spark:'<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 3l1.8 4.7L17.5 9.5l-4.7 1.8L11 16l-1.8-4.7L4.5 9.5l4.7-1.8z"/><path d="M18 14l.8 2.2L21 17l-2.2.8L18 20l-.8-2.2L15 17l2.2-.8z"/></svg>'};
-function store(k){try{return JSON.parse(localStorage.getItem(k)||"{}");}catch(e){return {};}}
+
 function fdt(iso){
  if(!iso)return "";const d=new Date(iso);if(isNaN(d))return "";
- if(/^\d{4}-\d{2}-\d{2}$/.test(iso))return d.toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric",timeZone:"Asia/Kolkata"});
- return d.toLocaleString("en-IN",{day:"numeric",month:"short",year:"numeric",hour:"numeric",minute:"2-digit",hour12:true,timeZone:"Asia/Kolkata"});
+ if(/^\d{4}-\d{2}-\d{2}$/.test(iso))return d.toLocaleDateString("en-IN",{day:"numeric",month:"short",timeZone:"Asia/Kolkata"});
+ return d.toLocaleDateString("en-IN",{day:"numeric",month:"short",timeZone:"Asia/Kolkata"})+" · "+d.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit",hour12:true,timeZone:"Asia/Kolkata"}).toLowerCase();
 }
+
 function stLabel(t,len){
  const h=t.targets_hit||0,s=t.status;
- if(s==="target")return len===1?"Target hit":(h>=len?"All targets hit":"Target "+h+" hit");
- if(s==="sl")return "Stop loss hit";if(s==="active")return "Active";
- if(s==="waiting")return "Waiting for entry";if(s==="missed")return "Entry not triggered";
- return t.status_text||"Price unavailable";
+ if(s==="target")return len===1?"TARGET HIT":(h>=len?"ALL TARGETS HIT":"TARGET "+h+" HIT");
+ if(s==="sl")return "STOP LOSS HIT";
+ if(s==="active")return "ACTIVE";
+ if(s==="waiting")return "WAITING ENTRY";
+ if(s==="missed")return "NOT TRIGGERED";
+ return (t.status_text||"CMP N/A").toUpperCase();
 }
-function card(t,watch,saved){
- const e=num(t.entry),sl=num(t.sl),ts=(t.targets||[]).map(num),len=ts.length,last=ts[len-1];
- const cmp=t.cmp?Number(t.cmp):null,hits=t.targets_hit||0,s=t.status||"unknown",sell=t.side==="SELL";
- const vals=[e,sl,...ts];if(cmp)vals.push(cmp);
- const lo=Math.min(...vals),hi=Math.max(...vals),span=(hi-lo)||1;
- const P=v=>11+(v-lo)/span*78;
- let fill="";
- if(s==="target"){const a=P(e),b=P(ts[hits-1]);fill=`<div class="fill" style="left:${Math.min(a,b)}%;width:${Math.abs(b-a)}%;background:#1b8a2b"></div>`;}
- else if(s==="sl"){const a=P(sl),b=P(e);fill=`<div class="fill" style="left:${Math.min(a,b)}%;width:${Math.abs(b-a)}%;background:#a8343b"></div>`;}
- else if(s==="active"&&cmp){const a=P(e),b=P(cmp),fav=sell?cmp<=e:cmp>=e;fill=`<div class="fill" style="left:${Math.min(a,b)}%;width:${Math.abs(b-a)}%;background:${fav?"#1b8a2b":"#a8343b"}"></div>`;}
- let ticks=`<div class="tk" style="left:${P(sl)}%;background:#e0463d"></div><div class="tk" style="left:${P(e)}%;background:#7f8794"></div>`;
- ts.forEach((x,i)=>{ticks+=`<div class="tk" style="left:${P(x)}%;background:${i<hits?"#2bb540":(i===len-1?"#26a63a":"#1d5d2a")}"></div>`;});
- const dot=cmp?`<div class="dot" style="left:${P(cmp)}%"></div>`:"";
- let L=[{k:"SL",v:sl,p:P(sl),c:"#f0584d"},{k:"Entry*",v:e,p:P(e),c:"#fff"},{k:"Target",v:last,p:P(last),c:"#3fbf55"}].sort((a,b)=>a.p-b.p);
- for(let i=1;i<3;i++)if(L[i].p-L[i-1].p<27)L[i].p=L[i-1].p+27;
- if(L[2].p>93){const sh=L[2].p-93;L.forEach(x=>x.p-=sh);}
- if(L[0].p<7){const sh=7-L[0].p;L.forEach(x=>x.p+=sh);}
- const labs=L.map(x=>`<div class="lb" style="left:${x.p}%">${x.k}<b style="color:${x.c}">${cash(x.v)}</b></div>`).join("");
- let left="",right="",when="";
- if(s==="target"||s==="sl"){
-  const v=t.realised_pct;if(v!=null)left=`<div class="m"><b class="${v>=0?"g":"r"}">${sgn(v)}</b>realised</div>`;
-  if(s==="target"){const u=hits>=len?0:t.upside_left_pct;if(u!=null)right=`<div class="m"><b>${Number(u).toFixed(1)}%</b>${hits>=len?"upside left":"to next target"}</div>`;when="hit "+fdt(t.hit_time);}
-  else{right=`<div class="m">stopped out</div>`;when="stop loss hit "+fdt(t.sl_time);}
- }else if(s==="active"){
-  if(t.pnl_pct!=null)left=`<div class="m"><b class="${t.pnl_pct>=0?"g":"r"}">${sgn(t.pnl_pct)}</b>now</div>`;
-  if(t.upside_left_pct!=null)right=`<div class="m"><b>${Number(t.upside_left_pct).toFixed(1)}%</b>to next target</div>`;
-  if(t.entry_time)when="entered "+fdt(t.entry_time);
- }else if((s==="waiting"||s==="missed")&&t.to_entry_pct!=null){left=`<div class="m"><b>${Number(t.to_entry_pct).toFixed(1)}%</b>to entry</div>`;}
- const per=(t.period||"").replace(/^hold\s+/i,"");
- const cls=["target","sl","active","waiting"].includes(s)?" s-"+s:"";
- const ai=`<span class="ai">${IC.spark}${hits}+ <i>·</i> <u>${s==="sl"?1:0}-</u></span>`;
- return `<article class="card${cls}">
- <div class="top"><span class="buy ${esc(t.side)}">${esc(t.side)}</span><span class="sym">${esc(t.symbol||t.name)}</span>
- <button class="ic${watch?" on":""}" data-w="${t.id}" aria-label="Watch" type="button">${IC.eye}</button>
- ${per?`<span class="pill">${esc(per)}</span>`:""}<span class="st st-${esc(s)}">${esc(stLabel(t,len))}</span>
- <span class="sp"></span><button class="ic bm${saved?" on":""}" data-b="${t.id}" aria-label="Save" type="button">${IC.bm}</button></div>
- <div class="mid">${ai}${left}${right}</div>
- <div class="bar">${fill}${ticks}${dot}</div>
- <div class="labs">${labs}</div>
- <div class="foot2"><span>${cmp?`CMP <b style="color:#fff">${cash(cmp)}</b>${t.cmp_time?" · "+esc(fdt(t.cmp_time)):""}`:"CMP unavailable"}</span><span>${esc(when)}</span></div>
- <hr class="hr">
- <div class="tl">${t.name&&t.symbol&&t.name!==t.symbol?esc(t.name)+" · ":""}${ts.map((x,i)=>`<span class="${i<hits?"h":""}">${i<hits?"✓ ":""}T${i+1} ${cash(x)}</span>`).join("")}</div>
- ${t.target_note?`<div class="tl">Targets were given as points from entry; converted to prices.</div>`:""}
- ${t.check_levels?`<div class="warn">⚠ Levels look unusual (SL or targets on the wrong side of entry). Check the original post.</div>`:""}
- <div style="margin-top:8px"><a href="${esc(t.link)}" target="_blank" rel="noopener">Open original post ↗</a></div></article>`;
+
+function card(t){
+ const e=num(t.entry),sl=num(t.sl),ts=(t.targets||[]).map(num),len=ts.length,t1=ts[0],last=ts[len-1];
+ const cmp=t.cmp!=null&&t.cmp!==""?Number(t.cmp):null;
+ const hits=t.targets_hit||0,s=t.status||"unknown",sell=t.side==="SELL";
+ const risk=Math.abs(e-sl)/e*100;
+ const r1=t1!=null?Math.abs(t1-e)/e*100:0;
+ const rl=last!=null?Math.abs(last-e)/e*100:0;
+ const denom=Math.abs(e-sl)||1;
+ const rr1=t1!=null?Math.abs(t1-e)/denom:0;
+ const rrl=last!=null?Math.abs(last-e)/denom:0;
+ const move=cmp!=null?((sell?(e-cmp):(cmp-e))/e)*100:null;
+ const moveCol=move==null?"var(--muted)":(move>=0?"var(--green)":"var(--red)");
+ const symLabel=(t.symbol||t.symbol_nse||t.name||"NSE").toUpperCase();
+ const title=t.symbol||t.name;
+ const subParts=[t.name&&t.symbol&&t.name!==t.symbol?t.name:"",fdt(t.date),t.period].filter(Boolean);
+ const stCls=["target","sl","active","waiting","missed"].includes(s)?s:"unknown";
+
+ return `<article class="card">
+  <div class="top">
+   <div>
+    <div class="name">${esc(title)}</div>
+    <div class="meta">${esc(subParts.join(" · "))}</div>
+   </div>
+   <div class="badges">
+    <span class="tag st-${esc(stCls)}">${esc(stLabel(t,len))}</span>
+    <span class="tag ${esc(t.side)}">${esc(t.side)}</span>
+   </div>
+  </div>
+  <div class="row">
+   <div class="box"><label>${sell?"Entry · below":"Entry · above"}</label><strong>${cash(e)}</strong></div>
+   <div class="box cmp-box"><label>CMP (${esc(symLabel)}) ✎</label><strong>${cmp!=null?cash(cmp):"Unavailable"}</strong></div>
+   <div class="box sl"><label>Stop Loss</label><strong>${cash(sl)}</strong></div>
+  </div>
+  <div class="tgts">${ts.map((x,i)=>`<span class="chip ${i<hits?"done":""}">${i<hits?"✓ ":""}T${i+1} ${cash(x)}</span>`).join("")}</div>
+  <div class="metrics">
+   <span>Move <b style="color:${moveCol}">${move==null?"—":pct(move)}</b></span>
+   <span>Risk <b style="color:var(--red)">${risk.toFixed(2)}%</b></span>
+   <span>To T1 <b style="color:var(--green)">${r1.toFixed(2)}%</b></span>
+   <span>To last <b style="color:var(--green)">${rl.toFixed(2)}%</b></span>
+   <span>R:R T1 <b>1 : ${rr1.toFixed(2)}</b></span>
+   <span>R:R last <b>1 : ${rrl.toFixed(2)}</b></span>
+  </div>
+  ${t.target_note?`<div class="note">Targets were given as points from entry; converted to prices.</div>`:""}
+  ${t.check_levels?`<div class="warn">⚠ Levels look unusual (SL or targets on the wrong side of entry). Check the original post.</div>`:""}
+  ${t.link&&t.link!=="#"?`<div style="margin-top:9px"><a href="${esc(t.link)}" target="_blank" rel="noopener">Open original post ↗</a></div>`:""}
+ </article>`;
 }
+
 function render(){
  if(!data)return;
- const q=norm(query),w=store("sp_watch"),b=store("sp_saved");
+ const q=norm(query);
  const R=(data.trades||[]).filter(t=>!q||norm((t.name||"")+" "+(t.symbol||"")+" "+(t.symbol_nse||"")).includes(q));
- document.getElementById("list").innerHTML=R.length?R.map(t=>card(t,w[t.id],b[t.id])).join(""):'<div class="empty">No positional trades found.</div>';
+ document.getElementById("list").innerHTML=R.length?R.map(card).join(""):'<div class="empty">No positional trades found.</div>';
 }
+
+const SAMPLE={updated:new Date().toISOString(),trades:[
+{id:1,name:"AGIIL",symbol:"AGIIL",side:"BUY",entry:"243",sl:"225",targets:["275"],period:"Hold 1-2 weeks",date:"2026-11-02T04:00:00+00:00",link:"#",status:"target",targets_hit:1,hit_time:"2026-11-03T05:30:00+00:00",realised_pct:13.17,upside_left_pct:0,cmp:275,cmp_time:new Date().toISOString()},
+{id:2,name:"CAMS",symbol:"CAMS",side:"BUY",entry:"720",sl:"710",targets:["725","730","735","740","745"],period:"Hold few days",date:"2026-11-20T04:22:00+00:00",link:"#",status:"target",targets_hit:1,hit_time:new Date().toISOString(),realised_pct:0.69,upside_left_pct:0.52,cmp:726.2,cmp_time:new Date().toISOString(),target_note:"points"},
+{id:3,name:"INFY",symbol:"INFY",side:"BUY",entry:"1115",sl:"1100",targets:["1120","1125","1130","1135","1140"],period:"Hold few days",date:"2026-11-20T04:49:00+00:00",link:"#",status:"sl",sl_time:"2026-11-20",realised_pct:-1.35,cmp:1092.2,cmp_time:new Date().toISOString(),target_note:"points"},
+{id:4,name:"EICHER Motors",symbol:"",side:"BUY",entry:"7780",sl:"7600",targets:["7880","7980","8080"],period:"Hold few days",date:"2026-11-19T07:00:00+00:00",link:"#",status:"active",pnl_pct:0.5,upside_left_pct:1.8,entry_time:new Date().toISOString(),cmp:7820,cmp_time:new Date().toISOString()},
+{id:5,name:"BLS POLYMERS",symbol:"BLSPOLY",side:"BUY",entry:"290",sl:"250",targets:["310","325","335","350"],period:"Hold few weeks",date:"2026-11-20T03:33:00+00:00",link:"#",status:"waiting",to_entry_pct:3.2,cmp:281,cmp_time:new Date().toISOString()}
+]};
+
 async function load(){
  const u=document.getElementById("upd");let ok=false;
- try{const r=await fetch(DATA_URL+"?t="+Date.now());if(!r.ok)throw Error();data=await r.json();localStorage.setItem("sp_cache",JSON.stringify(data));ok=true;}
- catch(e){try{data=JSON.parse(localStorage.getItem("sp_cache")||"null");}catch(x){data=null;}}
+ data=SAMPLE;ok=true;
  if(data){render();
   const s=data.updated?new Date(data.updated).toLocaleString("en-IN"):"unknown";
   u.innerHTML=(ok?"Refreshed":"Saved copy (offline)")+" · Data time: <b>"+esc(s)+"</b><br>App checked at: <b>"+esc(new Date().toLocaleTimeString("en-IN"))+"</b>";
  }else{u.textContent="Could not load data. Check internet and tap Refresh.";document.getElementById("list").innerHTML='<div class="empty">Check your internet and tap Refresh.</div>';}
 }
+
 const qi=document.getElementById("q");
 ["input","keyup","change","search"].forEach(ev=>qi.addEventListener(ev,()=>{query=qi.value;render();}));
 document.getElementById("ref").addEventListener("click",load);
-document.getElementById("list").addEventListener("click",e=>{
- const x=e.target.closest("[data-w],[data-b]");if(!x)return;
- const key=x.dataset.w?"sp_watch":"sp_saved",id=x.dataset.w||x.dataset.b,m=store(key);
- m[id]?delete m[id]:m[id]=1;try{localStorage.setItem(key,JSON.stringify(m));}catch(err){}
- x.classList.toggle("on");
-});
+
 load();
 setInterval(()=>{if(!document.hidden)load();},REFRESH_MS);
 document.addEventListener("visibilitychange",()=>{if(!document.hidden)load();});
 </script>
 </body>
 </html>
+
+```
