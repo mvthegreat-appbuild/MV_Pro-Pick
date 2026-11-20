@@ -44,7 +44,7 @@ a{color:#70d3ff;text-decoration:none;font-size:11px}
 </head>
 <body>
 <header>
- <h1>StockPro Positional <span style="font-size:11px;color:#ffd17d;font-weight:400">preview with sample data</span></h1>
+ <h1>StockPro Positional</h1>
  <div class="sub">ONLY "POSITIONAL TRADE" POSTS · AUTO-READ FROM TELEGRAM</div>
  <div id="upd">Loading...</div>
 </header>
@@ -56,6 +56,7 @@ a{color:#70d3ff;text-decoration:none;font-size:11px}
 <div class="foot"><p>* Entry is the trigger price from the post: the price should trade above it (below it for sell calls). Levels are copied from the channel posts. Prices come from NSE market data and may be delayed. Status uses each day's high and low after the post, plus live price checks every 15 minutes for the same day, so quick moves inside a day can be missed. Not advice.</p></div>
 <script>
 const DATA_URL="https://raw.githubusercontent.com/mvthegreat-appbuild/StockPro-Positional/main/positional_trades.json";
+const CMP_URL="https://raw.githubusercontent.com/mvthegreat-appbuild/StockPro-Positional/main/cmp.json";
 const REFRESH_MS=5*60*1000;
 let data=null,query="";
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -64,6 +65,39 @@ const cash=x=>"₹"+Number(x).toLocaleString("en-IN",{maximumFractionDigits:2});
 const pct=x=>(x>0?"+":x<0?"-":"")+Math.abs(x).toFixed(2)+"%";
 const norm=s=>String(s||"").toLowerCase().replace(/[^a-z0-9]/g,"");
 
+function getTicker(t){
+ const raw=(t.symbol_nse||t.symbol||"").trim().toUpperCase().replace(/\.(NS|BO)$/,"");
+ if(raw)return raw;
+ const n=(t.name||"").trim().toUpperCase();
+ const map={"TATA TECH":"TATATECH","TATA TECHNOLOGIES":"TATATECH","EICHER MOTORS":"EICHERMOT","BLS POLYMERS":"BLSPOLY","TATA MOTORS":"TATAMOTORS","TATA POWER":"TATAPOWER","TATA STEEL":"TATASTEEL","HDFC BANK":"HDFCBANK","ICICI BANK":"ICICIBANK","STATE BANK":"SBIN","INFOSYS":"INFY","BHARTI AIRTEL":"BHARTIARTL","BAJAJ FINANCE":"BAJFINANCE"};
+ for(const k in map)if(n.includes(k))return map[k];
+ return n.split(/[\s(]/)[0].replace(/[^A-Z0-9&-]/g,"");
+}
+
+function evalTrade(t,cmpMap){
+ const e=num(t.entry),sl=num(t.sl),ts=(t.targets||[]).map(num),sell=t.side==="SELL";
+ const sym=getTicker(t);
+ const rawCmp=t.cmp!=null&&t.cmp!==""?Number(t.cmp):(t.ltp!=null&&t.ltp!==""?Number(t.ltp):(cmpMap[sym]!=null?Number(cmpMap[sym]):null));
+ const cmp=Number.isFinite(rawCmp)&&rawCmp>0?rawCmp:null;
+ let hits=Number(t.targets_hit||0);
+ let status=t.status||"";
+ if(cmp!=null){
+  const calcHits=ts.filter(x=>sell?cmp<=x:cmp>=x).length;
+  if(calcHits>hits)hits=calcHits;
+  const slHit=Number.isFinite(sl)&&sl>0&&(sell?cmp>=sl:cmp<=sl);
+  if(slHit){
+   status="sl";
+  }else if(!status||status==="unknown"||status==="waiting"){
+   if(hits>0)status="target";
+   else if(sell?cmp<=e:cmp>=e)status="active";
+   else status="waiting";
+  }
+ }else if(!status){
+  status="unknown";
+ }
+ return{...t,cmp,hits,status,sym};
+}
+
 function fdt(iso){
  if(!iso)return "";const d=new Date(iso);if(isNaN(d))return "";
  if(/^\d{4}-\d{2}-\d{2}$/.test(iso))return d.toLocaleDateString("en-IN",{day:"numeric",month:"short",timeZone:"Asia/Kolkata"});
@@ -71,7 +105,7 @@ function fdt(iso){
 }
 
 function stLabel(t,len){
- const h=t.targets_hit||0,s=t.status;
+ const h=t.hits||0,s=t.status;
  if(s==="target")return len===1?"TARGET HIT":(h>=len?"ALL TARGETS HIT":"TARGET "+h+" HIT");
  if(s==="sl")return "STOP LOSS HIT";
  if(s==="active")return "ACTIVE";
@@ -82,8 +116,7 @@ function stLabel(t,len){
 
 function card(t){
  const e=num(t.entry),sl=num(t.sl),ts=(t.targets||[]).map(num),len=ts.length,t1=ts[0],last=ts[len-1];
- const cmp=t.cmp!=null&&t.cmp!==""?Number(t.cmp):null;
- const hits=t.targets_hit||0,s=t.status||"unknown",sell=t.side==="SELL";
+ const cmp=t.cmp,hits=t.hits||0,s=t.status||"unknown",sell=t.side==="SELL";
  const risk=Math.abs(e-sl)/e*100;
  const r1=t1!=null?Math.abs(t1-e)/e*100:0;
  const rl=last!=null?Math.abs(last-e)/e*100:0;
@@ -92,7 +125,7 @@ function card(t){
  const rrl=last!=null?Math.abs(last-e)/denom:0;
  const move=cmp!=null?((sell?(e-cmp):(cmp-e))/e)*100:null;
  const moveCol=move==null?"var(--muted)":(move>=0?"var(--green)":"var(--red)");
- const symLabel=(t.symbol||t.symbol_nse||t.name||"NSE").toUpperCase();
+ const symLabel=t.sym||"NSE";
  const title=t.symbol||t.name;
  const subParts=[t.name&&t.symbol&&t.name!==t.symbol?t.name:"",fdt(t.date),t.period].filter(Boolean);
  const stCls=["target","sl","active","waiting","missed"].includes(s)?s:"unknown";
@@ -110,7 +143,7 @@ function card(t){
   </div>
   <div class="row">
    <div class="box"><label>${sell?"Entry · below":"Entry · above"}</label><strong>${cash(e)}</strong></div>
-   <div class="box cmp-box"><label>CMP (${esc(symLabel)}) ✎</label><strong>${cmp!=null?cash(cmp):"Unavailable"}</strong></div>
+   <div class="box cmp-box"><label>CMP (${esc(symLabel)})</label><strong>${cmp!=null?cash(cmp):"Unavailable"}</strong></div>
    <div class="box sl"><label>Stop Loss</label><strong>${cash(sl)}</strong></div>
   </div>
   <div class="tgts">${ts.map((x,i)=>`<span class="chip ${i<hits?"done":""}">${i<hits?"✓ ":""}T${i+1} ${cash(x)}</span>`).join("")}</div>
@@ -130,22 +163,28 @@ function card(t){
 
 function render(){
  if(!data)return;
- const q=norm(query);
- const R=(data.trades||[]).filter(t=>!q||norm((t.name||"")+" "+(t.symbol||"")+" "+(t.symbol_nse||"")).includes(q));
+ const q=norm(query),cmpMap=data._cmp||{};
+ const all=(data.trades||[]).map(t=>evalTrade(t,cmpMap));
+ const R=all.filter(t=>!q||norm((t.name||"")+" "+(t.symbol||"")+" "+(t.symbol_nse||"")+" "+(t.sym||"")).includes(q));
  document.getElementById("list").innerHTML=R.length?R.map(card).join(""):'<div class="empty">No positional trades found.</div>';
 }
 
-const SAMPLE={updated:new Date().toISOString(),trades:[
-{id:1,name:"AGIIL",symbol:"AGIIL",side:"BUY",entry:"243",sl:"225",targets:["275"],period:"Hold 1-2 weeks",date:"2026-11-02T04:00:00+00:00",link:"#",status:"target",targets_hit:1,hit_time:"2026-11-03T05:30:00+00:00",realised_pct:13.17,upside_left_pct:0,cmp:275,cmp_time:new Date().toISOString()},
-{id:2,name:"CAMS",symbol:"CAMS",side:"BUY",entry:"720",sl:"710",targets:["725","730","735","740","745"],period:"Hold few days",date:"2026-11-20T04:22:00+00:00",link:"#",status:"target",targets_hit:1,hit_time:new Date().toISOString(),realised_pct:0.69,upside_left_pct:0.52,cmp:726.2,cmp_time:new Date().toISOString(),target_note:"points"},
-{id:3,name:"INFY",symbol:"INFY",side:"BUY",entry:"1115",sl:"1100",targets:["1120","1125","1130","1135","1140"],period:"Hold few days",date:"2026-11-20T04:49:00+00:00",link:"#",status:"sl",sl_time:"2026-11-20",realised_pct:-1.35,cmp:1092.2,cmp_time:new Date().toISOString(),target_note:"points"},
-{id:4,name:"EICHER Motors",symbol:"",side:"BUY",entry:"7780",sl:"7600",targets:["7880","7980","8080"],period:"Hold few days",date:"2026-11-19T07:00:00+00:00",link:"#",status:"active",pnl_pct:0.5,upside_left_pct:1.8,entry_time:new Date().toISOString(),cmp:7820,cmp_time:new Date().toISOString()},
-{id:5,name:"BLS POLYMERS",symbol:"BLSPOLY",side:"BUY",entry:"290",sl:"250",targets:["310","325","335","350"],period:"Hold few weeks",date:"2026-11-20T03:33:00+00:00",link:"#",status:"waiting",to_entry_pct:3.2,cmp:281,cmp_time:new Date().toISOString()}
-]};
-
 async function load(){
- const u=document.getElementById("upd");let ok=false;
- data=SAMPLE;ok=true;
+ const u=document.getElementById("upd");let ok=false,cmpMap={};
+ try{
+  const cr=await fetch(CMP_URL+"?t="+Date.now(),{cache:"no-store"});
+  if(cr.ok){const cj=await cr.json();cmpMap=cj.prices||cj||{};}
+ }catch(e){}
+ try{
+  const r=await fetch(DATA_URL+"?t="+Date.now(),{cache:"no-store"});
+  if(!r.ok)throw Error();
+  data=await r.json();
+  data._cmp=cmpMap;
+  localStorage.setItem("sp_cache",JSON.stringify(data));
+  ok=true;
+ }catch(e){
+  try{data=JSON.parse(localStorage.getItem("sp_cache")||"null");if(data&&Object.keys(cmpMap).length)data._cmp=cmpMap;}catch(x){data=null;}
+ }
  if(data){render();
   const s=data.updated?new Date(data.updated).toLocaleString("en-IN"):"unknown";
   u.innerHTML=(ok?"Refreshed":"Saved copy (offline)")+" · Data time: <b>"+esc(s)+"</b><br>App checked at: <b>"+esc(new Date().toLocaleTimeString("en-IN"))+"</b>";
