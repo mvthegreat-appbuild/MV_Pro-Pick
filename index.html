@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,19 +14,24 @@ header{padding:22px 17px;background:linear-gradient(135deg,#142b48,#101a2d);bord
 h1{font-size:20px;margin:0}.sub{font-size:10px;color:#a8bad2;letter-spacing:1px;margin-top:4px}#upd{font-size:11px;color:var(--muted);margin-top:12px;line-height:1.6}
 main{max-width:850px;margin:auto;padding:14px}
 input{width:100%;background:var(--panel2);color:#fff;border:1px solid var(--line);border-radius:11px;padding:12px;margin:2px 0 12px;font-size:14px}
-.tabs{display:flex;gap:7px;margin-bottom:10px}.tab{border:1px solid var(--line);border-radius:20px;padding:9px 14px;background:var(--panel);color:#b7c5d8;font-size:12px}.tab.on{background:#174c43;color:#68f0bd;border-color:#238c70}
 .card{background:linear-gradient(150deg,#172740,#101a2b);border:1px solid #293d59;border-radius:16px;margin:10px 0;padding:14px}
-.top{display:flex;justify-content:space-between;gap:8px}.name{font-size:17px;font-weight:800}.meta{font-size:11px;color:var(--muted);margin-top:4px}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}.name{font-size:17px;font-weight:800}.meta{font-size:11px;color:var(--muted);margin-top:4px}
+.badges{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
 .tag{display:inline-block;padding:5px 9px;border-radius:7px;font-size:10px;font-weight:800}.BUY{background:#124c3a;color:#65e8b4}.SELL{background:#542637;color:#ff91a1}
-.row{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
-.box{background:#0c1729;border:1px solid #263750;padding:10px 8px;border-radius:11px;min-width:0}.box label{display:block;font-size:9px;color:var(--muted);margin-bottom:6px}.box strong{font-size:16px}
-.sl strong{color:var(--red)}
+.st-hit{background:#124c3a;color:#35dda2;border:1px solid #238c70}
+.st-sl{background:#542637;color:#ff7186;border:1px solid #96384b}
+.st-act{background:#2d2616;color:#ffd17d;border:1px solid #6b5626}
+.st-wait{background:#16243d;color:#91a2bb;border:1px solid #293b56}
+.row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.box{background:#0c1729;border:1px solid #263750;padding:10px 8px;border-radius:11px;min-width:0}.box label{display:block;font-size:9px;color:var(--muted);margin-bottom:6px}.box strong{font-size:15px}
+.sl strong{color:var(--red)}.cmp-box strong{color:#70d3ff}
 .tgts{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.chip{background:#0c2a24;border:1px solid #1d6b57;color:var(--green);border-radius:9px;padding:6px 10px;font-size:13px;font-weight:700}
+.chip.done{background:#19594b;border-color:#35dda2;color:#fff}
 .metrics{display:flex;gap:13px;flex-wrap:wrap;margin-top:11px;font-size:11px;color:var(--muted)}.metrics b{color:#fff}
 .warn{margin-top:10px;font-size:11px;color:var(--amber)}
 a{color:#70d3ff;text-decoration:none;font-size:11px}
 .empty{padding:25px;text-align:center;color:var(--muted);background:var(--panel);border-radius:14px}
-.btn{border:1px solid #168565;background:#12624d;color:#8af4c9;border-radius:9px;padding:9px 12px;font-size:11px;font-weight:700}
+.btn{border:1px solid #168565;background:#12624d;color:#8af4c9;border-radius:9px;padding:9px 12px;font-size:11px;font-weight:700;cursor:pointer}
 .foot{max-width:850px;margin:auto;padding:0 14px;color:#71839c;font-size:10px;line-height:1.6}
 </style>
 </head>
@@ -36,8 +42,7 @@ a{color:#70d3ff;text-decoration:none;font-size:11px}
  <div id="upd">Loading...</div>
 </header>
 <main>
- <input id="q" placeholder="Search stock...">
- <div class="tabs"><button class="tab on" data-d="7">Last 7 days</button><button class="tab" data-d="30">30 days</button><button class="tab" data-d="0">All</button></div>
+ <input id="q" type="search" placeholder="Search stock..." autocomplete="off">
  <div id="list"><div class="empty">Loading...</div></div>
  <button class="btn" id="ref">↻ Refresh</button>
 </main>
@@ -45,20 +50,55 @@ a{color:#70d3ff;text-decoration:none;font-size:11px}
 <script>
 const DATA_URL="https://raw.githubusercontent.com/mvthegreat-appbuild/StockPro-Positional/main/positional_trades.json";
 const REFRESH_MS=5*60*1000;
-let data=null,days=7,query="";
+let data=null,query="",cmpMap={};
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const n=x=>Number(String(x).replace(/,/g,""));
 const cash=x=>"₹"+Number(x).toLocaleString("en-IN",{maximumFractionDigits:2});
-const pct=x=>(x>=0?"":"-")+Math.abs(x).toFixed(2)+"%";
+const pct=x=>(x>=0?"+":"-")+Math.abs(x).toFixed(2)+"%";
+
+function getTicker(t){
+ let s=String(t.symbol||t.name||"").trim().toUpperCase().replace(/[^A-Z0-9.&-]/g,"");
+ if(!s)return "";
+ return s.endsWith(".NS")||s.endsWith(".BO")?s:s+".NS";
+}
+
+async function fetchCMP(trades){
+ const syms=[...new Set(trades.map(getTicker).filter(Boolean))];
+ await Promise.all(syms.map(async sym=>{
+  try{
+   const url=`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=1d&range=1d`;
+   const r=await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`);
+   if(!r.ok)return;
+   const j=await r.json();
+   const p=j?.chart?.result?.[0]?.meta?.regularMarketPrice;
+   if(p!=null)cmpMap[sym]=Number(p);
+  }catch(e){}
+ }));
+}
+
+function getStatus(sell,e,sl,ts,cmp){
+ if(cmp==null||isNaN(cmp))return {cls:"st-wait",txt:"CMP N/A",hitIdx:-1,chg:null};
+ const chg=sell?((e-cmp)/e*100):((cmp-e)/e*100);
+ const slHit=sell?(cmp>=sl):(cmp<=sl);
+ if(slHit)return {cls:"st-sl",txt:"STOP LOSS HIT",hitIdx:-1,chg};
+ let hitIdx=-1;
+ ts.forEach((tv,i)=>{if(sell?(cmp<=tv):(cmp>=tv))hitIdx=i;});
+ if(hitIdx>=0)return {cls:"st-hit",txt:`TARGET ${hitIdx+1} HIT`,hitIdx,chg};
+ return {cls:"st-act",txt:"ACTIVE",hitIdx:-1,chg};
+}
+
 function card(t){
  const e=n(t.entry),sl=n(t.sl),ts=t.targets.map(n),t1=ts[0],last=ts[ts.length-1];
- const sell=t.side==="SELL",dir=sell?-1:1;
+ const sell=t.side==="SELL";
+ const sym=getTicker(t);
+ const cmp=t.cmp!=null?n(t.cmp):cmpMap[sym];
+ const st=getStatus(sell,e,sl,ts,cmp);
  const risk=Math.abs(e-sl)/e*100,r1=Math.abs(t1-e)/e*100,rl=Math.abs(last-e)/e*100;
  const rr1=Math.abs(t1-e)/Math.abs(e-sl),rrl=Math.abs(last-e)/Math.abs(e-sl);
  const d=t.date?new Date(t.date).toLocaleDateString("en-IN",{day:"numeric",month:"short"})+" · "+new Date(t.date).toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit"}):"";
- return `<article class="card"><div class="top"><div><div class="name">${esc(t.name)}</div><div class="meta">${t.symbol?esc(t.symbol)+" · ":""}${esc(d)}${t.period?" · "+esc(t.period):""}</div></div><span class="tag ${esc(t.side)}">${esc(t.side)}</span></div>
- <div class="row"><div class="box"><label>${sell?"Entry · below":"Entry · above"}</label><strong>${cash(e)}</strong></div><div class="box sl"><label>Stop Loss</label><strong>${cash(sl)}</strong></div></div>
- <div class="tgts">${ts.map((x,i)=>`<span class="chip">T${i+1} ${cash(x)}</span>`).join("")}</div>
+ return `<article class="card"><div class="top"><div><div class="name">${esc(t.name)}</div><div class="meta">${t.symbol?esc(t.symbol)+" · ":""}${esc(d)}${t.period?" · "+esc(t.period):""}</div></div><div class="badges"><span class="tag ${esc(st.cls)}">${esc(st.txt)}</span><span class="tag ${esc(t.side)}">${esc(t.side)}</span></div></div>
+ <div class="row"><div class="box"><label>${sell?"Entry · below":"Entry · above"}</label><strong>${cash(e)}</strong></div><div class="box cmp-box"><label>CMP ${st.chg!==null?`(${pct(st.chg)})`:""}</label><strong>${cmp!=null&&!isNaN(cmp)?cash(cmp):"Loading..."}</strong></div><div class="box sl"><label>Stop Loss</label><strong>${cash(sl)}</strong></div></div>
+ <div class="tgts">${ts.map((x,i)=>`<span class="chip ${i<=st.hitIdx?"done":""}">T${i+1} ${cash(x)}${i<=st.hitIdx?" ✓":""}</span>`).join("")}</div>
  <div class="metrics"><span>Risk <b style="color:var(--red)">${risk.toFixed(2)}%</b></span><span>To T1 <b style="color:var(--green)">${r1.toFixed(2)}%</b></span><span>To last <b style="color:var(--green)">${rl.toFixed(2)}%</b></span><span>R:R T1 <b>1 : ${rr1.toFixed(2)}</b></span><span>R:R last <b>1 : ${rrl.toFixed(2)}</b></span></div>
  ${t.target_note?`<div class="meta" style="margin-top:8px">Targets were given as points from entry; converted to prices.</div>`:""}
  ${t.check_levels?`<div class="warn">⚠ Levels look unusual (SL or targets on the wrong side of entry). Check the original post.</div>`:""}
@@ -66,21 +106,28 @@ function card(t){
 }
 function render(){
  if(!data)return;
- const cut=days?Date.now()-days*864e5:0,q=query.toLowerCase();
- const R=(data.trades||[]).filter(t=>(!days||!t.date||new Date(t.date).getTime()>=cut)&&(!q||(t.name+" "+t.symbol).toLowerCase().includes(q)));
- document.getElementById("list").innerHTML=R.length?R.map(card).join(""):'<div class="empty">No positional trades found for this period.</div>';
+ const q=query.trim().toLowerCase();
+ const R=(data.trades||[]).filter(t=>{
+  if(!q)return true;
+  const hay=[t.name,t.symbol,t.side,t.period].filter(Boolean).join(" ").toLowerCase();
+  return hay.includes(q);
+ });
+ document.getElementById("list").innerHTML=R.length?R.map(card).join(""):'<div class="empty">No matching positional trades found.</div>';
 }
 async function load(){
  const u=document.getElementById("upd");let ok=false;
  try{const r=await fetch(DATA_URL+"?t="+Date.now());if(!r.ok)throw Error();data=await r.json();localStorage.setItem("sp_cache",JSON.stringify(data));ok=true;}
  catch(e){try{data=JSON.parse(localStorage.getItem("sp_cache")||"null");}catch(x){data=null;}}
- if(data){render();
+ if(data){
+  render();
   const s=data.updated?new Date(data.updated).toLocaleString("en-IN"):"unknown";
   u.innerHTML=(ok?"Refreshed":"Saved copy (offline)")+" · Data time: <b>"+esc(s)+"</b><br>App checked at: <b>"+esc(new Date().toLocaleTimeString("en-IN"))+"</b>";
+  await fetchCMP(data.trades||[]);
+  render();
  }else{u.textContent="Could not load data. Check internet and tap Refresh.";document.getElementById("list").innerHTML='<div class="empty">Check your internet and tap Refresh.</div>';}
 }
-document.querySelector(".tabs").addEventListener("click",e=>{const b=e.target.closest("[data-d]");if(!b)return;days=Number(b.dataset.d);document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("on",x===b));render();});
-document.getElementById("q").addEventListener("input",e=>{query=e.target.value;render();});
+const qEl=document.getElementById("q");
+["input","keyup","search"].forEach(ev=>qEl.addEventListener(ev,e=>{query=e.target.value;render();}));
 document.getElementById("ref").addEventListener("click",load);
 load();
 setInterval(()=>{if(!document.hidden)load();},REFRESH_MS);
@@ -88,3 +135,5 @@ document.addEventListener("visibilitychange",()=>{if(!document.hidden)load();});
 </script>
 </body>
 </html>
+
+```
