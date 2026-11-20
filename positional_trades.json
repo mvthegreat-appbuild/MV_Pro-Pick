@@ -1,7 +1,27 @@
 {
- "updated": "2026-11-20T06:36:37.977702+00:00",
+ "updated": "2026-11-20T07:43:22.365586+00:00",
  "channel": "stockpro_online",
  "trades": [
+  {
+   "name": "CROMPTON GREAVES",
+   "symbol": "CROMPTON",
+   "side": "BUY",
+   "entry": "222.5",
+   "sl": "217",
+   "targets": [
+    "224.5",
+    "226.5",
+    "228.5",
+    "230.5",
+    "232.5"
+   ],
+   "target_note": "points from entry",
+   "period": "Hold few days",
+   "check_levels": false,
+   "id": 137284,
+   "date": "2026-11-20T06:59:54+00:00",
+   "link": "https://t.me/stockpro_online/137284"
+  },
   {
    "name": "TATA tech",
    "symbol": "",
