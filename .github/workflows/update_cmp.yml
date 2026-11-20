@@ -17,46 +17,7 @@ steps:
 with:
 python-version: '3.11'
 - name: Fetch Live NSE Prices
-run: |
-python - << 'EOF'
-import json, re, urllib.request
-ALIASES = {
-"TATA TECH": "TATATECH", "TATA TECHNOLOGIES": "TATATECH",
-"TATA MOTORS": "TATAMOTORS", "TATA POWER": "TATAPOWER",
-"TATA STEEL": "TATASTEEL", "HDFC BANK": "HDFCBANK",
-"ICICI BANK": "ICICIBANK", "STATE BANK": "SBIN",
-"INFOSYS": "INFY", "BHARTI AIRTEL": "BHARTIARTL",
-"BAJAJ FINANCE": "BAJFINANCE", "LARSEN": "LT"
-}
-def get_ticker(t):
-sym = re.sub(r'.(NS|BO)$', '', str(t.get('symbol') or '').strip().upper())
-if sym: return sym
-raw = str(t.get('name') or '').strip().upper()
-if raw in ALIASES: return ALIASES[raw]
-for k, v in ALIASES.items():
-if k in raw: return v
-return re.sub(r'[^A-Z0-9&-]', '', re.split(r'[\s(]', raw)[0])
-def fetch_yahoo(sym):
-url = f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}.NS?interval=1d&range=1d"
-req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-with urllib.request.urlopen(req, timeout=10) as r:
-data = json.loads(r.read().decode())
-meta = data["chart"]["result"][0]["meta"]
-return float(meta.get("regularMarketPrice") or meta.get("previousClose"))
-with open("positional_trades.json", "r", encoding="utf-8") as f:
-trades = json.load(f).get("trades", [])
-prices = {}
-for t in trades:
-sym = get_ticker(t)
-if not sym or sym in prices: continue
-try:
-prices[sym] = round(fetch_yahoo(sym), 2)
-print(f"OK {sym}: {prices[sym]}")
-except Exception as e:
-print(f"SKIP {sym}: {e}")
-with open("cmp.json", "w", encoding="utf-8") as f:
-json.dump({"prices": prices}, f, indent=2)
-EOF
+run: python -c "import json, re, urllib.request; ALIASES={'TATA TECH':'TATATECH','TATA TECHNOLOGIES':'TATATECH','TATA MOTORS':'TATAMOTORS','TATA POWER':'TATAPOWER','TATA STEEL':'TATASTEEL','HDFC BANK':'HDFCBANK','ICICI BANK':'ICICIBANK','STATE BANK':'SBIN','INFOSYS':'INFY','BHARTI AIRTEL':'BHARTIARTL','BAJAJ FINANCE':'BAJFINANCE','LARSEN':'LT'}; trades=json.load(open('positional_trades.json',encoding='utf-8')).get('trades',[]); prices={}; get_sym=lambda t: re.sub(r'.(NS|BO)$','',str(t.get('symbol') or '').strip().upper()) or next((v for k,v in ALIASES.items() if k in str(t.get('name') or '').upper()), re.sub(r'[^A-Z0-9&-]', '', re.split(r'[\s(]', str(t.get('name') or '').strip().upper())[0])); [prices.**setitem**(s, round(float(json.loads(urllib.request.urlopen(urllib.request.Request(f'https://query1.finance.yahoo.com/v8/finance/chart/{s}.NS?interval=1d&range=1d',headers={'User-Agent':'Mozilla/5.0'})),timeout=10).read())['chart']['result'][0]['meta']['regularMarketPrice']), 2)) for t in trades for s in [get_sym(t)] if s and s not in prices and not print('Fetching', s)]; open('cmp.json','w',encoding='utf-8').write(json.dumps({'prices':prices},indent=2))"
 - name: Commit cmp.json
 run: |
 git config user.name "github-actions[bot]"
