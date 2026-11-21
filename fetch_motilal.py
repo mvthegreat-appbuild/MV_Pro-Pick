@@ -1,7 +1,7 @@
 import json, re, os, asyncio, datetime
 import fetch_stockpro as sp
 
-CHANNEL = "https://t.me/motilaloswalofficial"
+CHANNEL = "https://t.me/s/motilaloswalofficial"
 PAGES = 6
 KEEP_DAYS = 45
 OUT = "motilal_trades.json"
