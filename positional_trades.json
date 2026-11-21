@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-21T15:07:18.642277+00:00",
+ "updated": "2026-11-21T15:14:38.602790+00:00",
  "channel": "stockpro_online",
  "trades": [
   {
@@ -36,7 +36,7 @@
    "status_text": "Active",
    "symbol_nse": "CROMPTON",
    "cmp": 223.4,
-   "cmp_time": "2026-11-21T20:34:54.549499+05:30"
+   "cmp_time": "2026-11-21T20:44:12.827030+05:30"
   },
   {
    "name": "TATA tech",
@@ -70,7 +70,7 @@
    "status_text": "Waiting for entry",
    "symbol_nse": "TATATECH",
    "cmp": 728.5,
-   "cmp_time": "2026-11-21T20:34:54.549499+05:30"
+   "cmp_time": "2026-11-21T20:44:12.827030+05:30"
   },
   {
    "name": "INFY",
@@ -106,7 +106,7 @@
    "status_text": "Waiting for entry",
    "symbol_nse": "INFY",
    "cmp": 1098.0,
-   "cmp_time": "2026-11-21T20:34:54.549499+05:30"
+   "cmp_time": "2026-11-21T20:44:12.827030+05:30"
   },
   {
    "name": "CAMS",
@@ -142,7 +142,7 @@
    "status_text": "T1 hit",
    "symbol_nse": "CAMS",
    "cmp": 724.65,
-   "cmp_time": "2026-11-21T20:34:54.549499+05:30"
+   "cmp_time": "2026-11-21T20:44:12.827030+05:30"
   },
   {
    "name": "PAYTM",
@@ -180,7 +180,7 @@
    "status_text": "Waiting for entry",
    "symbol_nse": "PAYTM",
    "cmp": 1740.0,
-   "cmp_time": "2026-11-21T20:34:54.549499+05:30"
+   "cmp_time": "2026-11-21T20:44:12.827030+05:30"
   },
   {
    "name": "JK BANK",
@@ -214,7 +214,7 @@
    "status_text": "T1 hit",
    "symbol_nse": "J&KBANK",
    "cmp": 150.0,
-   "cmp_time": "2026-11-21T20:34:54.549499+05:30"
+   "cmp_time": "2026-11-21T20:44:12.827030+05:30"
   },
   {
    "name": "SUN TV",
@@ -249,7 +249,7 @@
    "status_text": "Active",
    "symbol_nse": "SUNTV",
    "cmp": 685.0,
-   "cmp_time": "2026-11-21T20:34:54.549499+05:30"
+   "cmp_time": "2026-11-21T20:44:12.827030+05:30"
   },
   {
    "name": "HAVELLS",
@@ -284,7 +284,7 @@
    "status_text": "All targets hit",
    "symbol_nse": "HAVELLS",
    "cmp": 1211.0,
-   "cmp_time": "2026-11-21T20:34:54.549499+05:30"
+   "cmp_time": "2026-11-21T20:44:12.827030+05:30"
   },
   {
    "name": "BOSCH",
@@ -320,7 +320,7 @@
    "status_text": "T1 hit",
    "symbol_nse": "BOSCHLTD",
    "cmp": 49360.0,
-   "cmp_time": "2026-11-21T20:34:54.549499+05:30"
+   "cmp_time": "2026-11-21T20:44:12.827030+05:30"
   },
   {
    "name": "SURMA SGS",
@@ -378,7 +378,7 @@
    "status_text": "All targets hit",
    "symbol_nse": "TATACONSUM",
    "cmp": 1155.9,
-   "cmp_time": "2026-11-21T20:34:54.549499+05:30"
+   "cmp_time": "2026-11-21T20:44:12.827030+05:30"
   },
   {
    "name": "BLS POLYMERS",
@@ -413,7 +413,7 @@
    "status_text": "Active",
    "symbol_nse": "BLSPOLY",
    "cmp": 275.5,
-   "cmp_time": "2026-11-21T20:34:54.549499+05:30"
+   "cmp_time": "2026-11-21T20:44:12.827030+05:30"
   },
   {
    "name": "IIFL FINANCE",
@@ -449,7 +449,7 @@
    "status_text": "Waiting for entry",
    "symbol_nse": "IIFL",
    "cmp": 614.0,
-   "cmp_time": "2026-11-21T20:34:54.549499+05:30"
+   "cmp_time": "2026-11-21T20:44:12.827030+05:30"
   },
   {
    "name": "EICHER Motors",
@@ -485,7 +485,7 @@
    "status_text": "T3 hit",
    "symbol_nse": "EICHERMOT",
    "cmp": 8113.0,
-   "cmp_time": "2026-11-21T20:34:54.549499+05:30"
+   "cmp_time": "2026-11-21T20:44:12.827030+05:30"
   },
   {
    "name": "PACE DIGITECH",
@@ -521,7 +521,7 @@
    "status_text": "Active",
    "symbol_nse": "PACEDIGITK",
    "cmp": 166.0,
-   "cmp_time": "2026-11-21T20:34:54.549499+05:30"
+   "cmp_time": "2026-11-21T20:44:12.827030+05:30"
   },
   {
    "name": "IDFCFB",
@@ -581,7 +581,7 @@
    "status_text": "Waiting for entry",
    "symbol_nse": "PARAGMILK",
    "cmp": 337.19,
-   "cmp_time": "2026-11-21T20:34:54.549499+05:30"
+   "cmp_time": "2026-11-21T20:44:12.827030+05:30"
   },
   {
    "name": "RAYMOND LTD",
@@ -616,7 +616,7 @@
    "status_text": "T1 hit",
    "symbol_nse": "RAYMOND",
    "cmp": 1194.6,
-   "cmp_time": "2026-11-21T20:34:54.549499+05:30"
+   "cmp_time": "2026-11-21T20:44:12.827030+05:30"
   },
   {
    "name": "HDFCLIFE",
@@ -651,7 +651,7 @@
    "status_text": "Waiting for entry",
    "symbol_nse": "HDFCLIFE",
    "cmp": 588.65,
-   "cmp_time": "2026-11-21T20:34:54.549499+05:30"
+   "cmp_time": "2026-11-21T20:44:12.827030+05:30"
   },
   {
    "name": "TVS SUPPLY CHAIN",
@@ -686,7 +686,7 @@
    "to_entry_pct": null,
    "symbol_nse": "TVSSCS",
    "cmp": 133.5,
-   "cmp_time": "2026-11-21T19:57:57.083852+05:30"
+   "cmp_time": "2026-11-21T20:44:12.827030+05:30"
   }
  ]
 }
