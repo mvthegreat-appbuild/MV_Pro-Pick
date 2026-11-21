@@ -1,0 +1,25 @@
+name: Debug Motilal
+on: workflow_dispatch
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: |
+          python - <<'EOF'
+          import fetch_motilal as m, fetch_stockpro as sp
+          print("CHANNEL =", repr(m.CHANNEL))
+          page = sp.get("https://t.me/s/" + m.CHANNEL)
+          print("page length:", len(page))
+          print("data-post count:", page.count("data-post="))
+          print("text blocks:", page.count("tgme_widget_message_text"))
+          posts = sp.posts_from_page(page)
+          print("parsed posts:", len(posts))
+          for pid, d, t in posts[-3:]:
+              print("---", pid, d)
+              print(t[:300])
+          print("calls found:", sum(1 for p in posts if m.parse_call(p[2])))
+          EOF
