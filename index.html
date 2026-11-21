@@ -12,6 +12,9 @@ body{margin:0;padding-top:env(safe-area-inset-top,0px);background:radial-gradien
 header{padding:22px 17px;background:linear-gradient(135deg,#142b48,#101a2d);border-bottom:1px solid var(--line)}
 h1{font-size:20px;margin:0}.sub{font-size:10px;color:#a8bad2;letter-spacing:1px;margin-top:4px}#upd{font-size:11px;color:var(--muted);margin-top:12px;line-height:1.6}#upd b{color:#edf4ff}
 main{max-width:850px;margin:auto;padding:14px}
+.tabs{display:flex;gap:8px;margin:0 0 12px}
+.tab{flex:1;padding:11px 8px;border-radius:11px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);font-weight:800;font-size:13px;cursor:pointer}
+.tab.on{background:#12624d;border-color:#168565;color:#8af4c9}
 input{width:100%;background:var(--panel2);color:#fff;border:1px solid var(--line);border-radius:11px;padding:12px;margin:2px 0 12px;font-size:14px;-webkit-appearance:none;appearance:none}
 .card{background:linear-gradient(150deg,#172740,#101a2b);border:1px solid #293d59;border-radius:16px;margin:10px 0;padding:14px}
 .top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
@@ -44,21 +47,27 @@ a{color:#70d3ff;text-decoration:none;font-size:11px}
 </head>
 <body>
 <header>
- <h1>StockPro Positional</h1>
- <div class="sub">ONLY "POSITIONAL TRADE" POSTS · AUTO-READ FROM TELEGRAM</div>
+ <h1 id="ttl">StockPro Positional</h1>
+ <div class="sub" id="sub">ONLY "POSITIONAL TRADE" POSTS · AUTO-READ FROM TELEGRAM</div>
  <div id="upd">Loading...</div>
 </header>
 <main>
+ <div class="tabs">
+  <button class="tab on" id="t-sp" type="button">StockPro</button>
+  <button class="tab" id="t-mo" type="button">Motilal Oswal</button>
+ </div>
  <input id="q" type="search" placeholder="Search stock..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
  <div id="list"><div class="empty">Loading...</div></div>
  <button class="btn" id="ref" type="button">↻ Refresh</button>
 </main>
-<div class="foot"><p>* Entry is the trigger price from the post: the price should trade above it (below it for sell calls). Levels are copied from the channel posts. Prices come from NSE market data and may be delayed. Status uses each day's high and low after the post, plus live price checks every 15 minutes for the same day, so quick moves inside a day can be missed. Not advice.</p></div>
+<div class="foot"><p>* StockPro: entry is the trigger price from the post; the price should trade above it (below it for sell calls). Motilal Oswal: the CMP in the post is used as the entry. Levels are copied from the channel posts. Prices come from NSE market data and may be delayed. Status uses each day's high and low after the post, plus live price checks every 15 minutes for the same day, so quick moves inside a day can be missed. Not advice.</p></div>
 <script>
-const DATA_URL="https://raw.githubusercontent.com/mvthegreat-appbuild/StockPro-Positional/main/positional_trades.json";
-const CMP_URL="https://raw.githubusercontent.com/mvthegreat-appbuild/StockPro-Positional/main/cmp.json";
+const BASE="https://raw.githubusercontent.com/mvthegreat-appbuild/StockPro-Positional/main/";
+const FILES={sp:"positional_trades.json",mo:"motilal_trades.json"};
+const TITLES={sp:["StockPro Positional",'ONLY "POSITIONAL TRADE" POSTS · AUTO-READ FROM TELEGRAM'],mo:["Motilal Oswal Calls","BUY IDEAS WITH CMP, SL AND TARGET · AUTO-READ FROM TELEGRAM"]};
 const REFRESH_MS=5*60*1000;
-let data=null,query="";
+let tab="sp";try{tab=localStorage.getItem("sp_tab")==="mo"?"mo":"sp";}catch(e){}
+let D={sp:null,mo:null},ok={sp:false,mo:false},cmpMap={},query="";
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const num=x=>Number(String(x).replace(/,/g,""));
 const cash=x=>"₹"+Number(x).toLocaleString("en-IN",{maximumFractionDigits:2});
@@ -129,6 +138,7 @@ function card(t){
  const title=t.symbol||t.name;
  const subParts=[t.name&&t.symbol&&t.name!==t.symbol?t.name:"",fdt(t.date),t.period].filter(Boolean);
  const stCls=["target","sl","active","waiting","missed"].includes(s)?s:"unknown";
+ const entryLbl=t.entry_label||(sell?"Entry · below":"Entry · above");
 
  return `<article class="card">
   <div class="top">
@@ -142,7 +152,7 @@ function card(t){
    </div>
   </div>
   <div class="row">
-   <div class="box"><label>${sell?"Entry · below":"Entry · above"}</label><strong>${cash(e)}</strong></div>
+   <div class="box"><label>${esc(entryLbl)}</label><strong>${cash(e)}</strong></div>
    <div class="box cmp-box"><label>CMP (${esc(symLabel)})</label><strong>${cmp!=null?cash(cmp):"Unavailable"}</strong></div>
    <div class="box sl"><label>Stop Loss</label><strong>${cash(sl)}</strong></div>
   </div>
@@ -155,45 +165,69 @@ function card(t){
    <span>R:R T1 <b>1 : ${rr1.toFixed(2)}</b></span>
    <span>R:R last <b>1 : ${rrl.toFixed(2)}</b></span>
   </div>
+  ${t.idea?`<div class="note">${esc(t.idea)}</div>`:""}
   ${t.target_note?`<div class="note">Targets were given as points from entry; converted to prices.</div>`:""}
   ${t.check_levels?`<div class="warn">⚠ Levels look unusual (SL or targets on the wrong side of entry). Check the original post.</div>`:""}
   ${t.link&&t.link!=="#"?`<div style="margin-top:9px"><a href="${esc(t.link)}" target="_blank" rel="noopener">Open original post ↗</a></div>`:""}
  </article>`;
 }
 
+function head(){
+ document.getElementById("ttl").textContent=TITLES[tab][0];
+ document.getElementById("sub").textContent=TITLES[tab][1];
+ document.getElementById("t-sp").className="tab"+(tab==="sp"?" on":"");
+ document.getElementById("t-mo").className="tab"+(tab==="mo"?" on":"");
+ const u=document.getElementById("upd"),d=D[tab];
+ if(d){
+  const s=d.updated?new Date(d.updated).toLocaleString("en-IN"):"unknown";
+  u.innerHTML=(ok[tab]?"Refreshed":"Saved copy (offline)")+" · Data time: <b>"+esc(s)+"</b><br>App checked at: <b>"+esc(new Date().toLocaleTimeString("en-IN"))+"</b>";
+ }else{
+  u.textContent=tab==="mo"?"No Motilal Oswal data yet. Run the update workflow once.":"Could not load data. Check internet and tap Refresh.";
+ }
+}
+
 function render(){
- if(!data)return;
- const q=norm(query),cmpMap=data._cmp||{};
- const all=(data.trades||[]).map(t=>evalTrade(t,cmpMap));
+ head();
+ const d=D[tab],list=document.getElementById("list");
+ if(!d){list.innerHTML='<div class="empty">'+(tab==="mo"?"No Motilal Oswal data yet.":"Check your internet and tap Refresh.")+'</div>';return;}
+ const q=norm(query);
+ const all=(d.trades||[]).map(t=>evalTrade(t,cmpMap));
  const R=all.filter(t=>!q||norm((t.name||"")+" "+(t.symbol||"")+" "+(t.symbol_nse||"")+" "+(t.sym||"")).includes(q));
- document.getElementById("list").innerHTML=R.length?R.map(card).join(""):'<div class="empty">No positional trades found.</div>';
+ list.innerHTML=R.length?R.map(card).join(""):'<div class="empty">No trades found.</div>';
+}
+
+async function loadOne(k){
+ try{
+  const r=await fetch(BASE+FILES[k]+"?t="+Date.now(),{cache:"no-store"});
+  if(!r.ok)throw Error();
+  D[k]=await r.json();ok[k]=true;
+  try{localStorage.setItem(k+"_cache",JSON.stringify(D[k]));}catch(e){}
+ }catch(e){
+  ok[k]=false;
+  try{D[k]=JSON.parse(localStorage.getItem(k+"_cache")||"null");}catch(x){D[k]=null;}
+ }
 }
 
 async function load(){
- const u=document.getElementById("upd");let ok=false,cmpMap={};
  try{
-  const cr=await fetch(CMP_URL+"?t="+Date.now(),{cache:"no-store"});
+  const cr=await fetch(BASE+"cmp.json?t="+Date.now(),{cache:"no-store"});
   if(cr.ok){const cj=await cr.json();cmpMap=cj.prices||cj||{};}
  }catch(e){}
- try{
-  const r=await fetch(DATA_URL+"?t="+Date.now(),{cache:"no-store"});
-  if(!r.ok)throw Error();
-  data=await r.json();
-  data._cmp=cmpMap;
-  localStorage.setItem("sp_cache",JSON.stringify(data));
-  ok=true;
- }catch(e){
-  try{data=JSON.parse(localStorage.getItem("sp_cache")||"null");if(data&&Object.keys(cmpMap).length)data._cmp=cmpMap;}catch(x){data=null;}
- }
- if(data){render();
-  const s=data.updated?new Date(data.updated).toLocaleString("en-IN"):"unknown";
-  u.innerHTML=(ok?"Refreshed":"Saved copy (offline)")+" · Data time: <b>"+esc(s)+"</b><br>App checked at: <b>"+esc(new Date().toLocaleTimeString("en-IN"))+"</b>";
- }else{u.textContent="Could not load data. Check internet and tap Refresh.";document.getElementById("list").innerHTML='<div class="empty">Check your internet and tap Refresh.</div>';}
+ await Promise.all([loadOne("sp"),loadOne("mo")]);
+ render();
+}
+
+function setTab(k){
+ tab=k;
+ try{localStorage.setItem("sp_tab",k);}catch(e){}
+ render();
 }
 
 const qi=document.getElementById("q");
 ["input","keyup","change","search"].forEach(ev=>qi.addEventListener(ev,()=>{query=qi.value;render();}));
 document.getElementById("ref").addEventListener("click",load);
+document.getElementById("t-sp").addEventListener("click",()=>setTab("sp"));
+document.getElementById("t-mo").addEventListener("click",()=>setTab("mo"));
 
 load();
 setInterval(()=>{if(!document.hidden)load();},REFRESH_MS);
@@ -201,5 +235,3 @@ document.addEventListener("visibilitychange",()=>{if(!document.hidden)load();});
 </script>
 </body>
 </html>
-
-```
