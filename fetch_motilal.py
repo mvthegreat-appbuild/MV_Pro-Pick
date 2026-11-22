@@ -8,33 +8,91 @@ OUT = "motilal_trades.json"
 NUM = sp.NUM
 
 
+
 def parse_call(text):
-    """Read BUY/SELL + CMP + SL + TGT posts. Anything else is skipped."""
-    lines = [l.strip() for l in text.split("\n") if l.strip()]
+    """Keep only Delivery Idea and MOSt Overnight trade messages."""
+
+    lines = [line.strip() for line in text.split("\n") if line.strip()]
     body = "\n".join(lines)
-    m = re.search(r"(?im)^(BUY|SELL)\s+([A-Za-z0-9&\-\. ]{2,40})$", body)
+
+    # Accept only the two requested Motilal categories.
+    if re.search(r"(?i)\bConviction\s+Delivery\s+Idea\b", body):
+        category = "Delivery Idea"
+    elif re.search(r"(?i)\bDelivery\s+Idea\b", body):
+        category = "Delivery Idea"
+    elif re.search(r"(?i)\bMOSt\s+Overnight\b", body):
+        category = "MOSt Overnight"
+    else:
+        return None
+
+    # Find BUY or SELL and the stock name.
+    m = re.search(
+        r"(?im)^(BUY|SELL)\s+([A-Za-z0-9&\-. ]{2,40})$",
+        body
+    )
     if not m:
         return None
-    side, name = m.group(1).upper(), m.group(2).strip().upper()
+
+    side = m.group(1).upper()
+    name = m.group(2).strip().upper()
+
+    # Extract CMP, Stop Loss and Target.
     c = re.search(r"(?im)^CMP\s*[:\-]?\s*" + NUM, body)
-    s = re.search(r"(?im)^(?:SL|STOP\s*LOSS)\s*[:\-]?\s*" + NUM, body)
-    t = re.search(r"(?im)^(?:TGT|TARGETS?)\s*[:\-]?\s*([^\n]+)", body)
+    s = re.search(
+        r"(?im)^(?:SL|STOP\s*LOSS)\s*[:\-]?\s*" + NUM,
+        body
+    )
+    t = re.search(
+        r"(?im)^(?:TGT|TARGETS?)\s*[:\-]?\s*([^\n]+)",
+        body
+    )
+
     if not (c and s and t):
         return None
-    entry, sl = sp.num(c.group(1)), sp.num(s.group(1))
-    tl = re.sub(r"\([^)]*\)", "", t.group(1))
-    tl = re.sub(r"\d+(?:\.\d+)?\s*%", "", tl)
-    targets = [sp.num(x) for x in re.findall(r"\d[\d,]*(?:\.\d+)?", tl)]
+
+    entry = sp.num(c.group(1))
+    sl = sp.num(s.group(1))
+
+    target_text = re.sub(r"\([^)]*\)", "", t.group(1))
+    target_text = re.sub(r"\d+(?:\.\d+)?\s*%", "", target_text)
+
+    targets = [
+        sp.num(x)
+        for x in re.findall(r"\d[\d,]*(?:\.\d+)?", target_text)
+    ]
     targets = [x for x in targets if x]
+
     if not entry or not sl or not targets:
         return None
-    kind = lines[0] if not re.match(r"(?i)^(BUY|SELL)\s", lines[0]) and len(lines[0]) < 40 else ""
-    idea = " ".join(l[1:].strip() for l in lines if l.startswith("-"))[:220]
-    ok = (sl < entry < min(targets)) if side == "BUY" else (max(targets) < entry < sl)
-    return {"name": name, "symbol": name if " " not in name else "", "side": side,
-            "entry": sp.fmt(entry), "sl": sp.fmt(sl), "targets": [sp.fmt(x) for x in targets],
-            "target_note": "", "period": kind, "check_levels": not ok,
-            "entry_label": "Entry · CMP at call", "idea": idea}
+
+    # Preserve the message explanation where available.
+    idea = " ".join(
+        line.lstrip("-• ").strip()
+        for line in lines
+        if line.startswith(("-", "•"))
+    )[:500]
+
+    # Check whether the supplied levels are logically ordered.
+    valid_levels = (
+        sl < entry < min(targets)
+        if side == "BUY"
+        else max(targets) < entry < sl
+    )
+
+    return {
+        "name": name,
+        "symbol": name if " " not in name else "",
+        "side": side,
+        "category": category,
+        "entry": sp.fmt(entry),
+        "sl": sp.fmt(sl),
+        "targets": [sp.fmt(x) for x in targets],
+        "target_note": "",
+        "period": category,
+        "check_levels": not valid_levels,
+        "entry_label": "Entry · CMP at call",
+        "idea": idea
+    }
 
 
 def evaluate_mo(t, bars, cmp, now_dt, prev):
