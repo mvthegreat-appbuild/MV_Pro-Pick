@@ -83,6 +83,7 @@ function getTicker(t){
  return n.split(/[\s(]/)[0].replace(/[^A-Z0-9&-]/g,"");
 }
 
+
 function evalTrade(t,cmpMap){
  const e=num(t.entry),sl=num(t.sl),ts=(t.targets||[]).map(num),sell=t.side==="SELL";
  const sym=getTicker(t);
@@ -90,11 +91,13 @@ function evalTrade(t,cmpMap){
  const cmp=Number.isFinite(rawCmp)&&rawCmp>0?rawCmp:null;
  let hits=Number(t.targets_hit||0);
  let status=t.status||"";
+ const entered=!!t.entry_time||["active","target","sl"].includes(status);
  if(cmp!=null){
   const calcHits=ts.filter(x=>sell?cmp<=x:cmp>=x).length;
   if(calcHits>hits)hits=calcHits;
-  const slHit=Number.isFinite(sl)&&sl>0&&(sell?cmp>=sl:cmp<=sl);
-  if(slHit){
+  const slHit=entered&&Number.isFinite(sl)&&sl>0&&(sell?cmp>=sl:cmp<=sl);
+  if(status==="target"||status==="sl"){
+  }else if(slHit){
    status="sl";
   }else if(!status||status==="unknown"||status==="waiting"){
    if(hits>0)status="target";
