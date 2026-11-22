@@ -169,7 +169,9 @@ def main():
     prev_all = dict(old)
     old.update(trades)
     cutoff = (datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(days=KEEP_DAYS)).isoformat()
-    final = sorted((t for t in old.values() if not t.get("date") or t["date"] >= cutoff),
+    final = sorted((t for t in old.values()
+                if t.get("category") in ("Delivery Idea", "MOSt Overnight")
+                and (not t.get("date") or t["date"] >= cutoff)),
                    key=lambda t: t["id"], reverse=True)
     if not final and scanned == 0:
         print("nothing read; keeping old file")
