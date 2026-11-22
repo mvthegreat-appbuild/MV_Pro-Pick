@@ -1,11 +1,12 @@
 {
- "updated": "2026-11-22T03:31:34.820076+00:00",
+ "updated": "2026-11-22T04:23:39.447845+00:00",
  "channel": "motilaloswalofficial",
  "trades": [
   {
    "name": "POONAWALLA",
    "symbol": "POONAWALLA",
    "side": "BUY",
+   "category": "MOSt Overnight",
    "entry": "519.4",
    "sl": "505",
    "targets": [
@@ -19,11 +20,9 @@
    "id": 18550,
    "date": "2026-11-20T08:43:01+00:00",
    "link": "https://t.me/motilaloswalofficial/18550",
-   "symbol_nse": "POONAWALLA",
-   "cmp": 519.0,
-   "cmp_time": "2026-11-22T08:04:08.082036+05:30",
-   "status": "active",
-   "status_text": "Active",
+   "seen_high": null,
+   "seen_low": null,
+   "seen_close": null,
    "targets_hit": 0,
    "entry_time": "2026-11-20T08:43:01+00:00",
    "hit_time": null,
@@ -32,21 +31,24 @@
    "pnl_pct": -0.08,
    "upside_left_pct": 5.59,
    "to_entry_pct": null,
-   "seen_high": null,
-   "seen_low": null,
-   "seen_close": null
+   "status": "active",
+   "status_text": "Active",
+   "symbol_nse": "POONAWALLA",
+   "cmp": 519.0,
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   },
   {
    "name": "PERSISTENT",
    "symbol": "PERSISTENT",
    "side": "BUY",
+   "category": "Delivery Idea",
    "entry": "6192.5",
    "sl": "5930",
    "targets": [
     "6716"
    ],
    "target_note": "",
-   "period": "Conviction Delivery Idea",
+   "period": "Delivery Idea",
    "check_levels": false,
    "entry_label": "Entry · CMP at call",
    "idea": "The stock is nearing a range breakout, accompanied by a surge in volumes, while strong momentum in the IT sector further supports the bullish outlook.",
@@ -68,19 +70,20 @@
    "status_text": "Active",
    "symbol_nse": "PERSISTENT",
    "cmp": 6124.0,
-   "cmp_time": "2026-11-22T09:00:42.766248+05:30"
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   },
   {
    "name": "MEESHO",
    "symbol": "MEESHO",
    "side": "BUY",
+   "category": "Delivery Idea",
    "entry": "258.74",
    "sl": "248",
    "targets": [
     "279.92"
    ],
    "target_note": "",
-   "period": "Conviction Delivery Idea",
+   "period": "Delivery Idea",
    "check_levels": false,
    "entry_label": "Entry · CMP at call",
    "idea": "Stock is on the verge of a range breakout and has bounced back from its 50 DEMA.",
@@ -102,19 +105,20 @@
    "status_text": "Active",
    "symbol_nse": "MEESHO",
    "cmp": 260.39,
-   "cmp_time": "2026-11-22T09:00:42.766248+05:30"
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   },
   {
    "name": "GAIL",
    "symbol": "GAIL",
    "side": "BUY",
+   "category": "Delivery Idea",
    "entry": "190.45",
    "sl": "185",
    "targets": [
     "200"
    ],
    "target_note": "",
-   "period": "Conviction Delivery Idea",
+   "period": "Delivery Idea",
    "check_levels": false,
    "entry_label": "Entry · CMP at call",
    "idea": "Breakout from bullish flag pattern hints at a continuation of uptrend",
@@ -136,12 +140,13 @@
    "status_text": "Active",
    "symbol_nse": "GAIL",
    "cmp": 191.44,
-   "cmp_time": "2026-11-22T09:00:42.766248+05:30"
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   },
   {
    "name": "COFORGE",
    "symbol": "COFORGE",
    "side": "BUY",
+   "category": "MOSt Overnight",
    "entry": "2055",
    "sl": "1990",
    "targets": [
@@ -170,19 +175,20 @@
    "status_text": "Active",
    "symbol_nse": "COFORGE",
    "cmp": 2086.7,
-   "cmp_time": "2026-11-22T09:00:42.766248+05:30"
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   },
   {
    "name": "CDSL",
    "symbol": "CDSL",
    "side": "BUY",
+   "category": "Delivery Idea",
    "entry": "1458",
    "sl": "1408",
    "targets": [
     "1558"
    ],
    "target_note": "",
-   "period": "Conviction Delivery Idea",
+   "period": "Delivery Idea",
    "check_levels": false,
    "entry_label": "Entry · CMP at call",
    "idea": "Outperformance in Capital Market theme, stock has given a breakout from consolidation phase",
@@ -204,19 +210,20 @@
    "status_text": "Stop loss hit",
    "symbol_nse": "CDSL",
    "cmp": 1430.0,
-   "cmp_time": "2026-11-22T09:00:42.766248+05:30"
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   },
   {
    "name": "APLAPOLLO",
    "symbol": "APLAPOLLO",
    "side": "BUY",
+   "category": "Delivery Idea",
    "entry": "2284.8",
    "sl": "2200",
    "targets": [
     "2461"
    ],
    "target_note": "",
-   "period": "Conviction Delivery Idea",
+   "period": "Delivery Idea",
    "check_levels": false,
    "entry_label": "Entry · CMP at call",
    "idea": "Range breakout on daily chart.",
@@ -238,12 +245,13 @@
    "status_text": "Stop loss hit",
    "symbol_nse": "APLAPOLLO",
    "cmp": 2121.6,
-   "cmp_time": "2026-11-22T09:00:42.766248+05:30"
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   },
   {
    "name": "MOLBIO",
    "symbol": "MOLBIO",
    "side": "BUY",
+   "category": "MOSt Overnight",
    "entry": "1529.9",
    "sl": "1488",
    "targets": [
@@ -272,19 +280,20 @@
    "status_text": "Stop loss hit",
    "symbol_nse": "MOLBIO",
    "cmp": 1495.0,
-   "cmp_time": "2026-11-22T09:00:42.766248+05:30"
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   },
   {
    "name": "MCX",
    "symbol": "MCX",
    "side": "BUY",
+   "category": "Delivery Idea",
    "entry": "3593.8",
    "sl": "3448",
    "targets": [
     "3889"
    ],
    "target_note": "",
-   "period": "Conviction Delivery Idea",
+   "period": "Delivery Idea",
    "check_levels": false,
    "entry_label": "Entry · CMP at call",
    "idea": "The stock has confirmed a range breakout on the daily chart and witnessed a strong rebound from its 100-DEMA support, reinforcing the positive technical setup.",
@@ -306,19 +315,20 @@
    "status_text": "Active",
    "symbol_nse": "MCX",
    "cmp": 3535.0,
-   "cmp_time": "2026-11-22T09:00:42.766248+05:30"
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   },
   {
    "name": "INDIGO",
    "symbol": "INDIGO",
    "side": "BUY",
+   "category": "Delivery Idea",
    "entry": "5568",
    "sl": "5390",
    "targets": [
     "5966"
    ],
    "target_note": "",
-   "period": "Conviction Delivery Idea",
+   "period": "Delivery Idea",
    "check_levels": false,
    "entry_label": "Entry · CMP at call",
    "idea": "Breakout above resistance with a gap as crude oil prices decline",
@@ -340,19 +350,20 @@
    "status_text": "Active",
    "symbol_nse": "INDIGO",
    "cmp": 5587.6,
-   "cmp_time": "2026-11-22T09:00:42.766248+05:30"
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   },
   {
    "name": "UNIONBANK",
    "symbol": "UNIONBANK",
    "side": "BUY",
+   "category": "Delivery Idea",
    "entry": "191.1",
    "sl": "185",
    "targets": [
     "203"
    ],
    "target_note": "",
-   "period": "Conviction Delivery Idea",
+   "period": "Delivery Idea",
    "check_levels": false,
    "entry_label": "Entry · CMP at call",
    "idea": "Inverse H&S breakout on weekly chart.",
@@ -374,12 +385,13 @@
    "status_text": "Target hit",
    "symbol_nse": "UNIONBANK",
    "cmp": 218.85,
-   "cmp_time": "2026-11-22T09:00:42.766248+05:30"
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   },
   {
    "name": "GLENMARK",
    "symbol": "GLENMARK",
    "side": "BUY",
+   "category": "MOSt Overnight",
    "entry": "2655.7",
    "sl": "2575",
    "targets": [
@@ -408,19 +420,20 @@
    "status_text": "Stop loss hit",
    "symbol_nse": "GLENMARK",
    "cmp": 2648.0,
-   "cmp_time": "2026-11-22T09:00:42.766248+05:30"
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   },
   {
    "name": "HCLTECH",
    "symbol": "HCLTECH",
    "side": "BUY",
+   "category": "Delivery Idea",
    "entry": "1462",
    "sl": "1398",
    "targets": [
     "1590"
    ],
    "target_note": "",
-   "period": "Conviction Delivery Idea",
+   "period": "Delivery Idea",
    "check_levels": false,
    "entry_label": "Entry · CMP at call",
    "idea": "Stock is on the verge of a consolidation breakout",
@@ -442,19 +455,20 @@
    "status_text": "Stop loss hit",
    "symbol_nse": "HCLTECH",
    "cmp": 1344.4,
-   "cmp_time": "2026-11-22T09:00:42.766248+05:30"
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   },
   {
    "name": "PAYTM",
    "symbol": "PAYTM",
    "side": "BUY",
+   "category": "Delivery Idea",
    "entry": "1760",
    "sl": "1695",
    "targets": [
     "1894.2"
    ],
    "target_note": "",
-   "period": "Conviction delivery idea",
+   "period": "Delivery Idea",
    "check_levels": false,
    "entry_label": "Entry · CMP at call",
    "idea": "due to consolidation breakout and 50 DEMA bounce.",
@@ -476,12 +490,13 @@
    "status_text": "Target hit",
    "symbol_nse": "PAYTM",
    "cmp": 1740.0,
-   "cmp_time": "2026-11-22T09:00:42.766248+05:30"
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   },
   {
    "name": "LALPATHLAB",
    "symbol": "LALPATHLAB",
    "side": "BUY",
+   "category": "MOSt Overnight",
    "entry": "2025.2",
    "sl": "1958",
    "targets": [
@@ -510,12 +525,13 @@
    "status_text": "Stop loss hit",
    "symbol_nse": "LALPATHLAB",
    "cmp": 1989.0,
-   "cmp_time": "2026-11-22T09:00:42.766248+05:30"
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   },
   {
    "name": "SAREGAMA",
    "symbol": "SAREGAMA",
    "side": "BUY",
+   "category": "MOSt Overnight",
    "entry": "626.7",
    "sl": "602",
    "targets": [
@@ -544,19 +560,20 @@
    "status_text": "Target hit",
    "symbol_nse": "SAREGAMA",
    "cmp": 666.0,
-   "cmp_time": "2026-11-22T09:00:42.766248+05:30"
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   },
   {
    "name": "ADANIPORTS",
    "symbol": "ADANIPORTS",
    "side": "BUY",
+   "category": "Delivery Idea",
    "entry": "1884.6",
    "sl": "1812",
    "targets": [
     "2025"
    ],
    "target_note": "",
-   "period": "Conviction Delivery Idea",
+   "period": "Delivery Idea",
    "check_levels": false,
    "entry_label": "Entry · CMP at call",
    "idea": "Follow up move post recent breakout hints at a continuation of uptrend",
@@ -578,12 +595,13 @@
    "status_text": "Active",
    "symbol_nse": "ADANIPORTS",
    "cmp": 1917.0,
-   "cmp_time": "2026-11-22T09:00:42.766248+05:30"
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   },
   {
    "name": "BSE",
    "symbol": "BSE",
    "side": "BUY",
+   "category": "MOSt Overnight",
    "entry": "3652.7",
    "sl": "3538",
    "targets": [
@@ -612,7 +630,7 @@
    "status_text": "Target hit",
    "symbol_nse": "BSE",
    "cmp": 3781.0,
-   "cmp_time": "2026-11-22T09:00:42.766248+05:30"
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   },
   {
    "name": "CHENNPETRO",
@@ -646,12 +664,13 @@
    "status_text": "Stop loss hit",
    "symbol_nse": "CHENNPETRO",
    "cmp": 1420.0,
-   "cmp_time": "2026-11-22T09:00:42.766248+05:30"
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   },
   {
    "name": "CASTROLIND",
    "symbol": "CASTROLIND",
    "side": "BUY",
+   "category": "MOSt Overnight",
    "entry": "195.63",
    "sl": "189",
    "targets": [
@@ -680,19 +699,20 @@
    "status_text": "Active",
    "symbol_nse": "CASTROLIND",
    "cmp": 190.25,
-   "cmp_time": "2026-11-22T09:00:42.766248+05:30"
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   },
   {
    "name": "ZENSARTECH",
    "symbol": "ZENSARTECH",
    "side": "BUY",
+   "category": "Delivery Idea",
    "entry": "551.55",
    "sl": "528",
    "targets": [
     "598.65"
    ],
    "target_note": "",
-   "period": "Conviction Delivery Idea",
+   "period": "Delivery Idea",
    "check_levels": false,
    "entry_label": "Entry · CMP at call",
    "idea": "The stock is nearing a range breakout and has surpassed its 200-DEMA, indicating improving bullish momentum",
@@ -714,19 +734,20 @@
    "status_text": "Stop loss hit",
    "symbol_nse": "ZENSARTECH",
    "cmp": 529.0,
-   "cmp_time": "2026-11-22T09:00:42.766248+05:30"
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   },
   {
    "name": "ZYDUSLIFE",
    "symbol": "ZYDUSLIFE",
    "side": "BUY",
+   "category": "Delivery Idea",
    "entry": "1219.1",
    "sl": "1160",
    "targets": [
     "1337"
    ],
    "target_note": "",
-   "period": "Conviction Delivery Idea",
+   "period": "Delivery Idea",
    "check_levels": false,
    "entry_label": "Entry · CMP at call",
    "idea": "On the verge of giving range breakout above 1232 marks.",
@@ -748,19 +769,20 @@
    "status_text": "Active",
    "symbol_nse": "ZYDUSLIFE",
    "cmp": 1200.0,
-   "cmp_time": "2026-11-22T09:00:42.766248+05:30"
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   },
   {
    "name": "ETERNAL",
    "symbol": "ETERNAL",
    "side": "BUY",
+   "category": "Delivery Idea",
    "entry": "340.55",
    "sl": "326",
    "targets": [
     "370.1"
    ],
    "target_note": "",
-   "period": "Conviction Delivery Idea",
+   "period": "Delivery Idea",
    "check_levels": false,
    "entry_label": "Entry · CMP at call",
    "idea": "The stock has confirmed a triangle breakout on the weekly chart and continues to hold firmly above its 20-WEMA support, reinforcing the positive technical setup and indicating sustained bullish momentum.",
@@ -782,12 +804,13 @@
    "status_text": "Target hit",
    "symbol_nse": "ETERNAL",
    "cmp": 364.0,
-   "cmp_time": "2026-11-22T09:00:42.766248+05:30"
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   },
   {
    "name": "SHADOWFAX",
    "symbol": "SHADOWFAX",
    "side": "BUY",
+   "category": "MOSt Overnight",
    "entry": "299.1",
    "sl": "287",
    "targets": [
@@ -816,19 +839,20 @@
    "status_text": "Stop loss hit",
    "symbol_nse": "SHADOWFAX",
    "cmp": 305.0,
-   "cmp_time": "2026-11-22T09:00:42.766248+05:30"
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   },
   {
    "name": "GESHIP",
    "symbol": "GESHIP",
    "side": "BUY",
+   "category": "Delivery Idea",
    "entry": "1608",
    "sl": "1550",
    "targets": [
     "1730"
    ],
    "target_note": "",
-   "period": "Conviction Delivery Idea",
+   "period": "Delivery Idea",
    "check_levels": false,
    "entry_label": "Entry · CMP at call",
    "idea": "Breakout from consolidation",
@@ -850,12 +874,13 @@
    "status_text": "Stop loss hit",
    "symbol_nse": "GESHIP",
    "cmp": 1531.0,
-   "cmp_time": "2026-11-22T09:00:42.766248+05:30"
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   },
   {
    "name": "SMSPHARMA",
    "symbol": "SMSPHARMA",
    "side": "BUY",
+   "category": "MOSt Overnight",
    "entry": "466.7",
    "sl": "452",
    "targets": [
@@ -884,19 +909,20 @@
    "status_text": "Target hit",
    "symbol_nse": "SMSPHARMA",
    "cmp": 477.0,
-   "cmp_time": "2026-11-22T09:00:42.766248+05:30"
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   },
   {
    "name": "DRREDDY",
    "symbol": "DRREDDY",
    "side": "BUY",
+   "category": "Delivery Idea",
    "entry": "1322.1",
    "sl": "1268",
    "targets": [
     "1431.2"
    ],
    "target_note": "",
-   "period": "Conviction Delivery Idea",
+   "period": "Delivery Idea",
    "check_levels": false,
    "entry_label": "Entry · CMP at call",
    "idea": "The stock on the verge of a range breakout and has surpassed its 200-DEMA, backed by surging volumes, indicating strengthening bullish momentum and reinforcing the positive technical setup.",
@@ -918,19 +944,20 @@
    "status_text": "Active",
    "symbol_nse": "DRREDDY",
    "cmp": 1390.2,
-   "cmp_time": "2026-11-22T09:00:42.766248+05:30"
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   },
   {
    "name": "LENSKART",
    "symbol": "LENSKART",
    "side": "BUY",
+   "category": "Delivery Idea",
    "entry": "690",
    "sl": "658",
    "targets": [
     "754"
    ],
    "target_note": "",
-   "period": "Conviction Delivery Idea",
+   "period": "Delivery Idea",
    "check_levels": false,
    "entry_label": "Entry · CMP at call",
    "idea": "The stock continues to form a higher-high, higher-low structure and has witnessed a strong rebound from its 100-DEMA support, indicating sustained bullish momentum and reinforcing the positive technical setup.",
@@ -952,19 +979,20 @@
    "status_text": "Stop loss hit",
    "symbol_nse": "LENSKART",
    "cmp": 739.0,
-   "cmp_time": "2026-11-22T09:00:42.766248+05:30"
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   },
   {
    "name": "SONACOMS",
    "symbol": "SONACOMS",
    "side": "BUY",
+   "category": "Delivery Idea",
    "entry": "847.35",
    "sl": "808",
    "targets": [
     "927.4"
    ],
    "target_note": "",
-   "period": "Conviction Delivery Idea",
+   "period": "Delivery Idea",
    "check_levels": false,
    "entry_label": "Entry · CMP at call",
    "idea": "The stock has confirmed a consolidation breakout, backed by robust volumes, to trade at its  All-time high levels and has bounced back from its 100-DEMA support, indicating strengthening bullish momentum.",
@@ -986,12 +1014,13 @@
    "status_text": "Target hit",
    "symbol_nse": "SONACOMS",
    "cmp": 892.5,
-   "cmp_time": "2026-11-22T09:00:42.766248+05:30"
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   },
   {
    "name": "TATAELXSI",
    "symbol": "TATAELXSI",
    "side": "BUY",
+   "category": "MOSt Overnight",
    "entry": "3824",
    "sl": "3765",
    "targets": [
@@ -1020,7 +1049,7 @@
    "status_text": "Stop loss hit",
    "symbol_nse": "TATAELXSI",
    "cmp": 3850.0,
-   "cmp_time": "2026-11-22T09:00:42.766248+05:30"
+   "cmp_time": "2026-11-22T09:53:02.713833+05:30"
   }
  ]
 }
