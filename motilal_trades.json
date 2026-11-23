@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T09:48:27.687042+00:00",
+ "updated": "2026-11-23T10:53:18.243188+00:00",
  "channel": "motilaloswalofficial",
  "trades": [
   {
@@ -21,21 +21,21 @@
    "date": "2026-11-23T08:20:12+00:00",
    "link": "https://t.me/motilaloswalofficial/18556",
    "seen_high": 403.35,
-   "seen_low": 403.35,
-   "seen_close": 403.35,
+   "seen_low": 402.5,
+   "seen_close": 402.5,
    "targets_hit": 0,
    "entry_time": "2026-11-23T08:20:12+00:00",
    "hit_time": null,
    "sl_time": null,
    "realised_pct": null,
-   "pnl_pct": 2.11,
-   "upside_left_pct": 4.23,
+   "pnl_pct": 1.9,
+   "upside_left_pct": 4.45,
    "to_entry_pct": null,
    "status": "active",
    "status_text": "Active",
    "symbol_nse": "RATNAVEER",
-   "cmp": 403.35,
-   "cmp_time": "2026-11-23T15:17:48.473694+05:30"
+   "cmp": 402.5,
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   },
   {
    "name": "TECHM",
@@ -56,21 +56,21 @@
    "date": "2026-11-23T05:02:30+00:00",
    "link": "https://t.me/motilaloswalofficial/18553",
    "seen_high": 1798.3,
-   "seen_low": 1782.9,
-   "seen_close": 1782.9,
+   "seen_low": 1777.5,
+   "seen_close": 1777.5,
    "targets_hit": 0,
    "entry_time": "2026-11-23T05:02:30+00:00",
    "hit_time": null,
    "sl_time": null,
    "realised_pct": null,
-   "pnl_pct": -0.87,
-   "upside_left_pct": 9.12,
+   "pnl_pct": -1.17,
+   "upside_left_pct": 9.45,
    "to_entry_pct": null,
    "status": "active",
    "status_text": "Active",
    "symbol_nse": "TECHM",
-   "cmp": 1782.9,
-   "cmp_time": "2026-11-23T15:17:48.473694+05:30"
+   "cmp": 1777.5,
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   },
   {
    "name": "POONAWALLA",
@@ -98,14 +98,14 @@
    "hit_time": null,
    "sl_time": null,
    "realised_pct": null,
-   "pnl_pct": -0.85,
-   "upside_left_pct": 6.41,
+   "pnl_pct": 0.12,
+   "upside_left_pct": 5.38,
    "to_entry_pct": null,
    "status": "active",
    "status_text": "Active",
    "symbol_nse": "POONAWALLA",
-   "cmp": 515.0,
-   "cmp_time": "2026-11-23T15:17:48.473694+05:30"
+   "cmp": 520.0,
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   },
   {
    "name": "PERSISTENT",
@@ -133,14 +133,14 @@
    "hit_time": null,
    "sl_time": null,
    "realised_pct": null,
-   "pnl_pct": 1.86,
-   "upside_left_pct": 6.48,
+   "pnl_pct": 1.45,
+   "upside_left_pct": 6.9,
    "to_entry_pct": null,
    "status": "active",
    "status_text": "Active",
    "symbol_nse": "PERSISTENT",
-   "cmp": 6307.5,
-   "cmp_time": "2026-11-23T15:17:48.473694+05:30"
+   "cmp": 6282.5,
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   },
   {
    "name": "MEESHO",
@@ -168,14 +168,14 @@
    "hit_time": null,
    "sl_time": null,
    "realised_pct": null,
-   "pnl_pct": -2.23,
-   "upside_left_pct": 10.66,
+   "pnl_pct": -1.81,
+   "upside_left_pct": 10.18,
    "to_entry_pct": null,
    "status": "active",
    "status_text": "Active",
    "symbol_nse": "MEESHO",
-   "cmp": 252.96,
-   "cmp_time": "2026-11-23T15:17:48.473694+05:30"
+   "cmp": 254.06,
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   },
   {
    "name": "GAIL",
@@ -203,14 +203,14 @@
    "hit_time": null,
    "sl_time": null,
    "realised_pct": null,
-   "pnl_pct": -2.38,
-   "upside_left_pct": 7.57,
+   "pnl_pct": -2.55,
+   "upside_left_pct": 7.76,
    "to_entry_pct": null,
    "status": "active",
    "status_text": "Active",
    "symbol_nse": "GAIL",
-   "cmp": 185.92,
-   "cmp_time": "2026-11-23T15:17:48.473694+05:30"
+   "cmp": 185.6,
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   },
   {
    "name": "COFORGE",
@@ -238,14 +238,14 @@
    "hit_time": null,
    "sl_time": null,
    "realised_pct": null,
-   "pnl_pct": 4.59,
-   "upside_left_pct": 1.66,
+   "pnl_pct": 1.54,
+   "upside_left_pct": 4.71,
    "to_entry_pct": null,
    "status": "active",
    "status_text": "Active",
    "symbol_nse": "COFORGE",
-   "cmp": 2149.3,
-   "cmp_time": "2026-11-23T15:17:48.473694+05:30"
+   "cmp": 2086.7,
+   "cmp_time": "2026-11-20"
   },
   {
    "name": "CDSL",
@@ -274,13 +274,13 @@
    "sl_time": "2026-11-18",
    "realised_pct": -3.43,
    "pnl_pct": null,
-   "upside_left_pct": 11.64,
+   "upside_left_pct": 11.68,
    "to_entry_pct": null,
    "status": "sl",
    "status_text": "Stop loss hit",
    "symbol_nse": "CDSL",
-   "cmp": 1395.6,
-   "cmp_time": "2026-11-23T15:17:48.473694+05:30"
+   "cmp": 1395.0,
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   },
   {
    "name": "APLAPOLLO",
@@ -309,13 +309,13 @@
    "sl_time": "2026-11-17",
    "realised_pct": -3.71,
    "pnl_pct": null,
-   "upside_left_pct": 48.35,
+   "upside_left_pct": 47.37,
    "to_entry_pct": null,
    "status": "sl",
    "status_text": "Stop loss hit",
    "symbol_nse": "APLAPOLLO",
-   "cmp": 1658.9,
-   "cmp_time": "2026-11-23T15:17:48.473694+05:30"
+   "cmp": 1670.0,
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   },
   {
    "name": "MOLBIO",
@@ -344,13 +344,13 @@
    "sl_time": "2026-11-16",
    "realised_pct": -2.74,
    "pnl_pct": null,
-   "upside_left_pct": 11.18,
+   "upside_left_pct": 11.76,
    "to_entry_pct": null,
    "status": "sl",
    "status_text": "Stop loss hit",
    "symbol_nse": "MOLBIO",
-   "cmp": 1448.4,
-   "cmp_time": "2026-11-23T15:17:48.473694+05:30"
+   "cmp": 1441.0,
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   },
   {
    "name": "MCX",
@@ -378,14 +378,14 @@
    "hit_time": null,
    "sl_time": null,
    "realised_pct": null,
-   "pnl_pct": -0.43,
-   "upside_left_pct": 8.69,
+   "pnl_pct": -0.34,
+   "upside_left_pct": 8.58,
    "to_entry_pct": null,
    "status": "active",
    "status_text": "Active",
    "symbol_nse": "MCX",
-   "cmp": 3578.2,
-   "cmp_time": "2026-11-23T15:17:48.473694+05:30"
+   "cmp": 3581.6,
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   },
   {
    "name": "INDIGO",
@@ -413,14 +413,14 @@
    "hit_time": null,
    "sl_time": null,
    "realised_pct": null,
-   "pnl_pct": -0.84,
-   "upside_left_pct": 8.06,
+   "pnl_pct": -0.81,
+   "upside_left_pct": 8.02,
    "to_entry_pct": null,
    "status": "active",
    "status_text": "Active",
    "symbol_nse": "INDIGO",
-   "cmp": 5521.0,
-   "cmp_time": "2026-11-23T15:17:48.473694+05:30"
+   "cmp": 5523.0,
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   },
   {
    "name": "UNIONBANK",
@@ -454,8 +454,8 @@
    "status": "target",
    "status_text": "Target hit",
    "symbol_nse": "UNIONBANK",
-   "cmp": 208.15,
-   "cmp_time": "2026-11-23T15:17:48.473694+05:30"
+   "cmp": 208.2,
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   },
   {
    "name": "GLENMARK",
@@ -484,13 +484,13 @@
    "sl_time": "2026-11-09",
    "realised_pct": -3.04,
    "pnl_pct": null,
-   "upside_left_pct": 6.39,
+   "upside_left_pct": 6.03,
    "to_entry_pct": null,
    "status": "sl",
    "status_text": "Stop loss hit",
    "symbol_nse": "GLENMARK",
-   "cmp": 2648.0,
-   "cmp_time": "2026-11-20"
+   "cmp": 2657.0,
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   },
   {
    "name": "HCLTECH",
@@ -519,13 +519,13 @@
    "sl_time": "2026-11-09",
    "realised_pct": -4.38,
    "pnl_pct": null,
-   "upside_left_pct": 16.36,
+   "upside_left_pct": 16.54,
    "to_entry_pct": null,
    "status": "sl",
    "status_text": "Stop loss hit",
    "symbol_nse": "HCLTECH",
-   "cmp": 1366.4,
-   "cmp_time": "2026-11-23T15:17:48.473694+05:30"
+   "cmp": 1364.3,
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   },
   {
    "name": "PAYTM",
@@ -559,8 +559,8 @@
    "status": "target",
    "status_text": "Target hit",
    "symbol_nse": "PAYTM",
-   "cmp": 1735.0,
-   "cmp_time": "2026-11-23T15:17:48.473694+05:30"
+   "cmp": 1730.6,
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   },
   {
    "name": "LALPATHLAB",
@@ -589,13 +589,13 @@
    "sl_time": "2026-11-05",
    "realised_pct": -3.32,
    "pnl_pct": null,
-   "upside_left_pct": 6.01,
+   "upside_left_pct": 5.96,
    "to_entry_pct": null,
    "status": "sl",
    "status_text": "Stop loss hit",
    "symbol_nse": "LALPATHLAB",
-   "cmp": 2038.1,
-   "cmp_time": "2026-11-23T15:17:48.473694+05:30"
+   "cmp": 2039.0,
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   },
   {
    "name": "SAREGAMA",
@@ -629,8 +629,8 @@
    "status": "target",
    "status_text": "Target hit",
    "symbol_nse": "SAREGAMA",
-   "cmp": 656.1,
-   "cmp_time": "2026-11-23T15:17:48.473694+05:30"
+   "cmp": 660.0,
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   },
   {
    "name": "ADANIPORTS",
@@ -665,7 +665,7 @@
    "status_text": "Active",
    "symbol_nse": "ADANIPORTS",
    "cmp": 1919.0,
-   "cmp_time": "2026-11-23T15:17:48.473694+05:30"
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   },
   {
    "name": "BSE",
@@ -699,8 +699,8 @@
    "status": "target",
    "status_text": "Target hit",
    "symbol_nse": "BSE",
-   "cmp": 3752.0,
-   "cmp_time": "2026-11-23T15:17:48.473694+05:30"
+   "cmp": 3757.0,
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   },
   {
    "name": "CASTROLIND",
@@ -728,14 +728,14 @@
    "hit_time": null,
    "sl_time": null,
    "realised_pct": null,
-   "pnl_pct": -2.69,
-   "upside_left_pct": 9.75,
+   "pnl_pct": -2.62,
+   "upside_left_pct": 9.67,
    "to_entry_pct": null,
    "status": "active",
    "status_text": "Active",
    "symbol_nse": "CASTROLIND",
-   "cmp": 190.36,
-   "cmp_time": "2026-11-23T15:17:48.473694+05:30"
+   "cmp": 190.5,
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   },
   {
    "name": "ZENSARTECH",
@@ -764,13 +764,13 @@
    "sl_time": "2026-11-04",
    "realised_pct": -4.27,
    "pnl_pct": null,
-   "upside_left_pct": 13.16,
+   "upside_left_pct": 12.85,
    "to_entry_pct": null,
    "status": "sl",
    "status_text": "Stop loss hit",
    "symbol_nse": "ZENSARTECH",
-   "cmp": 529.05,
-   "cmp_time": "2026-11-20"
+   "cmp": 530.5,
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   },
   {
    "name": "ZYDUSLIFE",
@@ -798,14 +798,14 @@
    "hit_time": null,
    "sl_time": null,
    "realised_pct": null,
-   "pnl_pct": -1.44,
-   "upside_left_pct": 11.28,
+   "pnl_pct": -1.61,
+   "upside_left_pct": 11.46,
    "to_entry_pct": null,
    "status": "active",
    "status_text": "Active",
    "symbol_nse": "ZYDUSLIFE",
-   "cmp": 1201.5,
-   "cmp_time": "2026-11-23T15:17:48.473694+05:30"
+   "cmp": 1199.5,
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   },
   {
    "name": "ETERNAL",
@@ -839,8 +839,8 @@
    "status": "target",
    "status_text": "Target hit",
    "symbol_nse": "ETERNAL",
-   "cmp": 363.7,
-   "cmp_time": "2026-11-23T15:17:48.473694+05:30"
+   "cmp": 362.1,
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   },
   {
    "name": "SHADOWFAX",
@@ -869,13 +869,13 @@
    "sl_time": "2026-10-30",
    "realised_pct": -4.05,
    "pnl_pct": null,
-   "upside_left_pct": 5.03,
+   "upside_left_pct": 6.11,
    "to_entry_pct": null,
    "status": "sl",
    "status_text": "Stop loss hit",
    "symbol_nse": "SHADOWFAX",
-   "cmp": 307.4,
-   "cmp_time": "2026-11-23T15:17:48.473694+05:30"
+   "cmp": 304.25,
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   },
   {
    "name": "GESHIP",
@@ -904,13 +904,13 @@
    "sl_time": "2026-11-03",
    "realised_pct": -3.61,
    "pnl_pct": null,
-   "upside_left_pct": 12.45,
+   "upside_left_pct": 12.16,
    "to_entry_pct": null,
    "status": "sl",
    "status_text": "Stop loss hit",
    "symbol_nse": "GESHIP",
-   "cmp": 1538.4,
-   "cmp_time": "2026-11-23T15:17:48.473694+05:30"
+   "cmp": 1542.5,
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   },
   {
    "name": "SMSPHARMA",
@@ -944,8 +944,8 @@
    "status": "target",
    "status_text": "Target hit",
    "symbol_nse": "SMSPHARMA",
-   "cmp": 465.6,
-   "cmp_time": "2026-11-23T15:17:48.473694+05:30"
+   "cmp": 468.7,
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   },
   {
    "name": "DRREDDY",
@@ -973,14 +973,14 @@
    "hit_time": null,
    "sl_time": null,
    "realised_pct": null,
-   "pnl_pct": 4.5,
-   "upside_left_pct": 3.59,
+   "pnl_pct": 4.39,
+   "upside_left_pct": 3.7,
    "to_entry_pct": null,
    "status": "active",
    "status_text": "Active",
    "symbol_nse": "DRREDDY",
-   "cmp": 1381.6,
-   "cmp_time": "2026-11-23T15:17:48.473694+05:30"
+   "cmp": 1380.1,
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   },
   {
    "name": "LENSKART",
@@ -1009,13 +1009,13 @@
    "sl_time": "2026-11-02",
    "realised_pct": -4.64,
    "pnl_pct": null,
-   "upside_left_pct": 5.63,
+   "upside_left_pct": 5.32,
    "to_entry_pct": null,
    "status": "sl",
    "status_text": "Stop loss hit",
    "symbol_nse": "LENSKART",
-   "cmp": 713.8,
-   "cmp_time": "2026-11-23T15:17:48.473694+05:30"
+   "cmp": 715.9,
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   },
   {
    "name": "SONACOMS",
@@ -1049,8 +1049,8 @@
    "status": "target",
    "status_text": "Target hit",
    "symbol_nse": "SONACOMS",
-   "cmp": 886.35,
-   "cmp_time": "2026-11-23T15:17:48.473694+05:30"
+   "cmp": 886.0,
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   },
   {
    "name": "TATAELXSI",
@@ -1079,13 +1079,13 @@
    "sl_time": "2026-10-23",
    "realised_pct": -1.54,
    "pnl_pct": null,
-   "upside_left_pct": 2.72,
+   "upside_left_pct": 3.13,
    "to_entry_pct": null,
    "status": "sl",
    "status_text": "Stop loss hit",
    "symbol_nse": "TATAELXSI",
-   "cmp": 3837.8,
-   "cmp_time": "2026-11-23T15:17:48.473694+05:30"
+   "cmp": 3822.4,
+   "cmp_time": "2026-11-23T16:22:37.483903+05:30"
   }
  ]
 }
