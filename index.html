@@ -43,6 +43,35 @@ a{color:#70d3ff;text-decoration:none;font-size:11px}
 .empty{padding:25px;text-align:center;color:var(--muted);background:var(--panel);border-radius:14px}
 .btn{border:1px solid #168565;background:#12624d;color:#8af4c9;border-radius:9px;padding:9px 13px;font-size:11px;font-weight:700;cursor:pointer}
 .foot{max-width:850px;margin:auto;padding:10px 14px 0;color:#71839c;font-size:10px;line-height:1.6}
+ /* GROWW MTF - ADDITION ONLY */
+.tabs{
+  overflow-x:auto;
+  flex-wrap:nowrap;
+  scrollbar-width:none;
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;min-width:105px}
+#mtfPanel{display:none}
+.mtf-section{background:linear-gradient(145deg,#172740,#101a2b);border:1px solid #293d59;border-radius:15px;padding:14px;margin:12px 0}
+.mtf-title{font-size:17px;font-weight:800;margin-bottom:14px;color:#8af4c9}
+.mtf-stock-label{display:block;font-size:13px;margin-bottom:8px}
+.mtf-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mtf-field label{display:block;font-size:11px;color:#91a2bb;margin-bottom:5px}
+.mtf-field input{margin:0;padding:11px}
+.mtf-calc{margin-top:13px;padding:9px 14px}
+.mtf-results{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}
+.mtf-result{padding:13px;border-radius:12px;background:#0c1729;border:1px solid #293b56}
+.mtf-result small{display:block;color:#91a2bb;font-size:11px}
+.mtf-result strong{display:block;font-size:17px;margin-top:7px}
+.mtf-green strong{color:#35dda2}
+.mtf-blue strong{color:#70d3ff}
+.mtf-yellow strong{color:#ffd17d}
+.mtf-purple strong{color:#c6a5ff}
+.mtf-charges{margin-top:14px}
+.mtf-charges summary{cursor:pointer;padding:12px;background:#0c1729;border-radius:10px;font-weight:700}
+.mtf-charge-row{display:flex;justify-content:space-between;padding:7px 2px;font-size:12px;border-bottom:1px solid #293b56}
+.mtf-note{font-size:10px;color:#91a2bb;line-height:1.5;margin-top:12px}
+@media(max-width:380px){.mtf-grid{gap:7px}.mtf-results{gap:7px}.mtf-result{padding:10px}}
 </style>
 </head>
 <body>
