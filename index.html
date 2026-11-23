@@ -279,6 +279,7 @@ function card(t){
 }
 
 function head(){
+  if(tab==="mtf")return;
  document.getElementById("ttl").textContent=TITLES[tab][0];
  document.getElementById("sub").textContent=TITLES[tab][1];
  document.getElementById("t-sp").className="tab"+(tab==="sp"?" on":"");
