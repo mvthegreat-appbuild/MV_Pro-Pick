@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24T00:12:54.096786+00:00",
+ "updated": "2026-11-24T01:17:23.022660+00:00",
  "channel": "motilaloswalofficial",
  "trades": [
   {
@@ -35,7 +35,7 @@
    "status_text": "Active",
    "symbol_nse": "RATNAVEER",
    "cmp": 402.5,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "TECHM",
@@ -70,7 +70,7 @@
    "status_text": "Active",
    "symbol_nse": "TECHM",
    "cmp": 1777.5,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "POONAWALLA",
@@ -105,7 +105,7 @@
    "status_text": "Active",
    "symbol_nse": "POONAWALLA",
    "cmp": 520.0,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "PERSISTENT",
@@ -140,7 +140,7 @@
    "status_text": "Active",
    "symbol_nse": "PERSISTENT",
    "cmp": 6282.5,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "MEESHO",
@@ -175,7 +175,7 @@
    "status_text": "Active",
    "symbol_nse": "MEESHO",
    "cmp": 254.06,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "GAIL",
@@ -210,7 +210,7 @@
    "status_text": "Active",
    "symbol_nse": "GAIL",
    "cmp": 185.6,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "COFORGE",
@@ -245,7 +245,7 @@
    "status_text": "Active",
    "symbol_nse": "COFORGE",
    "cmp": 2142.3,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "CDSL",
@@ -280,7 +280,7 @@
    "status_text": "Stop loss hit",
    "symbol_nse": "CDSL",
    "cmp": 1395.0,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "APLAPOLLO",
@@ -315,7 +315,7 @@
    "status_text": "Stop loss hit",
    "symbol_nse": "APLAPOLLO",
    "cmp": 1670.0,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "MOLBIO",
@@ -350,7 +350,7 @@
    "status_text": "Stop loss hit",
    "symbol_nse": "MOLBIO",
    "cmp": 1441.0,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "MCX",
@@ -385,7 +385,7 @@
    "status_text": "Active",
    "symbol_nse": "MCX",
    "cmp": 3581.6,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "INDIGO",
@@ -420,7 +420,7 @@
    "status_text": "Active",
    "symbol_nse": "INDIGO",
    "cmp": 5523.0,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "UNIONBANK",
@@ -455,7 +455,7 @@
    "status_text": "Target hit",
    "symbol_nse": "UNIONBANK",
    "cmp": 208.2,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "GLENMARK",
@@ -490,7 +490,7 @@
    "status_text": "Stop loss hit",
    "symbol_nse": "GLENMARK",
    "cmp": 2657.0,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "HCLTECH",
@@ -525,7 +525,7 @@
    "status_text": "Stop loss hit",
    "symbol_nse": "HCLTECH",
    "cmp": 1364.3,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "PAYTM",
@@ -560,7 +560,7 @@
    "status_text": "Target hit",
    "symbol_nse": "PAYTM",
    "cmp": 1730.6,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "LALPATHLAB",
@@ -595,7 +595,7 @@
    "status_text": "Stop loss hit",
    "symbol_nse": "LALPATHLAB",
    "cmp": 2039.0,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "SAREGAMA",
@@ -630,7 +630,7 @@
    "status_text": "Target hit",
    "symbol_nse": "SAREGAMA",
    "cmp": 660.0,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "ADANIPORTS",
@@ -665,7 +665,7 @@
    "status_text": "Active",
    "symbol_nse": "ADANIPORTS",
    "cmp": 1919.0,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "BSE",
@@ -700,7 +700,7 @@
    "status_text": "Target hit",
    "symbol_nse": "BSE",
    "cmp": 3757.0,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "CASTROLIND",
@@ -735,7 +735,7 @@
    "status_text": "Active",
    "symbol_nse": "CASTROLIND",
    "cmp": 190.5,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "ZENSARTECH",
@@ -770,7 +770,7 @@
    "status_text": "Stop loss hit",
    "symbol_nse": "ZENSARTECH",
    "cmp": 530.5,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "ZYDUSLIFE",
@@ -805,7 +805,7 @@
    "status_text": "Active",
    "symbol_nse": "ZYDUSLIFE",
    "cmp": 1199.5,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "ETERNAL",
@@ -840,7 +840,7 @@
    "status_text": "Target hit",
    "symbol_nse": "ETERNAL",
    "cmp": 362.1,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "SHADOWFAX",
@@ -875,7 +875,7 @@
    "status_text": "Stop loss hit",
    "symbol_nse": "SHADOWFAX",
    "cmp": 304.25,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "GESHIP",
@@ -910,7 +910,7 @@
    "status_text": "Stop loss hit",
    "symbol_nse": "GESHIP",
    "cmp": 1542.5,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "SMSPHARMA",
@@ -945,7 +945,7 @@
    "status_text": "Target hit",
    "symbol_nse": "SMSPHARMA",
    "cmp": 468.7,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "DRREDDY",
@@ -980,7 +980,7 @@
    "status_text": "Active",
    "symbol_nse": "DRREDDY",
    "cmp": 1380.1,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "LENSKART",
@@ -1015,7 +1015,7 @@
    "status_text": "Stop loss hit",
    "symbol_nse": "LENSKART",
    "cmp": 715.9,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "SONACOMS",
@@ -1050,7 +1050,7 @@
    "status_text": "Target hit",
    "symbol_nse": "SONACOMS",
    "cmp": 886.0,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   },
   {
    "name": "TATAELXSI",
@@ -1085,7 +1085,7 @@
    "status_text": "Stop loss hit",
    "symbol_nse": "TATAELXSI",
    "cmp": 3822.4,
-   "cmp_time": "2026-11-24T05:42:18.446720+05:30"
+   "cmp_time": "2026-11-24T06:46:45.022902+05:30"
   }
  ]
 }
