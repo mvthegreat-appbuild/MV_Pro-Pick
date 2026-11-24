@@ -20,6 +20,27 @@ jobs:
           npx cap init "StockPro Positional" com.mv.stockpropositional --web-dir www
           npx cap add android
           npx cap sync android
+
+          # Replace default Capacitor icons with android-icons/
+          rm -f android/app/src/main/res/mipmap-*/ic_launcher*.png
+          rm -f android/app/src/main/res/mipmap-anydpi-v26/ic_launcher*.xml
+          rm -f android/app/src/main/res/drawable*/ic_launcher*.xml
+          rm -f android/app/src/main/res/values/ic_launcher_background.xml
+          if [ -f android/app/src/main/res/values/colors.xml ]; then
+            sed -i '/ic_launcher_background/d' android/app/src/main/res/values/colors.xml
+          fi
+
+          mkdir -p android/app/src/main/res/mipmap-anydpi-v26
+          mkdir -p android/app/src/main/res/mipmap-xxxhdpi
+          mkdir -p android/app/src/main/res/values
+
+          cp android-icons/ic_launcher.xml android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
+          cp android-icons/ic_launcher_round.xml android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml
+          cp android-icons/ic_launcher_background.xml android/app/src/main/res/values/ic_launcher_background.xml
+          cp android-icons/ic_launcher.png android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
+          cp android-icons/ic_launcher_round.png android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png
+          cp android-icons/ic_launcher_foreground.png android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png
+
           cd android
           chmod +x gradlew
           ./gradlew assembleDebug
