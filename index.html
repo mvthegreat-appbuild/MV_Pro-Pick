@@ -43,12 +43,9 @@ a{color:#70d3ff;text-decoration:none;font-size:11px}
 .empty{padding:25px;text-align:center;color:var(--muted);background:var(--panel);border-radius:14px}
 .btn{border:1px solid #168565;background:#12624d;color:#8af4c9;border-radius:9px;padding:9px 13px;font-size:11px;font-weight:700;cursor:pointer}
 .foot{max-width:850px;margin:auto;padding:10px 14px 0;color:#71839c;font-size:10px;line-height:1.6}
- /* GROWW MTF - ADDITION ONLY */
-.tabs{
-  overflow-x:auto;
-  flex-wrap:nowrap;
-  scrollbar-width:none;
-}
+
+/* GROWW MTF - ADDITION ONLY */
+.tabs{overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
 .tab{flex:0 0 auto;min-width:105px}
 #mtfPanel{display:none}
@@ -76,53 +73,81 @@ a{color:#70d3ff;text-decoration:none;font-size:11px}
 /* GROWW MTF VIBRANT THEME */
 #mtfPanel .mtf-title{
   background:linear-gradient(90deg,#00f5d4,#55aaff,#c58cff);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-  font-size:19px;
-  font-weight:900;
-  letter-spacing:.5px;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  font-size:19px;font-weight:900;letter-spacing:.5px;
 }
-#mtfPanel .mtf-stock-label{
-  color:#ffd166;
-  font-weight:800;
-}
-#mtfPanel .mtf-field label{
-  color:#65d9ff;
-  font-weight:700;
-}
-#mtfPanel .mtf-field input,
-#mtfPanel > .mtf-section > input{
-  border:1px solid #3989bb;
-  box-shadow:0 0 7px #168bd522;
+#mtfPanel .mtf-stock-label{color:#ffd166;font-weight:800}
+#mtfPanel .mtf-field label{color:#65d9ff;font-weight:700}
+#mtfPanel .mtf-field input,#mtfPanel>.mtf-section>input{
+  border:1px solid #3989bb;box-shadow:0 0 7px #168bd522;
 }
 #mtfPanel .mtf-calc{
   background:linear-gradient(100deg,#00a878,#087fd5);
-  border:1px solid #54f5d0;
-  color:#ffffff;
-  font-weight:900;
+  border:1px solid #54f5d0;color:#fff;font-weight:900;
   box-shadow:0 0 12px #00d6a044;
 }
-#mtfPanel .mtf-result{
-  border-color:#426080;
-  box-shadow:0 0 9px #3989bb22;
-}
+#mtfPanel .mtf-result{border-color:#426080;box-shadow:0 0 9px #3989bb22}
 #mtfPanel .mtf-green{border-color:#20c997}
 #mtfPanel .mtf-blue{border-color:#36a9ff}
 #mtfPanel .mtf-yellow{border-color:#ffc857}
 #mtfPanel .mtf-purple{border-color:#b58aff}
+#mtfPanel .mtf-charges summary{color:#ffd166;border:1px solid #a77b2b;font-weight:900}
+#mtfPanel .mtf-charge-row strong{color:#43e6ad}
+#mtfPanel .mtf-note{color:#9bb5d4}
+
+/* ===== GROWW MTF GLASS NEUMORPHIC ICON DESIGN ===== */
+#mtfPanel .mtf-icon{
+  display:inline-flex;align-items:center;justify-content:center;
+  flex:0 0 35px;width:35px;height:35px;margin-right:8px;
+  border-radius:12px;font-size:17px;line-height:1;color:#9fffea;
+  background:linear-gradient(145deg,rgba(255,255,255,.20),rgba(255,255,255,.035));
+  border:1px solid rgba(255,255,255,.24);
+  -webkit-backdrop-filter:blur(14px) saturate(170%);
+  backdrop-filter:blur(14px) saturate(170%);
+  box-shadow:5px 5px 12px rgba(0,0,0,.38),-3px -3px 9px rgba(255,255,255,.055),
+    inset 1px 1px 2px rgba(255,255,255,.25),inset -1px -1px 2px rgba(0,0,0,.18);
+  text-shadow:0 0 10px rgba(0,255,210,.65);vertical-align:middle;
+}
+#mtfPanel .mtf-title{display:flex;align-items:center;gap:7px;line-height:1.35}
+#mtfPanel .mtf-stock-label,#mtfPanel .mtf-field label{display:flex;align-items:center;gap:7px}
+#mtfPanel .mtf-section{
+  background:linear-gradient(145deg,rgba(255,255,255,.095),rgba(255,255,255,.018));
+  border:1px solid rgba(255,255,255,.16);border-radius:18px;
+  -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+  box-shadow:9px 9px 22px rgba(0,0,0,.34),-3px -3px 12px rgba(255,255,255,.025),
+    inset 1px 1px 2px rgba(255,255,255,.12);
+}
+#mtfPanel .mtf-result{
+  position:relative;overflow:hidden;
+  -webkit-backdrop-filter:blur(15px);backdrop-filter:blur(15px);
+  box-shadow:7px 7px 16px rgba(0,0,0,.30),-3px -3px 10px rgba(255,255,255,.035),
+    inset 1px 1px 2px rgba(255,255,255,.10);
+}
+#mtfPanel .mtf-calc{
+  min-height:50px;border-radius:15px;
+  box-shadow:6px 6px 14px rgba(0,0,0,.35),-3px -3px 9px rgba(255,255,255,.08),
+    inset 1px 1px 2px rgba(255,255,255,.30);
+  display:flex;align-items:center;justify-content:center;gap:7px;
+}
+#mtfPanel .mtf-calc:active,#mtfPanel .mtf-icon:active{
+  transform:translateY(1px);
+  box-shadow:inset 3px 3px 7px rgba(0,0,0,.30),inset -2px -2px 6px rgba(255,255,255,.08);
+}
 #mtfPanel .mtf-charges summary{
-  color:#ffd166;
-  border:1px solid #a77b2b;
-  font-weight:900;
+  display:flex;align-items:center;min-height:50px;gap:7px;
+  background:linear-gradient(145deg,rgba(255,255,255,.10),rgba(255,255,255,.025));
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  box-shadow:5px 5px 12px rgba(0,0,0,.30),inset 1px 1px 2px rgba(255,255,255,.12);
 }
-#mtfPanel .mtf-charge-row strong{
-  color:#43e6ad;
+#mtfPanel .mtf-field input,#mtfPanel>.mtf-section>input{
+  background:rgba(7,18,34,.72);
+  border-color:rgba(110,205,255,.42);
+  box-shadow:inset 4px 4px 9px rgba(0,0,0,.28),inset -2px -2px 6px rgba(255,255,255,.035);
 }
-#mtfPanel .mtf-note{
-  color:#9bb5d4;
+@media(max-width:380px){
+  #mtfPanel .mtf-icon{width:31px;height:31px;flex-basis:31px;font-size:15px;margin-right:5px}
+  #mtfPanel .mtf-title{font-size:16px}
 }
- 
 </style>
 </head>
 <body>
@@ -134,53 +159,65 @@ a{color:#70d3ff;text-decoration:none;font-size:11px}
 <main>
  <div class="tabs">
   <button class="tab on" id="t-sp" type="button" onclick="setTab('sp')">StockPro</button>
-<button class="tab" id="t-mo" type="button" onclick="setTab('mo')">Motilal Oswal</button>
+  <button class="tab" id="t-mo" type="button" onclick="setTab('mo')">Motilal Oswal</button>
   <button class="tab" id="t-mtf" type="button" onclick="setTab('mtf')">GROWW MTF</button>
-</div>
+ </div>
  <input id="q" type="search" placeholder="Search stock..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
 <div id="list"><div class="empty">Loading...</div></div>
 <button class="btn" id="ref" type="button">↻ Refresh</button>
+
 <section id="mtfPanel">
   <div class="mtf-section">
-    <div class="mtf-title">📊 GROWW MTF CALCULATOR</div>
+    <div class="mtf-title">
+      <span class="mtf-icon">📊</span>
+      GROWW MTF CALCULATOR
+    </div>
 
-    <label class="mtf-stock-label">📈 Stock Name</label>
+    <label class="mtf-stock-label">
+      <span class="mtf-icon">📈</span>
+      Stock Name
+    </label>
     <input id="mtfStock" placeholder="Enter stock name">
 
     <div class="mtf-grid">
       <div class="mtf-field">
-        <label>⚡ Leverage (x)</label>
+        <label><span class="mtf-icon">⚡</span>Leverage (x)</label>
         <input id="mtfLev" type="number" value="3.72" step="0.01">
       </div>
       <div class="mtf-field">
-        <label>📅 Holding Days</label>
+        <label><span class="mtf-icon">📅</span>Holding Days</label>
         <input id="mtfDays" type="number" value="1">
       </div>
       <div class="mtf-field">
-        <label>🟢 Buy Price (₹)</label>
+        <label><span class="mtf-icon">🟢</span>Buy Price (₹)</label>
         <input id="mtfBuy" type="number" value="343">
       </div>
       <div class="mtf-field">
-        <label>🔴 Sell Price (₹)</label>
+        <label><span class="mtf-icon">🔴</span>Sell Price (₹)</label>
         <input id="mtfSell" type="number" value="360">
       </div>
       <div class="mtf-field">
-        <label>📦 Quantity</label>
+        <label><span class="mtf-icon">📦</span>Quantity</label>
         <input id="mtfQty" type="number" value="50">
       </div>
       <div class="mtf-field">
-        <label>💰 Interest p.a. (%)</label>
+        <label><span class="mtf-icon">💰</span>Interest p.a. (%)</label>
         <input id="mtfRate" type="number" value="14.95" step="0.01">
       </div>
     </div>
 
     <button class="btn mtf-calc" id="mtfCalculate" type="button" onclick="calculateMtf()">
-      🧮 Calculate Profit
+      <span class="mtf-icon">🧮</span>
+      Calculate Profit
     </button>
   </div>
 
   <div class="mtf-section">
-    <div class="mtf-title">Investment &amp; Profit</div>
+    <div class="mtf-title">
+      <span class="mtf-icon">💎</span>
+      Investment &amp; Profit
+    </div>
+
     <div class="mtf-results">
       <div class="mtf-result mtf-green">
         <small>My Investment</small>
@@ -201,7 +238,10 @@ a{color:#70d3ff;text-decoration:none;font-size:11px}
     </div>
 
     <details class="mtf-charges">
-      <summary>🧾 Charges Breakdown</summary>
+      <summary>
+        <span class="mtf-icon">🧾</span>
+        Charges Breakdown
+      </summary>
       <div id="mtfChargeRows"></div>
     </details>
 
@@ -212,7 +252,7 @@ a{color:#70d3ff;text-decoration:none;font-size:11px}
       excluded. Not investment advice.
     </div>
   </div>
-</section> 
+</section>
 </main>
 <div class="foot"><p>* StockPro: entry is the trigger price from the post; the price should trade above it (below it for sell calls). Motilal Oswal: the CMP in the post is used as the entry. Levels are copied from the channel posts. Prices come from NSE market data and may be delayed. Status uses each day's high and low after the post, plus live price checks every 15 minutes for the same day, so quick moves inside a day can be missed. Not advice.</p></div>
 <script>
@@ -236,7 +276,6 @@ function getTicker(t){
  for(const k in map)if(n.includes(k))return map[k];
  return n.split(/[\s(]/)[0].replace(/[^A-Z0-9&-]/g,"");
 }
-
 
 function evalTrade(t,cmpMap){
  const e=num(t.entry),sl=num(t.sl),ts=(t.targets||[]).map(num),sell=t.side==="SELL";
@@ -390,7 +429,8 @@ document.getElementById("t-mo").addEventListener("click",()=>setTab("mo"));
 load();
 setInterval(()=>{if(!document.hidden)load();},REFRESH_MS);
 document.addEventListener("visibilitychange",()=>{if(!document.hidden)load();});
- /* GROWW MTF CALCULATOR LOGIC */
+
+/* GROWW MTF CALCULATOR LOGIC */
 function mtfMoney(v){
   return "₹"+Number(v||0).toLocaleString("en-IN",{
     minimumFractionDigits:2,
