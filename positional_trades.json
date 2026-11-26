@@ -1,7 +1,117 @@
 {
- "updated": "2026-11-26T03:38:14.766046+00:00",
+ "updated": "2026-11-26T04:45:22.965488+00:00",
  "channel": "stockpro_online",
  "trades": [
+  {
+   "name": "TECHM",
+   "symbol": "",
+   "side": "BUY",
+   "entry": "1835",
+   "sl": "1815",
+   "targets": [
+    "1845",
+    "1855",
+    "1865",
+    "1875"
+   ],
+   "target_note": "points from entry",
+   "period": "Hold few days",
+   "check_levels": false,
+   "id": 137463,
+   "date": "2026-11-26T04:25:51+00:00",
+   "link": "https://t.me/stockpro_online/137463",
+   "seen_high": 1825.6,
+   "seen_low": 1825.6,
+   "seen_close": 1825.6,
+   "targets_hit": 0,
+   "entry_time": null,
+   "hit_time": null,
+   "sl_time": null,
+   "realised_pct": null,
+   "pnl_pct": null,
+   "upside_left_pct": 1.06,
+   "to_entry_pct": 0.51,
+   "status": "waiting",
+   "status_text": "Waiting for entry",
+   "symbol_nse": "TECHM",
+   "cmp": 1825.6,
+   "cmp_time": "2026-11-26T10:14:47.817898+05:30"
+  },
+  {
+   "name": "PERSISTENT",
+   "symbol": "",
+   "side": "BUY",
+   "entry": "6280",
+   "sl": "6240",
+   "targets": [
+    "6300",
+    "6320",
+    "6340",
+    "6360",
+    "6380",
+    "6405",
+    "6430",
+    "6455",
+    "6480"
+   ],
+   "target_note": "points from entry",
+   "period": "Hold few days",
+   "check_levels": false,
+   "id": 137462,
+   "date": "2026-11-26T04:22:18+00:00",
+   "link": "https://t.me/stockpro_online/137462",
+   "seen_high": 6280.0,
+   "seen_low": 6280.0,
+   "seen_close": 6280.0,
+   "targets_hit": 0,
+   "entry_time": "2026-11-26T10:14:47.817898+05:30",
+   "hit_time": null,
+   "sl_time": null,
+   "realised_pct": null,
+   "pnl_pct": 0.0,
+   "upside_left_pct": 0.32,
+   "to_entry_pct": null,
+   "status": "active",
+   "status_text": "Active",
+   "symbol_nse": "PERSISTENT",
+   "cmp": 6280.0,
+   "cmp_time": "2026-11-26T10:14:47.817898+05:30"
+  },
+  {
+   "name": "JWL",
+   "symbol": "",
+   "side": "BUY",
+   "entry": "239",
+   "sl": "210",
+   "targets": [
+    "250",
+    "260",
+    "270",
+    "280"
+   ],
+   "target_note": "",
+   "period": "Hold few weeks",
+   "check_levels": false,
+   "id": 137455,
+   "date": "2026-11-26T03:50:38+00:00",
+   "link": "https://t.me/stockpro_online/137455",
+   "seen_high": 232.0,
+   "seen_low": 232.0,
+   "seen_close": 232.0,
+   "targets_hit": 0,
+   "entry_time": null,
+   "hit_time": null,
+   "sl_time": null,
+   "realised_pct": null,
+   "pnl_pct": null,
+   "upside_left_pct": 7.76,
+   "to_entry_pct": 3.02,
+   "status": "waiting",
+   "status_text": "Waiting for entry",
+   "symbol_nse": "JWL",
+   "cmp": 232.0,
+   "cmp_time": "2026-11-26T10:14:47.817898+05:30"
+  },
   {
    "name": "JSW INFRA",
    "symbol": "",
@@ -28,14 +138,14 @@
    "hit_time": null,
    "sl_time": null,
    "realised_pct": null,
-   "pnl_pct": 0.56,
-   "upside_left_pct": 4.17,
+   "pnl_pct": 0.67,
+   "upside_left_pct": 4.05,
    "to_entry_pct": null,
    "status": "active",
    "status_text": "Active",
    "symbol_nse": "JSWINFRA",
-   "cmp": 360.0,
-   "cmp_time": "2026-11-26T09:07:40.868647+05:30"
+   "cmp": 360.4,
+   "cmp_time": "2026-11-26T10:14:47.817898+05:30"
   },
   {
    "name": "THOMAS COOK",
@@ -62,14 +172,14 @@
    "hit_time": null,
    "sl_time": null,
    "realised_pct": null,
-   "pnl_pct": 5.79,
-   "upside_left_pct": 1.28,
+   "pnl_pct": -3.42,
+   "upside_left_pct": 10.94,
    "to_entry_pct": null,
    "status": "active",
    "status_text": "Active",
    "symbol_nse": "THOMASCOOK",
-   "cmp": 148.1,
-   "cmp_time": "2026-11-26T09:07:40.868647+05:30"
+   "cmp": 135.21,
+   "cmp_time": "2026-11-26T10:14:47.817898+05:30"
   },
   {
    "name": "PNB HOUSING Finance",
@@ -99,13 +209,13 @@
    "sl_time": null,
    "realised_pct": null,
    "pnl_pct": null,
-   "upside_left_pct": 4.28,
-   "to_entry_pct": 3.69,
+   "upside_left_pct": 3.88,
+   "to_entry_pct": 3.29,
    "status": "waiting",
    "status_text": "Waiting for entry",
    "symbol_nse": "PNBHOUSING",
-   "cmp": 1183.3,
-   "cmp_time": "2026-11-26T09:07:40.868647+05:30"
+   "cmp": 1187.9,
+   "cmp_time": "2026-11-26T10:14:47.817898+05:30"
   },
   {
    "name": "BRIGADE ENT",
@@ -134,13 +244,13 @@
    "sl_time": null,
    "realised_pct": null,
    "pnl_pct": null,
-   "upside_left_pct": 19.28,
-   "to_entry_pct": 5.82,
+   "upside_left_pct": 17.72,
+   "to_entry_pct": 4.43,
    "status": "waiting",
    "status_text": "Waiting for entry",
    "symbol_nse": "BRIGADE",
-   "cmp": 586.85,
-   "cmp_time": "2026-11-26T09:07:40.868647+05:30"
+   "cmp": 594.65,
+   "cmp_time": "2026-11-26T10:14:47.817898+05:30"
   },
   {
    "name": "RR KABEL",
@@ -170,13 +280,13 @@
    "sl_time": "2026-11-25",
    "realised_pct": -4.84,
    "pnl_pct": null,
-   "upside_left_pct": 4.93,
+   "upside_left_pct": 4.68,
    "to_entry_pct": null,
    "status": "sl",
    "status_text": "Stop loss hit",
    "symbol_nse": "RRKABEL",
-   "cmp": 1810.8,
-   "cmp_time": "2026-11-26T09:07:40.868647+05:30"
+   "cmp": 1815.0,
+   "cmp_time": "2026-11-26T10:14:47.817898+05:30"
   },
   {
    "name": "MPHASIS",
@@ -210,8 +320,8 @@
    "status": "target",
    "status_text": "All targets hit",
    "symbol_nse": "MPHASIS",
-   "cmp": 2532.9,
-   "cmp_time": "2026-11-26T09:07:40.868647+05:30"
+   "cmp": 2553.0,
+   "cmp_time": "2026-11-26T10:14:47.817898+05:30"
   },
   {
    "name": "CUMMINS",
@@ -265,13 +375,13 @@
    "sl_time": null,
    "realised_pct": 0.9,
    "pnl_pct": null,
-   "upside_left_pct": 3.19,
+   "upside_left_pct": 4.0,
    "to_entry_pct": null,
    "status": "target",
    "status_text": "T1 hit",
    "symbol_nse": "CROMPTON",
-   "cmp": 219.5,
-   "cmp_time": "2026-11-26T09:07:40.868647+05:30"
+   "cmp": 217.79,
+   "cmp_time": "2026-11-26T10:14:47.817898+05:30"
   },
   {
    "name": "TATA tech",
@@ -299,13 +409,13 @@
    "sl_time": "2026-11-25",
    "realised_pct": -5.74,
    "pnl_pct": null,
-   "upside_left_pct": 8.4,
+   "upside_left_pct": 7.41,
    "to_entry_pct": null,
    "status": "sl",
    "status_text": "Stop loss hit",
    "symbol_nse": "TATATECH",
-   "cmp": 691.9,
-   "cmp_time": "2026-11-26T09:07:40.868647+05:30"
+   "cmp": 698.25,
+   "cmp_time": "2026-11-26T10:14:47.817898+05:30"
   },
   {
    "name": "INFY",
@@ -340,8 +450,8 @@
    "status": "target",
    "status_text": "All targets hit",
    "symbol_nse": "INFY",
-   "cmp": 1130.0,
-   "cmp_time": "2026-11-26T09:07:40.868647+05:30"
+   "cmp": 1162.1,
+   "cmp_time": "2026-11-26T10:14:47.817898+05:30"
   },
   {
    "name": "CAMS",
@@ -371,13 +481,13 @@
    "sl_time": null,
    "realised_pct": 2.08,
    "pnl_pct": null,
-   "upside_left_pct": 3.14,
+   "upside_left_pct": 0.82,
    "to_entry_pct": null,
    "status": "target",
    "status_text": "T3 hit",
    "symbol_nse": "CAMS",
-   "cmp": 717.5,
-   "cmp_time": "2026-11-26T09:07:40.868647+05:30"
+   "cmp": 734.0,
+   "cmp_time": "2026-11-26T10:14:47.817898+05:30"
   },
   {
    "name": "PAYTM",
@@ -409,13 +519,13 @@
    "sl_time": null,
    "realised_pct": null,
    "pnl_pct": null,
-   "upside_left_pct": 2.97,
-   "to_entry_pct": 2.68,
+   "upside_left_pct": 1.43,
+   "to_entry_pct": 1.14,
    "status": "waiting",
    "status_text": "Waiting for entry",
    "symbol_nse": "PAYTM",
-   "cmp": 1719.0,
-   "cmp_time": "2026-11-26T09:07:40.868647+05:30"
+   "cmp": 1745.1,
+   "cmp_time": "2026-11-26T10:14:47.817898+05:30"
   },
   {
    "name": "JK BANK",
@@ -437,19 +547,19 @@
    "seen_high": null,
    "seen_low": null,
    "seen_close": null,
-   "targets_hit": 2,
+   "targets_hit": 3,
    "entry_time": "2026-11-20",
    "hit_time": "2026-11-25",
    "sl_time": null,
-   "realised_pct": 6.16,
+   "realised_pct": 9.59,
    "pnl_pct": null,
-   "upside_left_pct": 2.86,
+   "upside_left_pct": 0.0,
    "to_entry_pct": null,
    "status": "target",
-   "status_text": "T2 hit",
+   "status_text": "All targets hit",
    "symbol_nse": "J&KBANK",
-   "cmp": 155.55,
-   "cmp_time": "2026-11-26T09:07:40.868647+05:30"
+   "cmp": 163.14,
+   "cmp_time": "2026-11-26T10:14:47.817898+05:30"
   },
   {
    "name": "SUN TV",
@@ -478,13 +588,13 @@
    "sl_time": "2026-11-25",
    "realised_pct": -7.8,
    "pnl_pct": null,
-   "upside_left_pct": 18.39,
+   "upside_left_pct": 16.61,
    "to_entry_pct": null,
    "status": "sl",
    "status_text": "Stop loss hit",
    "symbol_nse": "SUNTV",
-   "cmp": 616.6,
-   "cmp_time": "2026-11-26T09:07:40.868647+05:30"
+   "cmp": 626.0,
+   "cmp_time": "2026-11-26T10:14:47.817898+05:30"
   },
   {
    "name": "HAVELLS",
@@ -518,8 +628,8 @@
    "status": "target",
    "status_text": "All targets hit",
    "symbol_nse": "HAVELLS",
-   "cmp": 1196.4,
-   "cmp_time": "2026-11-26T09:07:40.868647+05:30"
+   "cmp": 1187.3,
+   "cmp_time": "2026-11-26T10:14:47.817898+05:30"
   },
   {
    "name": "BOSCH",
@@ -549,13 +659,13 @@
    "sl_time": null,
    "realised_pct": 0.2,
    "pnl_pct": null,
-   "upside_left_pct": 1.36,
+   "upside_left_pct": 1.69,
    "to_entry_pct": null,
    "status": "target",
    "status_text": "T1 hit",
    "symbol_nse": "BOSCHLTD",
-   "cmp": 49130.0,
-   "cmp_time": "2026-11-26T09:07:40.868647+05:30"
+   "cmp": 48970.0,
+   "cmp_time": "2026-11-26T10:14:47.817898+05:30"
   },
   {
    "name": "SURMA SGS",
@@ -591,8 +701,8 @@
    "status": "target",
    "status_text": "All targets hit",
    "symbol_nse": "SYRMA",
-   "cmp": 1434.0,
-   "cmp_time": "2026-11-26T09:07:40.868647+05:30"
+   "cmp": 1444.0,
+   "cmp_time": "2026-11-26T10:14:47.817898+05:30"
   },
   {
    "name": "TATA CONSUMER",
@@ -626,8 +736,8 @@
    "status": "target",
    "status_text": "All targets hit",
    "symbol_nse": "TATACONSUM",
-   "cmp": 1185.8,
-   "cmp_time": "2026-11-26T09:07:40.868647+05:30"
+   "cmp": 1171.8,
+   "cmp_time": "2026-11-26T10:14:47.817898+05:30"
   },
   {
    "name": "BLS POLYMERS",
@@ -661,8 +771,8 @@
    "status": "active",
    "status_text": "Active",
    "symbol_nse": "BLSPOLY",
-   "cmp": 261.7,
-   "cmp_time": "2026-11-26T09:07:40.868647+05:30"
+   "cmp": 261.69,
+   "cmp_time": "2026-11-26T10:14:47.817898+05:30"
   },
   {
    "name": "IIFL FINANCE",
@@ -692,13 +802,13 @@
    "sl_time": null,
    "realised_pct": null,
    "pnl_pct": null,
-   "upside_left_pct": 12.01,
-   "to_entry_pct": 9.9,
+   "upside_left_pct": 11.97,
+   "to_entry_pct": 9.86,
    "status": "waiting",
    "status_text": "Waiting for entry",
    "symbol_nse": "IIFL",
-   "cmp": 616.0,
-   "cmp_time": "2026-11-26T09:07:40.868647+05:30"
+   "cmp": 616.25,
+   "cmp_time": "2026-11-26T10:14:47.817898+05:30"
   },
   {
    "name": "EICHER Motors",
@@ -733,8 +843,8 @@
    "status": "target",
    "status_text": "All targets hit",
    "symbol_nse": "EICHERMOT",
-   "cmp": 8336.0,
-   "cmp_time": "2026-11-26T09:07:40.868647+05:30"
+   "cmp": 8220.0,
+   "cmp_time": "2026-11-26T10:14:47.817898+05:30"
   },
   {
    "name": "PACE DIGITECH",
@@ -763,14 +873,14 @@
    "hit_time": null,
    "sl_time": null,
    "realised_pct": null,
-   "pnl_pct": -9.08,
-   "upside_left_pct": 13.99,
+   "pnl_pct": -8.18,
+   "upside_left_pct": 12.88,
    "to_entry_pct": null,
    "status": "active",
    "status_text": "Active",
    "symbol_nse": "PACEDIGITK",
-   "cmp": 162.3,
-   "cmp_time": "2026-11-26T09:07:40.868647+05:30"
+   "cmp": 163.89,
+   "cmp_time": "2026-11-26T10:14:47.817898+05:30"
   },
   {
    "name": "IDFCFB",
@@ -806,8 +916,8 @@
    "status": "target",
    "status_text": "All targets hit",
    "symbol_nse": "IDFCFIRSTB",
-   "cmp": 87.47,
-   "cmp_time": "2026-11-26T09:07:40.868647+05:30"
+   "cmp": 87.11,
+   "cmp_time": "2026-11-26T10:14:47.817898+05:30"
   },
   {
    "name": "PARAG",
@@ -838,13 +948,13 @@
    "sl_time": null,
    "realised_pct": null,
    "pnl_pct": null,
-   "upside_left_pct": 4.04,
-   "to_entry_pct": 2.57,
+   "upside_left_pct": 7.21,
+   "to_entry_pct": 5.69,
    "status": "waiting",
    "status_text": "Waiting for entry",
    "symbol_nse": "PARAGMILK",
-   "cmp": 339.28,
-   "cmp_time": "2026-11-26T09:07:40.868647+05:30"
+   "cmp": 329.27,
+   "cmp_time": "2026-11-26T10:14:47.817898+05:30"
   },
   {
    "name": "RAYMOND LTD",
@@ -873,13 +983,13 @@
    "sl_time": null,
    "realised_pct": 4.6,
    "pnl_pct": null,
-   "upside_left_pct": 10.27,
+   "upside_left_pct": 8.6,
    "to_entry_pct": null,
    "status": "target",
    "status_text": "T1 hit",
    "symbol_nse": "RAYMOND",
-   "cmp": 1178.9,
-   "cmp_time": "2026-11-26T09:07:40.868647+05:30"
+   "cmp": 1197.1,
+   "cmp_time": "2026-11-26T10:14:47.817898+05:30"
   },
   {
    "name": "HDFCLIFE",
@@ -907,14 +1017,14 @@
    "hit_time": null,
    "sl_time": null,
    "realised_pct": null,
-   "pnl_pct": -1.26,
-   "upside_left_pct": 1.78,
+   "pnl_pct": -0.81,
+   "upside_left_pct": 1.32,
    "to_entry_pct": null,
    "status": "active",
    "status_text": "Active",
    "symbol_nse": "HDFCLIFE",
-   "cmp": 601.3,
-   "cmp_time": "2026-11-26T09:07:40.868647+05:30"
+   "cmp": 604.05,
+   "cmp_time": "2026-11-26T10:14:47.817898+05:30"
   },
   {
    "name": "TVS SUPPLY CHAIN",
@@ -945,11 +1055,11 @@
    "sl_time": "2026-11-23",
    "realised_pct": -7.14,
    "pnl_pct": null,
-   "upside_left_pct": 125.66,
+   "upside_left_pct": 125.91,
    "to_entry_pct": null,
    "symbol_nse": "TVSSCS",
-   "cmp": 126.74,
-   "cmp_time": "2026-11-26T09:07:40.868647+05:30"
+   "cmp": 126.6,
+   "cmp_time": "2026-11-26T10:14:47.817898+05:30"
   }
  ]
 }
