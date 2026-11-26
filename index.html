@@ -1,979 +1,271 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Groww MTF Calculator</title>
-  <style>
-    :root {
-      --bg: #050b12;
-      --border: rgba(255, 255, 255, 0.16);
-      --mint: #00d09c;
-      --cyan: #38bdf8;
-      --gold: #fbbf24;
-      --profit: #10b981;
-      --loss: #fb7185;
-      --txt: #f1f5f9;
-      --sub: #94a3b8;
-      --muted: #64748b;
-      --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", Roboto, sans-serif;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html, body {
-      min-height: 100%;
-      background: var(--bg);
-      color: var(--txt);
-      font-family: var(--font);
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-
-    .ambient {
-      position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
-      background:
-        radial-gradient(circle at 15% 15%, rgba(0, 208, 156, 0.16), transparent 42%),
-        radial-gradient(circle at 85% 20%, rgba(56, 189, 248, 0.15), transparent 40%),
-        radial-gradient(circle at 50% 85%, rgba(129, 140, 248, 0.14), transparent 45%),
-        linear-gradient(160deg, #040910 0%, #07131e 50%, #060d18 100%);
-    }
-
-    .orb { position: absolute; border-radius: 50%; filter: blur(75px); opacity: 0.55; animation: drift 18s ease-in-out infinite alternate; }
-    .orb-1 { width: 360px; height: 360px; top: -80px; left: -80px; background: radial-gradient(circle, rgba(0, 208, 156, 0.45), transparent 70%); }
-    .orb-2 { width: 400px; height: 400px; top: 20%; right: -110px; background: radial-gradient(circle, rgba(56, 189, 248, 0.35), transparent 70%); animation-delay: -6s; }
-    .orb-3 { width: 340px; height: 340px; bottom: -90px; left: 25%; background: radial-gradient(circle, rgba(99, 102, 241, 0.32), transparent 70%); animation-delay: -12s; }
-    @keyframes drift { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(28px, -22px) scale(1.06); } }
-
-    .app-shell { position: relative; z-index: 1; max-width: 1220px; margin: 0 auto; padding: 18px 14px 42px; }
-    @media (max-width: 600px) { .app-shell { padding: 12px 10px 32px; } }
-
-    .js-guard {
-      margin-bottom: 12px; padding: 12px 14px; border-radius: 14px;
-      background: rgba(251, 191, 36, 0.18); border: 1px solid rgba(251, 191, 36, 0.5);
-      color: #fef08a; font-size: 0.82rem; font-weight: 600; line-height: 1.4;
-    }
-
-    .main-grid { display: grid; grid-template-columns: 1.04fr 1.16fr; gap: 16px; align-items: start; }
-    @media (max-width: 960px) { .main-grid { grid-template-columns: 1fr; gap: 14px; } }
-
-    .glass-panel {
-      position: relative; min-width: 0; border-radius: 24px;
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.035) 55%, rgba(255, 255, 255, 0.06) 100%);
-      backdrop-filter: blur(26px) saturate(180%); -webkit-backdrop-filter: blur(26px) saturate(180%);
-      border: 1px solid var(--border);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.28), inset 0 -1px 0 rgba(255, 255, 255, 0.06);
-      padding: 20px;
-    }
-    @media (max-width: 600px) { .glass-panel { padding: 15px 13px; border-radius: 20px; } }
-
-    .section-title {
-      font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em;
-      color: var(--sub); margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap;
-    }
-
-    /* Search */
-    .search-wrap { position: relative; margin-bottom: 14px; }
-    .search-box {
-      display: flex; align-items: center; gap: 10px; padding: 11px 14px; border-radius: 16px;
-      background: rgba(6, 14, 24, 0.68); border: 1px solid rgba(255, 255, 255, 0.18);
-      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.35);
-    }
-    .search-box:focus-within { border-color: var(--mint); box-shadow: 0 0 0 3px rgba(0, 208, 156, 0.18); }
-    .search-box input { width: 100%; min-width: 0; background: transparent; border: none; outline: none; color: var(--txt); font-size: 0.96rem; font-weight: 600; font-family: inherit; }
-    .search-box input::placeholder { color: var(--muted); font-weight: 400; }
-    .clear-btn {
-      background: rgba(255, 255, 255, 0.1); border: none; color: var(--sub); width: 24px; height: 24px;
-      border-radius: 50%; cursor: pointer; display: none; align-items: center; justify-content: center; font-size: 0.8rem; flex-shrink: 0;
-    }
-    .clear-btn.visible { display: flex; }
-
-    .ac-dropdown {
-      position: absolute; top: calc(100% + 6px); left: 0; right: 0; z-index: 50; max-height: 260px; overflow-y: auto;
-      background: rgba(10, 20, 34, 0.96); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 16px; box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
-      display: none; padding: 6px;
-    }
-    .ac-dropdown.open { display: block; }
-    .ac-item { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; border-radius: 11px; cursor: pointer; }
-    .ac-item:hover { background: rgba(0, 208, 156, 0.15); }
-    .ac-left { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-    .ac-symbol { font-weight: 700; font-size: 0.92rem; }
-    .ac-name { font-size: 0.74rem; color: var(--sub); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .ac-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-
-    .lev-tag {
-      padding: 3px 9px; border-radius: 999px; font-size: 0.7rem; font-weight: 700;
-      background: rgba(0, 208, 156, 0.16); color: #6ee7b7; border: 1px solid rgba(0, 208, 156, 0.35);
-      font-variant-numeric: tabular-nums;
-    }
-    .lev-tag.warn { background: rgba(251, 191, 36, 0.16); color: #fde68a; border-color: rgba(251, 191, 36, 0.35); }
-
-    /* Stock Card & Manual Leverage */
-    .stock-banner {
-      padding: 14px 15px; margin-bottom: 16px; border-radius: 18px;
-      background: linear-gradient(135deg, rgba(0, 208, 156, 0.10), rgba(56, 189, 248, 0.06));
-      border: 1px solid rgba(0, 208, 156, 0.28);
-    }
-    .stock-banner-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
-    .stock-identity { min-width: 0; }
-    .stock-identity h2 { font-size: 1.12rem; font-weight: 700; display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
-    .stock-identity p { font-size: 0.78rem; color: var(--sub); margin-top: 3px; line-height: 1.35; }
-
-    .lev-manual-wrap { text-align: right; flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
-    .lev-manual-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--sub); font-weight: 600; }
-    .lev-input-pill {
-      display: inline-flex; align-items: center; gap: 3px; padding: 5px 10px; border-radius: 12px;
-      background: rgba(6, 14, 24, 0.72); border: 1px solid rgba(0, 208, 156, 0.5);
-    }
-    .lev-input-pill:focus-within { border-color: var(--mint); box-shadow: 0 0 0 3px rgba(0, 208, 156, 0.22); }
-    .lev-input-pill input {
-      width: 54px; background: transparent; border: none; outline: none; text-align: right;
-      color: var(--mint); font-size: 1.26rem; font-weight: 800; font-variant-numeric: tabular-nums; font-family: inherit;
-    }
-    .lev-input-pill span { color: var(--mint); font-size: 1rem; font-weight: 700; }
-    .lev-margin-sub { font-size: 0.7rem; color: var(--sub); font-variant-numeric: tabular-nums; }
-
-    .margin-bar-track { height: 9px; border-radius: 999px; background: rgba(255, 255, 255, 0.08); overflow: hidden; display: flex; margin-bottom: 7px; }
-    .margin-bar-own { background: linear-gradient(90deg, #00d09c, #34d399); height: 100%; transition: width 0.3s ease; }
-    .margin-bar-groww { background: linear-gradient(90deg, #38bdf8, #818cf8); height: 100%; flex: 1; opacity: 0.78; }
-    .margin-bar-labels { display: flex; justify-content: space-between; font-size: 0.74rem; color: var(--sub); font-variant-numeric: tabular-nums; }
-
-    /* Segmented */
-    .segmented {
-      display: grid; grid-template-columns: 1fr 1fr; padding: 4px; border-radius: 999px;
-      background: rgba(5, 11, 18, 0.65); border: 1px solid rgba(255, 255, 255, 0.12); margin-bottom: 12px;
-    }
-    .seg-btn { padding: 8px 10px; border: none; border-radius: 999px; background: transparent; color: var(--sub); font-size: 0.78rem; font-weight: 600; cursor: pointer; font-family: inherit; }
-    .seg-btn.active { background: linear-gradient(135deg, rgba(0, 208, 156, 0.28), rgba(56, 189, 248, 0.22)); color: var(--txt); border: 1px solid rgba(255, 255, 255, 0.22); }
-
-    /* 2x2 Input Grid */
-    .grid-2x2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 10px; }
-    .field-card {
-      padding: 11px 12px; border-radius: 16px; background: rgba(6, 14, 24, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.13); min-width: 0;
-      display: flex; flex-direction: column; justify-content: space-between;
-    }
-    .field-card:focus-within { border-color: rgba(0, 208, 156, 0.65); }
-    .field-card.target-card:focus-within { border-color: var(--profit); }
-    .field-card.sl-card:focus-within { border-color: var(--loss); }
-
-    .field-label { display: flex; justify-content: space-between; align-items: center; gap: 4px; font-size: 0.7rem; color: var(--sub); margin-bottom: 5px; font-weight: 600; white-space: nowrap; overflow: hidden; }
-    .field-label span:first-child { overflow: hidden; text-overflow: ellipsis; }
-    .field-input-row { display: flex; align-items: center; gap: 5px; margin-bottom: 4px; }
-    .prefix { color: var(--muted); font-weight: 600; font-size: 0.9rem; flex-shrink: 0; }
-    .field-input-row input { width: 100%; min-width: 0; background: transparent; border: none; outline: none; color: var(--txt); font-size: 1.12rem; font-weight: 800; font-variant-numeric: tabular-nums; font-family: inherit; }
-    .field-sub { font-size: 0.68rem; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-    /* Compact Holding Period */
-    .slider-block { padding: 11px 13px; border-radius: 16px; background: rgba(6, 14, 24, 0.6); border: 1px solid rgba(255, 255, 255, 0.13); margin-bottom: 12px; }
-    .slider-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 9px; font-size: 0.76rem; color: var(--sub); gap: 8px; }
-    .days-edit-pill { display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 999px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(0, 208, 156, 0.35); }
-    .days-edit-pill input { width: 38px; background: transparent; border: none; outline: none; text-align: right; color: var(--mint); font-size: 0.88rem; font-weight: 700; font-variant-numeric: tabular-nums; font-family: inherit; }
-    .days-edit-pill span { font-size: 0.74rem; color: var(--sub); font-weight: 600; }
-
-    input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 999px; background: rgba(255, 255, 255, 0.22); outline: none; display: block; }
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none; appearance: none; width: 18px; height: 18px; border-radius: 50%;
-      background: linear-gradient(135deg, #6ee7b7, #00d09c); border: 2px solid #fff; box-shadow: 0 2px 10px rgba(0, 208, 156, 0.65); cursor: pointer;
-    }
-
-    .toggles-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; font-size: 0.75rem; color: var(--sub); }
-    .toggle-label { display: inline-flex; align-items: center; gap: 7px; cursor: pointer; user-select: none; }
-    .toggle-label input { accent-color: var(--mint); width: 15px; height: 15px; cursor: pointer; flex-shrink: 0; }
-
-    .validation-banner { display: none; padding: 10px 12px; border-radius: 12px; background: rgba(251, 191, 36, 0.14); border: 1px solid rgba(251, 191, 36, 0.35); color: #fde68a; font-size: 0.78rem; margin-top: 10px; }
-    .validation-banner.visible { display: block; }
-
-    /* Right Panel: 2x2 Summary Cards */
-    .stat-glass {
-      min-width: 0; padding: 12px 13px; border-radius: 18px;
-      background: rgba(255, 255, 255, 0.055); border: 1px solid rgba(255, 255, 255, 0.14);
-      display: flex; flex-direction: column; justify-content: space-between;
-    }
-    .stat-glass.rr-tile { background: linear-gradient(145deg, rgba(251, 191, 36, 0.12), rgba(255, 255, 255, 0.045)); border-color: rgba(251, 191, 36, 0.38); }
-    .stat-glass .lbl { font-size: 0.7rem; color: var(--sub); margin-bottom: 4px; }
-    .stat-glass .val { font-size: 1.16rem; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; word-break: break-word; }
-    .rr-gold { color: #fbbf24; text-shadow: 0 0 18px rgba(251, 191, 36, 0.42), 0 1px 2px rgba(0, 0, 0, 0.55); font-size: 1.28rem !important; font-weight: 800; }
-    .stat-glass .sub { font-size: 0.69rem; color: var(--muted); margin-top: 3px; font-variant-numeric: tabular-nums; }
-
-    /* Price Ladder */
-    .rr-card {
-      padding: 13px 14px; border-radius: 18px;
-      background: linear-gradient(135deg, rgba(56, 189, 248, 0.08), rgba(129, 140, 248, 0.07));
-      border: 1px solid rgba(148, 163, 184, 0.22); margin-bottom: 16px;
-    }
-    .rr-ladder-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
-    .rr-verdict { padding: 4px 10px; border-radius: 999px; font-size: 0.71rem; font-weight: 700; border: 1px solid; }
-    .rr-verdict.good { background: rgba(16, 185, 129, 0.18); border-color: rgba(16, 185, 129, 0.45); color: #6ee7b7; }
-    .rr-verdict.mid { background: rgba(251, 191, 36, 0.16); border-color: rgba(251, 191, 36, 0.45); color: #fde68a; }
-    .rr-verdict.poor { background: rgba(251, 113, 133, 0.16); border-color: rgba(251, 113, 133, 0.45); color: #fda4af; }
-
-    .ladder-bar { height: 10px; border-radius: 999px; display: flex; overflow: hidden; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.14); }
-    .ladder-risk { background: linear-gradient(90deg, #f43f5e, #fb7185); height: 100%; transition: width 0.3s ease; }
-    .ladder-reward { background: linear-gradient(90deg, #00d09c, #10b981); height: 100%; transition: width 0.3s ease; }
-
-    .ladder-nodes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 10px; font-size: 0.74rem; font-variant-numeric: tabular-nums; }
-    @media (max-width: 580px) { .ladder-nodes { grid-template-columns: 1fr 1fr; } }
-    .ladder-node { padding: 8px 9px; border-radius: 10px; background: rgba(5, 11, 18, 0.45); border: 1px solid rgba(255, 255, 255, 0.08); }
-    .ladder-node span { display: block; font-size: 0.66rem; color: var(--muted); margin-bottom: 2px; }
-    .ladder-node strong { font-size: 0.8rem; }
-
-    /* Outcomes */
-    .outcomes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-    @media (max-width: 600px) { .outcomes-grid { grid-template-columns: 1fr; } }
-    .outcome-card { padding: 15px; border-radius: 18px; position: relative; }
-    .outcome-card.target { background: linear-gradient(155deg, rgba(16, 185, 129, 0.17), rgba(6, 14, 24, 0.65)); border: 1px solid rgba(16, 185, 129, 0.42); }
-    .outcome-card.stoploss { background: linear-gradient(155deg, rgba(251, 113, 133, 0.17), rgba(6, 14, 24, 0.65)); border: 1px solid rgba(251, 113, 133, 0.42); }
-    .outcome-badge { font-size: 0.71rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
-    .outcome-card.target .outcome-badge { color: #6ee7b7; }
-    .outcome-card.stoploss .outcome-badge { color: #fda4af; }
-    .outcome-net { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; margin-bottom: 4px; }
-    .outcome-card.target .outcome-net { color: #34d399; }
-    .outcome-card.stoploss .outcome-net { color: #fb7185; }
-    .outcome-roi { font-size: 0.81rem; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--sub); }
-
-    .margin-call-flag {
-      margin-top: 9px; padding: 7px 10px; border-radius: 10px; background: rgba(251, 113, 133, 0.18);
-      border: 1px solid rgba(251, 113, 133, 0.45); color: #fecdd3; font-size: 0.71rem; font-weight: 600; display: none;
-    }
-    .margin-call-flag.visible { display: block; }
-
-    /* Fee Breakdown & Holding Strip */
-    .breakdown-box { border-radius: 18px; background: rgba(5, 11, 18, 0.48); border: 1px solid rgba(255, 255, 255, 0.11); overflow: hidden; margin-bottom: 16px; }
-    .breakdown-header { padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none; font-size: 0.81rem; font-weight: 600; background: rgba(255, 255, 255, 0.03); }
-    .breakdown-body { padding: 10px 14px 14px; border-top: 1px solid rgba(255, 255, 255, 0.08); overflow-x: auto; }
-    .fee-table { width: 100%; border-collapse: collapse; font-size: 0.74rem; font-variant-numeric: tabular-nums; }
-    .fee-table th { text-align: left; color: var(--muted); font-weight: 600; padding: 6px 4px; border-bottom: 1px solid rgba(255, 255, 255, 0.09); }
-    .fee-table th:not(:first-child), .fee-table td:not(:first-child) { text-align: right; white-space: nowrap; padding-left: 10px; }
-    .fee-table td { padding: 7px 4px; color: var(--sub); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
-    .fee-table tr.total-row td { color: var(--txt); font-weight: 700; border-top: 1px solid rgba(255, 255, 255, 0.18); border-bottom: none; padding-top: 10px; }
-
-    .duration-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-    @media (max-width: 600px) { .duration-strip { grid-template-columns: repeat(2, 1fr); } }
-    .dur-card { padding: 10px; border-radius: 12px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.09); text-align: center; font-variant-numeric: tabular-nums; cursor: pointer; }
-    .dur-card.active { background: rgba(0, 208, 156, 0.14); border-color: rgba(0, 208, 156, 0.45); }
-    .dur-card .d-days { font-size: 0.71rem; color: var(--sub); margin-bottom: 3px; }
-    .dur-card .d-net { font-size: 0.82rem; font-weight: 700; }
-    .dur-card .d-int { font-size: 0.67rem; color: var(--muted); margin-top: 2px; }
-
-    /* Glassy neumorphic icon/control finish */
-    .glass-icon {
-      width: 34px; height: 34px; padding: 8px; flex: 0 0 34px;
-      border-radius: 12px; color: var(--mint);
-      background: linear-gradient(145deg, rgba(255,255,255,.20), rgba(255,255,255,.035));
-      border: 1px solid rgba(255,255,255,.24);
-      -webkit-backdrop-filter: blur(14px) saturate(170%);
-      backdrop-filter: blur(14px) saturate(170%);
-      box-shadow: 5px 5px 12px rgba(0,0,0,.38), -3px -3px 9px rgba(255,255,255,.055),
-        inset 1px 1px 2px rgba(255,255,255,.25), inset -1px -1px 2px rgba(0,0,0,.18);
-      filter: drop-shadow(0 0 5px rgba(0,208,156,.22));
-    }
-    .clear-btn, .seg-btn, .lev-input-pill, .days-edit-pill, .dur-card, .breakdown-header {
-      -webkit-backdrop-filter: blur(14px) saturate(165%);
-      backdrop-filter: blur(14px) saturate(165%);
-      box-shadow: 5px 5px 12px rgba(0,0,0,.28), -2px -2px 8px rgba(255,255,255,.035),
-        inset 1px 1px 2px rgba(255,255,255,.10);
-    }
-    .clear-btn { border: 1px solid rgba(255,255,255,.20); }
-    .seg-btn.active, .dur-card.active {
-      box-shadow: 4px 4px 10px rgba(0,0,0,.28), -2px -2px 7px rgba(255,255,255,.05),
-        inset 1px 1px 2px rgba(255,255,255,.22);
-    }
-    .dur-card:active, .clear-btn:active, .seg-btn:active {
-      transform: translateY(1px);
-      box-shadow: inset 3px 3px 7px rgba(0,0,0,.32), inset -2px -2px 6px rgba(255,255,255,.07);
-    }
-    .breakdown-header { border-radius: 14px; }
-    @media (max-width: 600px) {
-      .glass-icon { width: 32px; height: 32px; flex-basis: 32px; padding: 7px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080f1e">
+<title>StockPro Positional</title>
+<style>
+:root{--bg:#080f1e;--panel:#142139;--panel2:#0e192c;--line:#293b56;--text:#edf4ff;--muted:#91a2bb;--green:#35dda2;--red:#ff7186;--amber:#ffd17d}
+*{box-sizing:border-box}
+body{margin:0;padding-top:env(safe-area-inset-top,0px);background:radial-gradient(ellipse at 80% -10%,#173b60,transparent 45%),var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:30px}
+header{padding:22px 17px;background:linear-gradient(135deg,#142b48,#101a2d);border-bottom:1px solid var(--line)}
+h1{font-size:20px;margin:0}.sub{font-size:10px;color:#a8bad2;letter-spacing:1px;margin-top:4px}#upd{font-size:11px;color:var(--muted);margin-top:12px;line-height:1.6}#upd b{color:#edf4ff}
+main{max-width:850px;margin:auto;padding:14px}
+.tabs{display:flex;gap:8px;margin:0 0 12px;overflow-x:auto;scrollbar-width:thin;padding-bottom:3px;-webkit-overflow-scrolling:touch}
+.tab{flex:1;min-width:108px;white-space:nowrap;padding:11px 8px;border-radius:11px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);font-weight:800;font-size:13px;cursor:pointer}
+.tab.on{background:#12624d;border-color:#168565;color:#8af4c9}
+input{width:100%;background:var(--panel2);color:#fff;border:1px solid var(--line);border-radius:11px;padding:12px;margin:2px 0 12px;font-size:14px;-webkit-appearance:none;appearance:none}
+.card{background:linear-gradient(150deg,#172740,#101a2b);border:1px solid #293d59;border-radius:16px;margin:10px 0;padding:14px}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.name{font-size:18px;font-weight:800;letter-spacing:.2px;overflow-wrap:anywhere}
+.meta{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4}
+.badges{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0}
+.tag{display:inline-block;padding:5px 10px;border-radius:7px;font-size:10px;font-weight:800;letter-spacing:.3px;text-transform:uppercase}
+.BUY{background:#124c3a;color:#65e8b4}.SELL{background:#542637;color:#ff91a1}
+.st-target{background:#124c3a;color:#35dda2;border:1px solid #238c70}
+.st-sl{background:#542637;color:#ff7186;border:1px solid #96384b}
+.st-active{background:#2d2616;color:#ffd17d;border:1px solid #6b5626}
+.st-waiting,.st-missed,.st-unknown{background:#16243d;color:#91a2bb;border:1px solid #293b56}
+.row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.box{background:#0c1729;border:1px solid #263750;padding:10px 9px;border-radius:11px;min-width:0;overflow:hidden}
+.box label{display:block;font-size:10px;color:var(--muted);margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.box strong{display:block;font-size:16px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sl strong{color:var(--red)}
+.cmp-box{border-color:#2a486e}.cmp-box strong{color:#70d3ff}
+.tgts{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.chip{background:#0c2a24;border:1px solid #1d6b57;color:var(--green);border-radius:9px;padding:7px 11px;font-size:13px;font-weight:700}
+.chip.done{background:#144d3e;border-color:#35dda2;color:#fff}
+.metrics{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;font-size:11px;color:var(--muted);line-height:1.5}.metrics b{color:#fff}
+.note{margin-top:9px;font-size:11px;color:var(--muted);line-height:1.45}
+.warn{margin-top:9px;font-size:11px;color:var(--amber)}
+a{color:#70d3ff;text-decoration:none;font-size:11px}
+.empty{padding:25px;text-align:center;color:var(--muted);background:var(--panel);border-radius:14px}
+.btn{border:1px solid #168565;background:#12624d;color:#8af4c9;border-radius:9px;padding:9px 13px;font-size:11px;font-weight:700;cursor:pointer}
+.foot{max-width:850px;margin:auto;padding:10px 14px 0;color:#71839c;font-size:10px;line-height:1.6}
+#mtf-frame{display:block;width:100%;height:calc(100vh - 155px);min-height:760px;border:1px solid #293b56;border-radius:14px;background:#050b12}
+</style>
 </head>
 <body>
-  <div class="ambient">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
+<header>
+ <h1 id="ttl">StockPro Positional</h1>
+ <div class="sub" id="sub">ONLY "POSITIONAL TRADE" POSTS · AUTO-READ FROM TELEGRAM</div>
+ <div id="upd">Loading...</div>
+</header>
+<main>
+ <div class="tabs">
+  <button class="tab on" id="t-sp" type="button">StockPro</button>
+  <button class="tab" id="t-mo" type="button">Motilal Oswal</button>
+  <button class="tab" id="t-mtf" type="button">GROWW MTF</button>
+ </div>
+
+ <div id="trade-view">
+  <input id="q" type="search" placeholder="Search stock..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <div id="list"><div class="empty">Loading...</div></div>
+  <button class="btn" id="ref" type="button">↻ Refresh</button>
+ </div>
+
+ <div id="mtf-view" style="display:none">
+  <iframe id="mtf-frame" title="GROWW MTF Calculator" src="groww-mtf.html"></iframe>
+ </div>
+</main>
+<div class="foot" id="trade-foot"><p>* StockPro: entry is the trigger price from the post; the price should trade above it (below it for sell calls). Motilal Oswal: the CMP in the post is used as the entry. Levels are copied from the channel posts. Prices come from NSE market data and may be delayed. Status uses each day's high and low after the post, plus live price checks every 15 minutes for the same day, so quick moves inside a day can be missed. Not advice.</p></div>
+<script>
+const BASE="https://raw.githubusercontent.com/mvthegreat-appbuild/StockPro-Positional/main/";
+const FILES={sp:"positional_trades.json",mo:"motilal_trades.json"};
+const TITLES={
+ sp:["StockPro Positional",'ONLY "POSITIONAL TRADE" POSTS · AUTO-READ FROM TELEGRAM'],
+ mo:["Motilal Oswal Calls","BUY IDEAS WITH CMP, SL AND TARGET · AUTO-READ FROM TELEGRAM"],
+ mtf:["GROWW MTF","MARGIN TRADING FACILITY · POSITIONAL CALCULATOR"]
+};
+const REFRESH_MS=5*60*1000;
+let tab="sp";
+try{
+ const savedTab=localStorage.getItem("sp_tab");
+ tab=["sp","mo","mtf"].includes(savedTab)?savedTab:"sp";
+}catch(e){}
+let D={sp:null,mo:null},ok={sp:false,mo:false},cmpMap={},query="";
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const num=x=>Number(String(x).replace(/,/g,""));
+const cash=x=>"₹"+Number(x).toLocaleString("en-IN",{maximumFractionDigits:2});
+const pct=x=>(x>0?"+":x<0?"-":"")+Math.abs(x).toFixed(2)+"%";
+const norm=s=>String(s||"").toLowerCase().replace(/[^a-z0-9]/g,"");
+
+function getTicker(t){
+ const raw=(t.symbol_nse||t.symbol||"").trim().toUpperCase().replace(/\.(NS|BO)$/,"");
+ if(raw)return raw;
+ const n=(t.name||"").trim().toUpperCase();
+ const map={"TATA TECH":"TATATECH","TATA TECHNOLOGIES":"TATATECH","EICHER MOTORS":"EICHERMOT","BLS POLYMERS":"BLSPOLY","TATA MOTORS":"TATAMOTORS","TATA POWER":"TATAPOWER","TATA STEEL":"TATASTEEL","HDFC BANK":"HDFCBANK","ICICI BANK":"ICICIBANK","STATE BANK":"SBIN","INFOSYS":"INFY","BHARTI AIRTEL":"BHARTIARTL","BAJAJ FINANCE":"BAJFINANCE"};
+ for(const k in map)if(n.includes(k))return map[k];
+ return n.split(/[\s(]/)[0].replace(/[^A-Z0-9&-]/g,"");
+}
+
+function evalTrade(t,cmpMap){
+ const e=num(t.entry),sl=num(t.sl),ts=(t.targets||[]).map(num),sell=t.side==="SELL";
+ const sym=getTicker(t);
+ const rawCmp=t.cmp!=null&&t.cmp!==""?Number(t.cmp):(t.ltp!=null&&t.ltp!==""?Number(t.ltp):(cmpMap[sym]!=null?Number(cmpMap[sym]):null));
+ const cmp=Number.isFinite(rawCmp)&&rawCmp>0?rawCmp:null;
+ let hits=Number(t.targets_hit||0);
+ let status=t.status||"";
+ const entered=!!t.entry_time||["active","target","sl"].includes(status);
+ if(cmp!=null){
+  const calcHits=ts.filter(x=>sell?cmp<=x:cmp>=x).length;
+  if(calcHits>hits)hits=calcHits;
+  const slHit=entered&&Number.isFinite(sl)&&sl>0&&(sell?cmp>=sl:cmp<=sl);
+  if(status==="target"||status==="sl"){
+  }else if(slHit){
+   status="sl";
+  }else if(!status||status==="unknown"||status==="waiting"){
+   if(hits>0)status="target";
+   else if(sell?cmp<=e:cmp>=e)status="active";
+   else status="waiting";
+  }
+ }else if(!status){
+  status="unknown";
+ }
+ return{...t,cmp,hits,status,sym};
+}
+
+function fdt(iso){
+ if(!iso)return "";const d=new Date(iso);if(isNaN(d))return "";
+ if(/^\d{4}-\d{2}-\d{2}$/.test(iso))return d.toLocaleDateString("en-IN",{day:"numeric",month:"short",timeZone:"Asia/Kolkata"});
+ return d.toLocaleDateString("en-IN",{day:"numeric",month:"short",timeZone:"Asia/Kolkata"})+" · "+d.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit",hour12:true,timeZone:"Asia/Kolkata"}).toLowerCase();
+}
+
+function stLabel(t,len){
+ const h=t.hits||0,s=t.status;
+ if(s==="target")return len===1?"TARGET HIT":(h>=len?"ALL TARGETS HIT":"TARGET "+h+" HIT");
+ if(s==="sl")return "STOP LOSS HIT";
+ if(s==="active")return "ACTIVE";
+ if(s==="waiting")return "WAITING ENTRY";
+ if(s==="missed")return "NOT TRIGGERED";
+ return (t.status_text||"CMP N/A").toUpperCase();
+}
+
+function card(t){
+ const e=num(t.entry),sl=num(t.sl),ts=(t.targets||[]).map(num),len=ts.length,t1=ts[0],last=ts[len-1];
+ const cmp=t.cmp,hits=t.hits||0,s=t.status||"unknown",sell=t.side==="SELL";
+ const risk=Math.abs(e-sl)/e*100;
+ const r1=t1!=null?Math.abs(t1-e)/e*100:0;
+ const rl=last!=null?Math.abs(last-e)/e*100:0;
+ const denom=Math.abs(e-sl)||1;
+ const rr1=t1!=null?Math.abs(t1-e)/denom:0;
+ const rrl=last!=null?Math.abs(last-e)/denom:0;
+ const move=cmp!=null?((sell?(e-cmp):(cmp-e))/e)*100:null;
+ const moveCol=move==null?"var(--muted)":(move>=0?"var(--green)":"var(--red)");
+ const symLabel=t.sym||"NSE";
+ const title=t.symbol||t.name;
+ const subParts=[t.name&&t.symbol&&t.name!==t.symbol?t.name:"",fdt(t.date),t.period].filter(Boolean);
+ const stCls=["target","sl","active","waiting","missed"].includes(s)?s:"unknown";
+ const entryLbl=t.entry_label||(sell?"Entry · below":"Entry · above");
+
+ return `<article class="card">
+  <div class="top">
+   <div>
+    <div class="name">${esc(title)}</div>
+    <div class="meta">${esc(subParts.join(" · "))}</div>
+   </div>
+   <div class="badges">
+    <span class="tag st-${esc(stCls)}">${esc(stLabel(t,len))}</span>
+    <span class="tag ${esc(t.side)}">${esc(t.side)}</span>
+   </div>
   </div>
-
-  <div class="app-shell">
-    <div class="js-guard" id="jsGuard">
-      ⚠ JavaScript is disabled in this HTML viewer. Please open this file in <b>Chrome</b> (or another web browser) so the calculator works.
-    </div>
-
-    <main class="main-grid">
-      <!-- LEFT PANEL -->
-      <section class="glass-panel">
-        <div class="search-wrap" id="searchWrap">
-          <div class="search-box">
-            <svg class="glass-icon" style="color:var(--mint);flex-shrink:0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-            <input type="text" id="stockSearch" placeholder="Search stock (e.g., SAIL, HDFCBANK, Suzlon)..." autocomplete="off" />
-            <button type="button" class="clear-btn" id="clearSearchBtn" title="Clear">✕</button>
-          </div>
-          <div class="ac-dropdown" id="acDropdown"></div>
-        </div>
-
-        <div class="stock-banner">
-          <div class="stock-banner-top">
-            <div class="stock-identity">
-              <h2><span id="dispSymbol">HDFCBANK</span> <span class="lev-tag" id="dispEligibility">Groww MTF Eligible</span></h2>
-              <p id="dispCompany">HDFC Bank Ltd • Banking</p>
-            </div>
-            <div class="lev-manual-wrap">
-              <span class="lev-manual-label">Manual Leverage</span>
-              <div class="lev-input-pill">
-                <input type="number" id="manualLeverage" value="4.00" min="1" max="10" step="any" inputmode="decimal" />
-                <span>x</span>
-              </div>
-              <span class="lev-margin-sub" id="dispMarginReq">25.0% Margin</span>
-            </div>
-          </div>
-
-          <div class="margin-bar-track">
-            <div class="margin-bar-own" id="marginBarOwn" style="width:25%"></div>
-            <div class="margin-bar-groww"></div>
-          </div>
-          <div class="margin-bar-labels">
-            <span id="lblOwnShare">You Pay: 25.0%</span>
-            <span id="lblGrowwShare">Groww Funds: 75.0%</span>
-          </div>
-        </div>
-
-        <div class="section-title"><span>Position &amp; Price Levels</span></div>
-
-        <div class="segmented">
-          <button type="button" class="seg-btn active" id="modeCapitalBtn">By Your Capital (₹)</button>
-          <button type="button" class="seg-btn" id="modeQtyBtn">By Share Quantity</button>
-        </div>
-
-        <div class="grid-2x2">
-          <div class="field-card">
-            <div class="field-label">
-              <span id="sizingLabel">Your Capital</span>
-              <span id="sizingHint" style="color:var(--mint)">Margin</span>
-            </div>
-            <div class="field-input-row">
-              <span class="prefix" id="sizingPrefix">₹</span>
-              <input type="number" id="sizingInput" value="50000" min="1" step="any" inputmode="decimal" />
-            </div>
-            <div class="field-sub" id="sizingSub">Upfront capital</div>
-          </div>
-
-          <div class="field-card">
-            <div class="field-label">
-              <span>Entry (CMP)</span>
-              <span style="color:var(--muted)">Buy</span>
-            </div>
-            <div class="field-input-row">
-              <span class="prefix">₹</span>
-              <input type="number" id="entryPrice" value="1720" min="0.05" step="any" inputmode="decimal" />
-            </div>
-            <div class="field-sub" id="autoQtyBadge">Shares: 116</div>
-          </div>
-
-          <div class="field-card target-card">
-            <div class="field-label">
-              <span style="color:#6ee7b7">Target Price</span>
-              <span id="targetPctLabel" style="color:#6ee7b7">+8.00%</span>
-            </div>
-            <div class="field-input-row">
-              <span class="prefix">₹</span>
-              <input type="number" id="targetPrice" value="1857.6" min="0.05" step="any" inputmode="decimal" />
-            </div>
-            <div class="field-sub" id="targetPerShareSub" style="color:#6ee7b7">+₹137.60 / sh</div>
-          </div>
-
-          <div class="field-card sl-card">
-            <div class="field-label">
-              <span style="color:#fda4af">Stop-Loss</span>
-              <span id="slPctLabel" style="color:#fda4af">-3.00%</span>
-            </div>
-            <div class="field-input-row">
-              <span class="prefix">₹</span>
-              <input type="number" id="slPrice" value="1668.4" min="0.05" step="any" inputmode="decimal" />
-            </div>
-            <div class="field-sub" id="slPerShareSub" style="color:#fda4af">-₹51.60 / sh</div>
-          </div>
-        </div>
-
-        <div class="slider-block">
-          <div class="slider-header">
-            <span>Expected Holding Period</span>
-            <div class="days-edit-pill">
-              <input type="number" id="holdingDaysInput" value="15" min="1" max="365" inputmode="numeric" />
-              <span id="daysUnitLabel">Days</span>
-            </div>
-          </div>
-          <input type="range" id="holdingDaysSlider" min="1" max="180" value="15" />
-        </div>
-
-        <div class="toggles-row">
-          <label class="toggle-label"><input type="checkbox" id="gstOnInterest" checked /> <span>Include 18% GST on MTF Interest</span></label>
-          <label class="toggle-label"><input type="checkbox" id="includePledgeDp" checked /> <span>Include Pledge (₹40) &amp; DP (₹20) + GST</span></label>
-        </div>
-
-        <div class="validation-banner" id="validationBanner"></div>
-      </section>
-
-      <!-- RIGHT PANEL -->
-      <section class="glass-panel">
-        <div class="section-title">
-          <span>Buying Power &amp; Risk-Reward</span>
-          <span id="qtySummaryPill" style="color:var(--mint);font-variant-numeric:tabular-nums">116 Shares</span>
-        </div>
-
-        <div class="grid-2x2" style="margin-bottom:14px">
-          <div class="stat-glass">
-            <div class="lbl">Total Trade Value</div>
-            <div class="val" id="resTotalValue">₹1,99,520</div>
-            <div class="sub" id="resBuyPowerSub">4.00x Buying Power</div>
-          </div>
-
-          <div class="stat-glass">
-            <div class="lbl">Your Upfront Margin</div>
-            <div class="val" style="color:var(--mint)" id="resYourMargin">₹49,880</div>
-            <div class="sub" id="resYourMarginPct">25.0% upfront margin</div>
-          </div>
-
-          <div class="stat-glass">
-            <div class="lbl">Groww Funded Loan</div>
-            <div class="val" style="color:var(--cyan)" id="resGrowwLoan">₹1,49,640</div>
-            <div class="sub" id="resDailyIntSub">₹72.32 / day interest</div>
-          </div>
-
-          <div class="stat-glass rr-tile">
-            <div class="lbl" style="color:#fde68a">Net Risk : Reward</div>
-            <div class="val rr-gold" id="resNetRR">1 : 1.74</div>
-            <div class="sub" id="resGrossRR">Gross 1 : 2.67</div>
-          </div>
-        </div>
-
-        <div class="rr-card">
-          <div class="rr-ladder-head">
-            <span style="font-size:0.74rem;color:var(--sub);font-weight:600">Price Ladder</span>
-            <span class="rr-verdict mid" id="rrVerdict">Moderate Setup</span>
-          </div>
-          <div class="ladder-bar">
-            <div class="ladder-risk" id="ladderRiskBar" style="width:27%"></div>
-            <div class="ladder-reward" id="ladderRewardBar" style="width:73%"></div>
-          </div>
-          <div class="ladder-nodes">
-            <div class="ladder-node"><span>Stop-Loss</span><strong style="color:#fb7185" id="ladSL">₹1,668.40</strong></div>
-            <div class="ladder-node"><span>Entry CMP</span><strong id="ladEntry">₹1,720.00</strong></div>
-            <div class="ladder-node"><span>Breakeven</span><strong style="color:#fde68a" id="ladBE">₹1,737.65</strong></div>
-            <div class="ladder-node"><span>Target</span><strong style="color:#34d399" id="ladTarget">₹1,857.60</strong></div>
-          </div>
-        </div>
-
-        <div class="section-title"><span>Scenario Outcomes (After All Groww MTF Charges)</span></div>
-
-        <div class="outcomes-grid">
-          <div class="outcome-card target">
-            <div class="outcome-badge">▲ If Target Hit (Net Gain)</div>
-            <div class="outcome-net" id="outTargetNet">+₹13,914</div>
-            <div class="outcome-roi" id="outTargetRoi">+27.89% ROI on your margin</div>
-          </div>
-
-          <div class="outcome-card stoploss">
-            <div class="outcome-badge">▼ If Stop-Loss Hit (Net Loss)</div>
-            <div class="outcome-net" id="outSLNet">-₹7,999</div>
-            <div class="outcome-roi" id="outSLRoi">-16.04% impact on your margin</div>
-            <div class="margin-call-flag" id="marginCallFlag">⚠ High Margin Shortfall Risk: Loss exceeds 60% of your upfront margin.</div>
-          </div>
-        </div>
-
-        <div class="breakdown-box">
-          <div class="breakdown-header" id="breakdownToggle">
-            <span>Detailed Groww MTF Cost &amp; Tax Breakdown</span>
-            <span id="breakdownArrow">▸</span>
-          </div>
-          <div class="breakdown-body" id="breakdownBody" style="display:none">
-            <table class="fee-table">
-              <thead>
-                <tr><th>Charge Component</th><th>At Target</th><th>At Stop-Loss</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>Groww MTF Brokerage (0.1% Buy + 0.1% Sell)</td><td id="feeBrokT">₹0</td><td id="feeBrokS">₹0</td></tr>
-                <tr><td>MTF Interest (14.95% p.a. on Funded Amt)</td><td id="feeIntT">₹0</td><td id="feeIntS">₹0</td></tr>
-                <tr><td>Pledge + Unpledge (₹20 + ₹20) &amp; DP Sell (₹20)</td><td id="feePledgeT">₹0</td><td id="feePledgeS">₹0</td></tr>
-                <tr><td>STT (0.1% Buy &amp; Sell) + Stamp Duty (0.015% Buy)</td><td id="feeSttT">₹0</td><td id="feeSttS">₹0</td></tr>
-                <tr><td>NSE Txn + SEBI + IPFT + 18% GST</td><td id="feeGstT">₹0</td><td id="feeGstS">₹0</td></tr>
-                <tr class="total-row"><td>Total Charges + Interest</td><td id="feeTotalT">₹0</td><td id="feeTotalS">₹0</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="section-title" style="margin-bottom:8px"><span>Target Net Gain by Holding Period</span></div>
-        <div class="duration-strip" id="durationStrip"></div>
-      </section>
-    </main>
+  <div class="row">
+   <div class="box"><label>${esc(entryLbl)}</label><strong>${cash(e)}</strong></div>
+   <div class="box cmp-box"><label>CMP (${esc(symLabel)})</label><strong>${cmp!=null?cash(cmp):"Unavailable"}</strong></div>
+   <div class="box sl"><label>Stop Loss</label><strong>${cash(sl)}</strong></div>
   </div>
+  <div class="tgts">${ts.map((x,i)=>`<span class="chip ${i<hits?"done":""}">${i<hits?"✓ ":""}T${i+1} ${cash(x)}</span>`).join("")}</div>
+  <div class="metrics">
+   <span>Move <b style="color:${moveCol}">${move==null?"—":pct(move)}</b></span>
+   <span>Risk <b style="color:var(--red)">${risk.toFixed(2)}%</b></span>
+   <span>To T1 <b style="color:var(--green)">${r1.toFixed(2)}%</b></span>
+   <span>To last <b style="color:var(--green)">${rl.toFixed(2)}%</b></span>
+   <span>R:R T1 <b>1 : ${rr1.toFixed(2)}</b></span>
+   <span>R:R last <b>1 : ${rrl.toFixed(2)}</b></span>
+  </div>
+  ${t.idea?`<div class="note">${esc(t.idea)}</div>`:""}
+  ${t.target_note?`<div class="note">Targets were given as points from entry; converted to prices.</div>`:""}
+  ${t.check_levels?`<div class="warn">⚠ Levels look unusual (SL or targets on the wrong side of entry). Check the original post.</div>`:""}
+  ${t.link&&t.link!=="#"?`<div style="margin-top:9px"><a href="${esc(t.link)}" target="_blank" rel="noopener">Open original post ↗</a></div>`:""}
+ </article>`;
+}
 
-  <script>
-    (function () {
-      var STOCK_DB = [
-        { sym: "HDFCBANK", name: "HDFC Bank Ltd", sector: "Banking", lev: 4.00, ltp: 1720 },
-        { sym: "RELIANCE", name: "Reliance Industries Ltd", sector: "Energy", lev: 4.00, ltp: 1310 },
-        { sym: "TCS", name: "Tata Consultancy Services", sector: "IT", lev: 4.00, ltp: 4120 },
-        { sym: "INFY", name: "Infosys Ltd", sector: "IT", lev: 4.00, ltp: 1860 },
-        { sym: "ICICIBANK", name: "ICICI Bank Ltd", sector: "Banking", lev: 4.00, ltp: 1295 },
-        { sym: "SBIN", name: "State Bank of India", sector: "Banking", lev: 4.00, ltp: 830 },
-        { sym: "BHARTIARTL", name: "Bharti Airtel Ltd", sector: "Telecom", lev: 4.00, ltp: 1625 },
-        { sym: "ITC", name: "ITC Ltd", sector: "FMCG", lev: 4.00, ltp: 482 },
-        { sym: "LT", name: "Larsen & Toubro Ltd", sector: "Infra", lev: 4.00, ltp: 3640 },
-        { sym: "KOTAKBANK", name: "Kotak Mahindra Bank", sector: "Banking", lev: 4.00, ltp: 1785 },
-        { sym: "AXISBANK", name: "Axis Bank Ltd", sector: "Banking", lev: 4.00, ltp: 1170 },
-        { sym: "BAJFINANCE", name: "Bajaj Finance Ltd", sector: "NBFC", lev: 4.00, ltp: 6950 },
-        { sym: "TATAMOTORS", name: "Tata Motors Ltd", sector: "Auto", lev: 4.00, ltp: 815 },
-        { sym: "TATASTEEL", name: "Tata Steel Ltd", sector: "Metals", lev: 3.95, ltp: 158 },
-        { sym: "TATAPOWER", name: "Tata Power Company", sector: "Power", lev: 3.70, ltp: 425 },
-        { sym: "SUNPHARMA", name: "Sun Pharma Ind", sector: "Pharma", lev: 4.00, ltp: 1815 },
-        { sym: "TITAN", name: "Titan Company Ltd", sector: "Consumer", lev: 4.00, ltp: 3310 },
-        { sym: "WIPRO", name: "Wipro Ltd", sector: "IT", lev: 4.00, ltp: 295 },
-        { sym: "HCLTECH", name: "HCL Technologies", sector: "IT", lev: 4.00, ltp: 1840 },
-        { sym: "NTPC", name: "NTPC Ltd", sector: "Power", lev: 4.00, ltp: 378 },
-        { sym: "ONGC", name: "Oil & Natural Gas Corp", sector: "Energy", lev: 3.90, ltp: 262 },
-        { sym: "COALINDIA", name: "Coal India Ltd", sector: "Mining", lev: 4.00, ltp: 432 },
-        { sym: "ADANIPORTS", name: "Adani Ports & SEZ", sector: "Logistics", lev: 3.60, ltp: 1265 },
-        { sym: "ADANIENT", name: "Adani Enterprises", sector: "Diversified", lev: 3.25, ltp: 2480 },
-        { sym: "ADANIPOWER", name: "Adani Power Ltd", sector: "Power", lev: 3.00, ltp: 545 },
-        { sym: "JSWSTEEL", name: "JSW Steel Ltd", sector: "Metals", lev: 4.00, ltp: 970 },
-        { sym: "HINDALCO", name: "Hindalco Industries", sector: "Metals", lev: 4.00, ltp: 655 },
-        { sym: "JIOFIN", name: "Jio Financial Services", sector: "Finance", lev: 3.75, ltp: 325 },
-        { sym: "ETERNAL", name: "Eternal Ltd (Zomato)", sector: "Tech", lev: 3.50, ltp: 268 },
-        { sym: "ZOMATO", name: "Zomato / Eternal Ltd", sector: "Tech", lev: 3.50, ltp: 268 },
-        { sym: "BEL", name: "Bharat Electronics", sector: "Defence", lev: 3.85, ltp: 302 },
-        { sym: "HAL", name: "Hindustan Aeronautics", sector: "Defence", lev: 3.65, ltp: 4280 },
-        { sym: "MAZDOCK", name: "Mazagon Dock", sector: "Defence", lev: 3.05, ltp: 2380 },
-        { sym: "TRENT", name: "Trent Ltd", sector: "Retail", lev: 3.70, ltp: 6680 },
-        { sym: "VEDL", name: "Vedanta Ltd", sector: "Metals", lev: 3.55, ltp: 455 },
-        { sym: "DLF", name: "DLF Ltd", sector: "Realty", lev: 3.70, ltp: 825 },
-        { sym: "BHEL", name: "Bharat Heavy Electricals", sector: "Capital Goods", lev: 3.25, ltp: 242 },
-        { sym: "SUZLON", name: "Suzlon Energy Ltd", sector: "Renewables", lev: 2.85, ltp: 62 },
-        { sym: "IRFC", name: "IRFC Ltd", sector: "PSU Finance", lev: 3.15, ltp: 152 },
-        { sym: "IREDA", name: "IREDA Ltd", sector: "PSU Finance", lev: 2.95, ltp: 205 },
-        { sym: "RVNL", name: "Rail Vikas Nigam", sector: "Railways", lev: 3.00, ltp: 445 },
-        { sym: "NHPC", name: "NHPC Ltd", sector: "Power", lev: 3.35, ltp: 84 },
-        { sym: "PFC", name: "Power Finance Corp", sector: "PSU Finance", lev: 3.70, ltp: 468 },
-        { sym: "RECLTD", name: "REC Ltd", sector: "PSU Finance", lev: 3.70, ltp: 525 },
-        { sym: "BANKBARODA", name: "Bank of Baroda", sector: "Banking", lev: 3.85, ltp: 248 },
-        { sym: "PNB", name: "Punjab National Bank", sector: "Banking", lev: 3.75, ltp: 106 },
-        { sym: "CANBK", name: "Canara Bank", sector: "Banking", lev: 3.80, ltp: 103 },
-        { sym: "IDFCFIRSTB", name: "IDFC First Bank", sector: "Banking", lev: 3.60, ltp: 66 },
-        { sym: "YESBANK", name: "Yes Bank Ltd", sector: "Banking", lev: 2.75, ltp: 20.5 },
-        { sym: "CDSL", name: "CDSL Ltd", sector: "Markets", lev: 3.30, ltp: 1680 },
-        { sym: "BSE", name: "BSE Ltd", sector: "Markets", lev: 3.10, ltp: 4950 },
-        { sym: "ANGELONE", name: "Angel One Ltd", sector: "Broking", lev: 3.15, ltp: 2890 },
-        { sym: "DIXON", name: "Dixon Technologies", sector: "Electronics", lev: 3.45, ltp: 16200 },
-        { sym: "IRCTC", name: "IRCTC Ltd", sector: "Travel", lev: 3.75, ltp: 825 },
-        { sym: "PAYTM", name: "Paytm (One 97)", sector: "Fintech", lev: 2.85, ltp: 890 },
-        { sym: "SWIGGY", name: "Swiggy Ltd", sector: "Tech", lev: 3.10, ltp: 465 },
-        { sym: "SAIL", name: "Steel Authority of India", sector: "Metals", lev: 3.50, ltp: 118 },
-        { sym: "NMDC", name: "NMDC Ltd", sector: "Mining", lev: 3.75, ltp: 232 },
-        { sym: "BPCL", name: "Bharat Petroleum", sector: "Energy", lev: 3.95, ltp: 302 },
-        { sym: "IOC", name: "Indian Oil Corp", sector: "Energy", lev: 3.95, ltp: 142 },
-        { sym: "GOLDBEES", name: "Nippon Gold BeES", sector: "ETF", lev: 4.00, ltp: 64 },
-        { sym: "NIFTYBEES", name: "Nippon Nifty BeES", sector: "ETF", lev: 4.00, ltp: 272 },
-        { sym: "GROWW", name: "Groww (Billionbrains)", sector: "Markets", lev: 3.06, ltp: 217 }
-      ];
+function head(){
+ document.getElementById("ttl").textContent=TITLES[tab][0];
+ document.getElementById("sub").textContent=TITLES[tab][1];
+ document.getElementById("t-sp").className="tab"+(tab==="sp"?" on":"");
+ document.getElementById("t-mo").className="tab"+(tab==="mo"?" on":"");
+ document.getElementById("t-mtf").className="tab"+(tab==="mtf"?" on":"");
 
-      function el(id) { return document.getElementById(id); }
+ const isMtf=tab==="mtf";
+ document.getElementById("trade-view").style.display=isMtf?"none":"block";
+ document.getElementById("mtf-view").style.display=isMtf?"block":"none";
+ document.getElementById("trade-foot").style.display=isMtf?"none":"block";
 
-      function safeNumFormat(num, dec) {
-        var abs = Math.abs(num);
-        try {
-          return abs.toLocaleString("en-IN", { minimumFractionDigits: dec, maximumFractionDigits: dec });
-        } catch (e) {
-          return abs.toFixed(dec);
-        }
-      }
+ const u=document.getElementById("upd");
+ if(isMtf){
+  u.textContent="Groww MTF calculator · Editable leverage · Charges and holding comparison";
+  return;
+ }
+ const d=D[tab];
+ if(d){
+  const s=d.updated?new Date(d.updated).toLocaleString("en-IN"):"unknown";
+  u.innerHTML=(ok[tab]?"Refreshed":"Saved copy (offline)")+" · Data time: <b>"+esc(s)+"</b><br>App checked at: <b>"+esc(new Date().toLocaleTimeString("en-IN"))+"</b>";
+ }else{
+  u.textContent=tab==="mo"?"No Motilal Oswal data yet. Run the update workflow once.":"Could not load data. Check internet and tap Refresh.";
+ }
+}
 
-      function fmtINR(num, dec, sign) {
-        dec = dec || 0;
-        var safe = isFinite(num) ? num : 0;
-        var formatted = safeNumFormat(safe, dec);
-        if (safe < 0) return "-₹" + formatted;
-        if (sign && safe > 0) return "+₹" + formatted;
-        return "₹" + formatted;
-      }
+function render(){
+ head();
+ if(tab==="mtf")return;
+ const d=D[tab],list=document.getElementById("list");
+ if(!d){list.innerHTML='<div class="empty">'+(tab==="mo"?"No Motilal Oswal data yet.":"Check your internet and tap Refresh.")+'</div>';return;}
+ const q=norm(query);
+ const all=(d.trades||[]).map(t=>evalTrade(t,cmpMap));
+ const R=all.filter(t=>!q||norm((t.name||"")+" "+(t.symbol||"")+" "+(t.symbol_nse||"")+" "+(t.sym||"")).includes(q));
+ list.innerHTML=R.length?R.map(card).join(""):'<div class="empty">No trades found.</div>';
+}
 
-      function fmtPct(num) {
-        var safe = isFinite(num) ? num : 0;
-        return (safe > 0 ? "+" : "") + safe.toFixed(2) + "%";
-      }
+async function loadOne(k){
+ try{
+  const r=await fetch(BASE+FILES[k]+"?t="+Date.now(),{cache:"no-store"});
+  if(!r.ok)throw Error();
+  D[k]=await r.json();ok[k]=true;
+  try{localStorage.setItem(k+"_cache",JSON.stringify(D[k]));}catch(e){}
+ }catch(e){
+  ok[k]=false;
+  try{D[k]=JSON.parse(localStorage.getItem(k+"_cache")||"null");}catch(x){D[k]=null;}
+ }
+}
 
-      function init() {
-        var guard = el("jsGuard");
+async function load(){
+ try{
+  const cr=await fetch(BASE+"cmp.json?t="+Date.now(),{cache:"no-store"});
+  if(cr.ok){const cj=await cr.json();cmpMap=cj.prices||cj||{};}
+ }catch(e){}
+ await Promise.all([loadOne("sp"),loadOne("mo")]);
+ render();
+}
 
-        var state = {
-          selectedStock: STOCK_DB[0],
-          leverage: 4.00,
-          sizingMode: "capital",
-          holdingDays: 15,
-          breakdownOpen: false
-        };
+function setTab(k){
+ tab=k;
+ try{localStorage.setItem("sp_tab",k);}catch(e){}
+ render();
+}
 
-        var stockSearch = el("stockSearch");
-        var clearSearchBtn = el("clearSearchBtn");
-        var acDropdown = el("acDropdown");
-        var manualLevInput = el("manualLeverage");
-        var sizingInput = el("sizingInput");
-        var entryInput = el("entryPrice");
-        var targetInput = el("targetPrice");
-        var slInput = el("slPrice");
-        var daysSlider = el("holdingDaysSlider");
-        var daysInput = el("holdingDaysInput");
-        var gstCheck = el("gstOnInterest");
-        var pledgeCheck = el("includePledgeDp");
+const qi=document.getElementById("q");
+["input","keyup","change","search"].forEach(ev=>qi.addEventListener(ev,()=>{query=qi.value;render();}));
+document.getElementById("ref").addEventListener("click",load);
+document.getElementById("t-sp").addEventListener("click",()=>setTab("sp"));
+document.getElementById("t-mo").addEventListener("click",()=>setTab("mo"));
+document.getElementById("t-mtf").addEventListener("click",()=>setTab("mtf"));
 
-        function updateSliderVisual(days) {
-          var pct = ((Math.max(1, Math.min(180, days)) - 1) / 179) * 100;
-          daysSlider.style.background = "linear-gradient(90deg, #00d09c " + pct + "%, rgba(255,255,255,0.22) " + pct + "%)";
-        }
-
-        function updateStockBanner() {
-          var s = state.selectedStock;
-          var lev = Math.max(1, Math.min(10, state.leverage || 1));
-          var ownPct = 100 / lev;
-          el("dispSymbol").textContent = s.sym;
-          el("dispCompany").textContent = s.name + " • " + s.sector;
-
-          var badge = el("dispEligibility");
-          if (s.custom) {
-            badge.textContent = "Custom Stock"; badge.className = "lev-tag warn";
-          } else if (lev <= 1.01) {
-            badge.textContent = "Delivery Only (1x)"; badge.className = "lev-tag warn";
-          } else {
-            badge.textContent = "Groww MTF Eligible"; badge.className = "lev-tag";
-          }
-
-          el("dispMarginReq").textContent = ownPct.toFixed(1) + "% Margin";
-          el("marginBarOwn").style.width = ownPct.toFixed(1) + "%";
-          el("lblOwnShare").textContent = "You Pay: " + ownPct.toFixed(1) + "%";
-          el("lblGrowwShare").textContent = "Groww Funds: " + (100 - ownPct).toFixed(1) + "%";
-        }
-
-        function computeCharges(buyVal, sellVal, loanAmt, days, gstInt, pledgeDp) {
-          var brok = (buyVal + sellVal) * 0.001;
-          var dailyBase = loanAmt * (0.1495 / 365);
-          var rawInt = dailyBase * days;
-          var totalInt = rawInt * (gstInt ? 1.18 : 1);
-
-          var stt = Math.round(buyVal * 0.001) + Math.round(sellVal * 0.001);
-          var stamp = Math.round(buyVal * 0.00015);
-          var exch = (buyVal + sellVal) * 0.0000307;
-          var sebiIpft = (buyVal + sellVal) * 0.000002;
-          var pledgeBase = (pledgeDp && loanAmt > 0) ? 40 : 0;
-          var dpBase = (pledgeDp && sellVal >= 100) ? 20 : (pledgeDp && sellVal > 0 ? 3.5 : 0);
-          var pDp = pledgeBase + dpBase;
-          var gst = (brok + exch + sebiIpft + pDp) * 0.18;
-          var nonInt = brok + stt + stamp + exch + sebiIpft + pDp + gst;
-
-          return {
-            brok: brok,
-            dailyInt: dailyBase * (gstInt ? 1.18 : 1),
-            totalInt: totalInt,
-            pDp: pDp,
-            sttStamp: stt + stamp,
-            exchGst: exch + sebiIpft + gst,
-            total: nonInt + totalInt
-          };
-        }
-
-        function calculateAndRender() {
-          var lev = Math.max(1, Math.min(10, state.leverage || 1));
-          var entry = Math.max(0.05, parseFloat(entryInput.value) || 0);
-          var target = Math.max(0.05, parseFloat(targetInput.value) || 0);
-          var sl = Math.max(0.05, parseFloat(slInput.value) || 0);
-          var days = Math.max(1, state.holdingDays || 1);
-          var sizing = Math.max(0, parseFloat(sizingInput.value) || 0);
-          var gstInt = gstCheck.checked;
-          var pledgeDp = pledgeCheck.checked;
-
-          el("daysUnitLabel").textContent = days === 1 ? "Day" : "Days";
-          updateSliderVisual(days);
-
-          var qty = state.sizingMode === "capital"
-            ? (entry > 0 ? Math.floor((sizing * lev) / entry) : 0)
-            : Math.floor(sizing);
-
-          var buyVal = qty * entry;
-          var margin = buyVal / lev;
-          var loan = Math.max(0, buyVal - margin);
-
-          el("autoQtyBadge").textContent = "Shares: " + safeNumFormat(qty, 0);
-          el("qtySummaryPill").textContent = safeNumFormat(qty, 0) + " Shares @ " + fmtINR(entry, 2, false);
-          el("targetPctLabel").textContent = fmtPct(entry > 0 ? ((target - entry) / entry) * 100 : 0);
-          el("slPctLabel").textContent = fmtPct(entry > 0 ? ((sl - entry) / entry) * 100 : 0);
-          el("targetPerShareSub").textContent = fmtINR(target - entry, 2, true) + " / sh";
-          el("slPerShareSub").textContent = fmtINR(sl - entry, 2, true) + " / sh";
-
-          var warns = [];
-          if (qty <= 0) warns.push("Increase capital or lower entry price to buy at least 1 share.");
-          if (target <= entry) warns.push("Target should be above Entry price.");
-          if (sl >= entry) warns.push("Stop-Loss should be below Entry price.");
-          var valBanner = el("validationBanner");
-          valBanner.textContent = warns.join(" ");
-          valBanner.className = "validation-banner" + (warns.length > 0 ? " visible" : "");
-
-          el("resTotalValue").textContent = fmtINR(buyVal, 0, false);
-          el("resBuyPowerSub").textContent = lev.toFixed(2) + "x Buying Power";
-          el("resYourMargin").textContent = fmtINR(margin, 0, false);
-          el("resYourMarginPct").textContent = (100 / lev).toFixed(1) + "% upfront margin";
-          el("resGrowwLoan").textContent = fmtINR(loan, 0, false);
-
-          var tSell = qty * target;
-          var sSell = qty * sl;
-          var tc = computeCharges(buyVal, tSell, loan, days, gstInt, pledgeDp);
-          var sc = computeCharges(buyVal, sSell, loan, days, gstInt, pledgeDp);
-
-          el("resDailyIntSub").textContent = fmtINR(tc.dailyInt, 2, false) + " / day interest";
-
-          var grossGain = tSell - buyVal;
-          var netGain = grossGain - tc.total;
-          var netTargetRoi = margin > 0 ? (netGain / margin) * 100 : 0;
-
-          var netSL = (sSell - buyVal) - sc.total;
-          var netSLRoi = margin > 0 ? (netSL / margin) * 100 : 0;
-
-          var bePrice = qty > 0 ? entry + (tc.total / qty) : entry;
-          var gRisk = Math.max(0, entry - sl);
-          var gRew = Math.max(0, target - entry);
-          var grossRR = gRisk > 0 ? gRew / gRisk : 0;
-
-          var nRisk = Math.abs(Math.min(0, netSL));
-          var netRR = nRisk > 0 ? netGain / nRisk : 0;
-
-          el("resNetRR").textContent = (nRisk > 0 && target > entry && sl < entry) ? ("1 : " + netRR.toFixed(2)) : "—";
-          el("resGrossRR").textContent = (gRisk > 0 && gRew > 0) ? ("Gross 1 : " + grossRR.toFixed(2)) : "Gross —";
-
-          var verdict = el("rrVerdict");
-          if (netGain <= 0 || target <= entry || sl >= entry) {
-            verdict.textContent = "Invalid / Negative Reward"; verdict.className = "rr-verdict poor";
-          } else if (netRR >= 2.0) {
-            verdict.textContent = "Strong Setup (≥ 1:2)"; verdict.className = "rr-verdict good";
-          } else if (netRR >= 1.25) {
-            verdict.textContent = "Moderate Setup"; verdict.className = "rr-verdict mid";
-          } else {
-            verdict.textContent = "Poor Risk-Reward (< 1:1.25)"; verdict.className = "rr-verdict poor";
-          }
-
-          var span = gRisk + gRew;
-          var rPct = span > 0 ? Math.min(85, Math.max(15, (gRisk / span) * 100)) : 50;
-          el("ladderRiskBar").style.width = rPct + "%";
-          el("ladderRewardBar").style.width = (100 - rPct) + "%";
-          el("ladSL").textContent = fmtINR(sl, 2, false);
-          el("ladEntry").textContent = fmtINR(entry, 2, false);
-          el("ladBE").textContent = fmtINR(bePrice, 2, false) + " (+" + (entry > 0 ? (((bePrice - entry) / entry) * 100).toFixed(2) : "0.00") + "%)";
-          el("ladTarget").textContent = fmtINR(target, 2, false);
-
-          el("outTargetNet").textContent = fmtINR(netGain, 0, true);
-          el("outTargetNet").style.color = netGain >= 0 ? "#34d399" : "#fb7185";
-          el("outTargetRoi").textContent = fmtPct(netTargetRoi) + " ROI on your " + fmtINR(margin, 0, false) + " margin";
-
-          el("outSLNet").textContent = fmtINR(netSL, 0, true);
-          el("outSLRoi").textContent = fmtPct(netSLRoi) + " impact on your " + fmtINR(margin, 0, false) + " margin";
-          var showMC = margin > 0 && Math.abs(netSL) > margin * 0.6 && lev > 1;
-          el("marginCallFlag").className = "margin-call-flag" + (showMC ? " visible" : "");
-
-          el("feeBrokT").textContent = fmtINR(tc.brok, 2, false);
-          el("feeBrokS").textContent = fmtINR(sc.brok, 2, false);
-          el("feeIntT").textContent = fmtINR(tc.totalInt, 2, false);
-          el("feeIntS").textContent = fmtINR(sc.totalInt, 2, false);
-          el("feePledgeT").textContent = fmtINR(tc.pDp, 2, false);
-          el("feePledgeS").textContent = fmtINR(sc.pDp, 2, false);
-          el("feeSttT").textContent = fmtINR(tc.sttStamp, 2, false);
-          el("feeSttS").textContent = fmtINR(sc.sttStamp, 2, false);
-          el("feeGstT").textContent = fmtINR(tc.exchGst, 2, false);
-          el("feeGstS").textContent = fmtINR(sc.exchGst, 2, false);
-          el("feeTotalT").textContent = fmtINR(tc.total, 2, false);
-          el("feeTotalS").textContent = fmtINR(sc.total, 2, false);
-
-          var strip = el("durationStrip");
-          strip.innerHTML = "";
-          [5, 15, 30, 60].forEach(function (d) {
-            var ch = computeCharges(buyVal, tSell, loan, d, gstInt, pledgeDp);
-            var netD = grossGain - ch.total;
-            var card = document.createElement("div");
-            card.className = "dur-card" + (days === d ? " active" : "");
-            card.innerHTML =
-              '<div class="d-days">' + d + ' Days</div>' +
-              '<div class="d-net" style="color:' + (netD >= 0 ? '#6ee7b7' : '#fda4af') + '">' + fmtINR(netD, 0, true) + '</div>' +
-              '<div class="d-int">Int: ' + fmtINR(ch.totalInt, 0, false) + '</div>';
-            card.onclick = function () {
-              state.holdingDays = d;
-              daysInput.value = d;
-              daysSlider.value = Math.min(180, d);
-              calculateAndRender();
-            };
-            strip.appendChild(card);
-          });
-        }
-
-        function selectStock(stock, keepPrices) {
-          state.selectedStock = stock;
-          state.leverage = stock.lev;
-          manualLevInput.value = stock.lev.toFixed(2);
-          stockSearch.value = stock.sym;
-          clearSearchBtn.className = "clear-btn visible";
-          acDropdown.className = "ac-dropdown";
-
-          if (!keepPrices && stock.ltp > 0) {
-            entryInput.value = stock.ltp;
-            targetInput.value = Number((stock.ltp * 1.08).toFixed(2));
-            slInput.value = Number((stock.ltp * 0.97).toFixed(2));
-          }
-          updateStockBanner();
-          calculateAndRender();
-        }
-
-        function renderDropdown(query) {
-          var q = query.trim().toUpperCase();
-          var matches = q
-            ? STOCK_DB.filter(function (s) {
-                return s.sym.indexOf(q) !== -1 || s.name.toUpperCase().indexOf(q) !== -1 || s.sector.toUpperCase().indexOf(q) !== -1;
-              })
-            : STOCK_DB;
-
-          acDropdown.innerHTML = "";
-          matches.slice(0, 12).forEach(function (s) {
-            var item = document.createElement("div");
-            item.className = "ac-item";
-            item.innerHTML =
-              '<div class="ac-left"><span class="ac-symbol">' + s.sym + '</span><span class="ac-name">' + s.name + ' • ' + s.sector + '</span></div>' +
-              '<div class="ac-right"><span style="font-size:0.74rem;color:var(--muted)">~₹' + safeNumFormat(s.ltp, 0) + '</span><span class="lev-tag">' + s.lev.toFixed(2) + 'x</span></div>';
-            item.onclick = function () { selectStock(s, false); };
-            acDropdown.appendChild(item);
-          });
-
-          if (q && !STOCK_DB.some(function (s) { return s.sym === q; })) {
-            var custom = document.createElement("div");
-            custom.className = "ac-item";
-            custom.innerHTML =
-              '<div class="ac-left"><span class="ac-symbol">Use "' + q + '" as Custom Stock</span><span class="ac-name">Edit leverage manually below</span></div>' +
-              '<div class="ac-right"><span class="lev-tag warn">Custom</span></div>';
-            custom.onclick = function () {
-              selectStock({ sym: q, name: "Custom Equity", sector: "Manual Leverage", lev: state.leverage || 3.5, ltp: parseFloat(entryInput.value) || 500, custom: true }, true);
-            };
-            acDropdown.appendChild(custom);
-          }
-          acDropdown.className = "ac-dropdown open";
-        }
-
-        stockSearch.addEventListener("input", function (e) {
-          clearSearchBtn.className = "clear-btn" + (e.target.value.length > 0 ? " visible" : "");
-          renderDropdown(e.target.value);
-        });
-        stockSearch.addEventListener("focus", function () { renderDropdown(stockSearch.value); });
-        clearSearchBtn.addEventListener("click", function () {
-          stockSearch.value = "";
-          clearSearchBtn.className = "clear-btn";
-          stockSearch.focus();
-          renderDropdown("");
-        });
-        document.addEventListener("click", function (e) {
-          if (!el("searchWrap").contains(e.target)) acDropdown.className = "ac-dropdown";
-        });
-
-        manualLevInput.addEventListener("input", function () {
-          var val = parseFloat(manualLevInput.value);
-          if (!isNaN(val)) {
-            state.leverage = Math.max(1, Math.min(10, val));
-            updateStockBanner();
-            calculateAndRender();
-          }
-        });
-        manualLevInput.addEventListener("blur", function () {
-          var val = parseFloat(manualLevInput.value);
-          var clean = isNaN(val) ? 1 : Math.max(1, Math.min(10, val));
-          state.leverage = clean;
-          manualLevInput.value = clean.toFixed(2);
-          updateStockBanner();
-          calculateAndRender();
-        });
-
-        function setSizingMode(mode) {
-          if (state.sizingMode === mode) return;
-          var entry = Math.max(0.05, parseFloat(entryInput.value) || 0);
-          var lev = Math.max(1, state.leverage);
-          if (mode === "qty") {
-            var estQty = Math.max(1, Math.floor(((parseFloat(sizingInput.value) || 0) * lev) / entry));
-            el("sizingLabel").textContent = "Share Qty";
-            el("sizingHint").textContent = "Units";
-            el("sizingPrefix").textContent = "Qty";
-            el("sizingSub").textContent = "Shares to buy";
-            sizingInput.value = estQty;
-          } else {
-            var qty = Math.max(1, Math.floor(parseFloat(sizingInput.value) || 1));
-            el("sizingLabel").textContent = "Your Capital";
-            el("sizingHint").textContent = "Margin";
-            el("sizingPrefix").textContent = "₹";
-            el("sizingSub").textContent = "Upfront capital";
-            sizingInput.value = Math.round((qty * entry) / lev);
-          }
-          state.sizingMode = mode;
-          el("modeCapitalBtn").className = "seg-btn" + (mode === "capital" ? " active" : "");
-          el("modeQtyBtn").className = "seg-btn" + (mode === "qty" ? " active" : "");
-          calculateAndRender();
-        }
-
-        el("modeCapitalBtn").onclick = function () { setSizingMode("capital"); };
-        el("modeQtyBtn").onclick = function () { setSizingMode("qty"); };
-
-        daysSlider.addEventListener("input", function () {
-          var d = Math.max(1, parseInt(daysSlider.value, 10) || 1);
-          state.holdingDays = d;
-          daysInput.value = d;
-          calculateAndRender();
-        });
-        daysInput.addEventListener("input", function () {
-          var d = parseInt(daysInput.value, 10);
-          if (!isNaN(d) && d >= 1) {
-            state.holdingDays = Math.min(365, d);
-            daysSlider.value = Math.min(180, state.holdingDays);
-            calculateAndRender();
-          }
-        });
-        daysInput.addEventListener("blur", function () {
-          var d = parseInt(daysInput.value, 10);
-          var clean = isNaN(d) || d < 1 ? 1 : Math.min(365, d);
-          state.holdingDays = clean;
-          daysInput.value = clean;
-          daysSlider.value = Math.min(180, clean);
-          calculateAndRender();
-        });
-
-        el("breakdownToggle").onclick = function () {
-          state.breakdownOpen = !state.breakdownOpen;
-          el("breakdownBody").style.display = state.breakdownOpen ? "block" : "none";
-          el("breakdownArrow").textContent = state.breakdownOpen ? "▾" : "▸";
-        };
-
-        [sizingInput, entryInput, targetInput, slInput].forEach(function (inp) {
-          inp.addEventListener("input", calculateAndRender);
-        });
-        [gstCheck, pledgeCheck].forEach(function (chk) {
-          chk.addEventListener("change", calculateAndRender);
-        });
-
-        try {
-          selectStock(STOCK_DB[0], false);
-          if (guard) guard.style.display = "none";
-        } catch (err) {
-          if (guard) guard.textContent = "Calculator error: " + err.message;
-        }
-      }
-
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", init);
-      } else {
-        init();
-      }
-    })();
-  </script>
+load();
+setInterval(()=>{if(!document.hidden)load();},REFRESH_MS);
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)load();});
+</script>
 </body>
 </html>
