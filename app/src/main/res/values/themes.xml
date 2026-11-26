@@ -1,0 +1,5 @@
+<resources>
+    <style name="Theme.StockPro" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/bg_deep</item>
+    </style>
+</resources>

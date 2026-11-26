@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">StockPro Positional</string>
+    <string name="tab_stockpro">StockPro</string>
+    <string name="tab_motilal">Motilal Oswal</string>
+    <string name="tab_mtf">GROWW MTF</string>
+    <string name="title_stockpro">StockPro Positional</string>
+    <string name="subtitle_stockpro">ONLY \"POSITIONAL TRADE\" POSTS · AUTO-READ FROM TELEGRAM</string>
+    <string name="title_motilal">Motilal Oswal Calls</string>
+    <string name="subtitle_motilal">BUY IDEAS WITH CMP, SL AND TARGET · AUTO-READ FROM TELEGRAM</string>
+    <string name="title_mtf">GROWW MTF</string>
+    <string name="subtitle_mtf">MARGIN TRADING FACILITY · POSITIONAL CALCULATOR</string>
+    <string name="header_mtf_desc">Groww MTF calculator · Editable leverage · Charges and holding comparison</string>
+    <string name="search_placeholder">Search stock…</string>
+    <string name="clear_search">Clear search</string>
+    <string name="refresh_button">↻ Refresh</string>
+    <string name="refreshing_label">Refreshing…</string>
+    <string name="loading_label">Loading…</string>
+    <string name="empty_no_trades">No trades found.</string>
+    <string name="empty_no_motilal">No Motilal Oswal data yet. Run the update workflow once.</string>
+    <string name="empty_offline_error">Could not load data. Check internet and tap Refresh.</string>
+    <string name="entry_above">Entry · above</string>
+    <string name="entry_below">Entry · below</string>
+    <string name="stop_loss_label">Stop Loss</string>
+    <string name="unavailable_label">Unavailable</string>
+    <string name="points_note">Targets were given as points from entry; converted to prices.</string>
+    <string name="levels_warning">⚠ Levels look unusual (SL or targets on the wrong side of entry). Check the original post.</string>
+    <string name="open_original_post">Open original post ↗</string>
+    <string name="disclaimer_footer">* StockPro: entry is the trigger price from the post; the price should trade above it (below it for sell calls). Motilal Oswal: the CMP in the post is used as the entry. Levels are copied from the channel posts. Prices come from NSE market data and may be delayed. Status uses each day\'s high and low after the post, plus live price checks every 15 minutes for the same day, so quick moves inside a day can be missed. Not advice.</string>
+    <string name="mtf_disclaimer">* Estimates use Groww MTF reference rates (0.1% brokerage capped at ₹20 per order, 14.95% p.a. interest editable above, ₹20 + GST pledge/unpledge, NSE delivery STT 0.1%, exchange &amp; SEBI fees, 0.015% buy stamp duty, DP ₹18.50 + GST). Actual broker bills may vary slightly. Not advice.</string>
+</resources>

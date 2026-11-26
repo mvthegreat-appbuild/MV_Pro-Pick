@@ -1,0 +1,8 @@
+{
+  "name": "StockPro Positional",
+  "description": "Track StockPro positional trade calls and Motilal Oswal delivery/overnight ideas with live NSE CMP, target progress, stop-loss status, and risk-reward metrics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
