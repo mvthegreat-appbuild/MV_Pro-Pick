@@ -185,6 +185,16 @@ fun StockProScreen(
                                     onSelectDurationPreset = onMtfSelectDurationPreset
                                 )
                             }
+
+                            item(key = "mtf_footer") {
+                                Text(
+                                    text = stringResource(R.string.mtf_disclaimer),
+                                    fontSize = 10.sp,
+                                    lineHeight = 16.sp,
+                                    color = FooterText,
+                                    modifier = Modifier.padding(top = 4.dp)
+                                )
+                            }
                         } else {
                             item(key = "search") {
                                 SearchInput(
@@ -385,8 +395,9 @@ private fun TabBar(
 ) {
     val fontScale = LocalDensity.current.fontScale
     BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
-        val useEqualWidth = maxWidth >= 340.dp && fontScale <= 1.15f
-        val rowModifier = if (useEqualWidth) {
+        val useWeightedRow = maxWidth >= 260.dp && fontScale <= 1.35f
+        val compactText = maxWidth < 345.dp || fontScale > 1.1f
+        val rowModifier = if (useWeightedRow) {
             Modifier.fillMaxWidth()
         } else {
             Modifier
@@ -395,30 +406,38 @@ private fun TabBar(
         }
         Row(
             modifier = rowModifier,
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(if (compactText) 6.dp else 8.dp)
         ) {
             val itemModifier: (FeedTab) -> Modifier = { tab ->
-                if (useEqualWidth) {
-                    Modifier.weight(1f)
+                if (useWeightedRow) {
+                    val weight = when (tab) {
+                        FeedTab.STOCKPRO -> 0.92f
+                        FeedTab.MOTILAL -> 1.15f
+                        FeedTab.MTF -> 1.03f
+                    }
+                    Modifier.weight(weight)
                 } else {
-                    Modifier.widthIn(min = 108.dp)
+                    Modifier.widthIn(min = 104.dp)
                 }.testTag("tab_${tab.key}")
             }
             TabButton(
                 label = stringResource(R.string.tab_stockpro),
                 selected = activeTab == FeedTab.STOCKPRO,
+                compact = compactText,
                 onClick = { onSelectTab(FeedTab.STOCKPRO) },
                 modifier = itemModifier(FeedTab.STOCKPRO)
             )
             TabButton(
                 label = stringResource(R.string.tab_motilal),
                 selected = activeTab == FeedTab.MOTILAL,
+                compact = compactText,
                 onClick = { onSelectTab(FeedTab.MOTILAL) },
                 modifier = itemModifier(FeedTab.MOTILAL)
             )
             TabButton(
                 label = stringResource(R.string.tab_mtf),
                 selected = activeTab == FeedTab.MTF,
+                compact = compactText,
                 onClick = { onSelectTab(FeedTab.MTF) },
                 modifier = itemModifier(FeedTab.MTF)
             )
@@ -430,6 +449,7 @@ private fun TabBar(
 private fun TabButton(
     label: String,
     selected: Boolean,
+    compact: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -445,14 +465,17 @@ private fun TabButton(
             .background(bg)
             .border(1.dp, border, shape)
             .clickable(onClick = onClick)
-            .padding(horizontal = 8.dp, vertical = 11.dp),
+            .padding(horizontal = if (compact) 4.dp else 8.dp, vertical = 11.dp),
         contentAlignment = Alignment.Center
     ) {
         Text(
             text = label,
-            style = MaterialTheme.typography.titleSmall.copy(fontSize = 12.sp),
+            style = MaterialTheme.typography.titleSmall.copy(
+                fontSize = if (compact) 11.sp else 12.sp
+            ),
             color = fg,
             maxLines = 1,
+            softWrap = false,
             overflow = TextOverflow.Ellipsis
         )
     }

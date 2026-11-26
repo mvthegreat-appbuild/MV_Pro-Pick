@@ -442,6 +442,7 @@ private fun StockSearchSection(
                     color = if (showDropdown) MtfMint else Color(0x2EFFFFFF),
                     shape = RoundedCornerShape(16.dp)
                 )
+                .clickable { onFocusChanged(true) }
                 .padding(horizontal = 14.dp, vertical = 10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -490,7 +491,7 @@ private fun StockSearchSection(
                 Spacer(modifier = Modifier.width(6.dp))
                 Box(
                     modifier = Modifier
-                        .size(26.dp)
+                        .size(28.dp)
                         .clip(CircleShape)
                         .background(Color(0x1AFFFFFF))
                         .clickable(onClick = onClear)
@@ -512,7 +513,7 @@ private fun StockSearchSection(
                 modifier = Modifier
                     .padding(top = 6.dp)
                     .fillMaxWidth()
-                    .heightIn(max = 250.dp)
+                    .heightIn(max = 260.dp)
                     .clip(RoundedCornerShape(16.dp))
                     .background(MtfDropdownBg)
                     .border(1.dp, Color(0x33FFFFFF), RoundedCornerShape(16.dp))
@@ -520,6 +521,31 @@ private fun StockSearchSection(
                     .padding(6.dp)
                     .testTag("mtf_stock_dropdown")
             ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp, vertical = 4.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "SELECT MTF STOCK (${matches.size})",
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Bold,
+                        letterSpacing = 0.8.sp,
+                        color = MtfMuted
+                    )
+                    Text(
+                        text = "Close",
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        color = MtfMint,
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(8.dp))
+                            .clickable { onFocusChanged(false) }
+                            .padding(horizontal = 8.dp, vertical = 4.dp)
+                    )
+                }
                 matches.forEach { stock ->
                     Row(
                         modifier = Modifier
